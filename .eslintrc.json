@@ -1,0 +1,78 @@
+{
+  "extends": [
+    "@rocketseat/eslint-config/react",
+    "plugin:react-hooks/recommended"
+  ],
+  "plugins": [
+    "simple-import-sort",
+    "unused-imports"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": [
+        "plugin:testing-library/react"
+      ]
+    }
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": "off",
+    "eqeqeq": "off",
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/ban-types": 0,
+    "array-callback-return": 0,
+    "no-empty-pattern": "off",
+    "react/display-name": 0,
+    "camelcase": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // Packages `react` related packages come first.
+          [
+            "^react",
+            "^react-native-gesture-handler",
+            "^phosphor-react-native",
+            "^styled-components",
+            "^@?\\w"
+          ],
+          // Internal packages.
+          [
+            "^(@|components)(/.*|$)"
+          ],
+          // Side effect imports.
+          [
+            "^\\u0000"
+          ],
+          // Parent imports. Put `..` last.
+          [
+            "^\\.\\.(?!/?$)",
+            "^\\.\\./?$"
+          ],
+          // Other relative imports. Put same-folder imports and `.` last.
+          [
+            "^\\./(?=.*/)(?!/?$)",
+            "^\\.(?!/?$)",
+            "^\\./?$"
+          ],
+          // Style imports.
+          [
+            "^.+\\.?(css)$"
+          ]
+        ]
+      }
+    ],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^",
+        "argsIgnorePattern": "^"
+      }
+    ]
+  }
+}
