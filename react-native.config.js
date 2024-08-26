@@ -8,7 +8,9 @@ module.exports = {
   },
   project: {
     ios: {},
-    android: {},
+    android: {
+      packageName: 'com.pandoragymmobile'
+    },
   },
   assets: ['./assets/fonts/'],
 }
