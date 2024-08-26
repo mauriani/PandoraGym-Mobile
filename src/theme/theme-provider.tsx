@@ -1,7 +1,5 @@
 import React, { createContext, useState } from 'react'
 import { View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-
 import { cn } from '@utils/cn'
 
 interface ThemeContextProps {
@@ -30,11 +28,8 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
         className={cn('flex-1', {
           light: colorScheme === 'light',
           dark: colorScheme === 'dark',
-        })}
-      >
-
+        })}>
         {children}
-   
       </View>
     </ThemeContext.Provider>
   )

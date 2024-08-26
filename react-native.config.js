@@ -9,7 +9,7 @@ module.exports = {
   project: {
     ios: {},
     android: {
-      packageName: 'com.pandoragymmobile'
+      packageName: 'com.pandoragymmobile',
     },
   },
   assets: ['./assets/fonts/'],

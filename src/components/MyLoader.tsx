@@ -1,5 +1,5 @@
 import React from 'react'
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native'
+import ContentLoader, { Circle, Rect } from 'react-content-loader/native'
 
 const MyLoader = (props) => (
   <ContentLoader
@@ -9,8 +9,7 @@ const MyLoader = (props) => (
     viewBox="0 0 400 160"
     backgroundColor="#525252"
     foregroundColor="#ecebeb"
-    {...props}
-  >
+    {...props}>
     <Rect x="0" y="0" rx="3" ry="3" width="150" height="100" />
     <Rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
     <Rect x="48" y="26" rx="3" ry="3" width="52" height="6" />

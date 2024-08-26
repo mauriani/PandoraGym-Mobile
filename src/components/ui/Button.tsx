@@ -1,7 +1,6 @@
-import { type VariantProps, cva } from 'class-variance-authority'
 import { Text, TouchableOpacity } from 'react-native'
-
 import { cn } from '@utils/cn'
+import { cva, type VariantProps } from 'class-variance-authority'
 
 const buttonVariants = cva(
   'flex flex-row items-center justify-center rounded-md ',
@@ -65,13 +64,11 @@ function Button({
   return (
     <TouchableOpacity
       className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    >
+      {...props}>
       <Text
         className={cn(
           buttonTextVariants({ variant, size, className: labelClasses }),
-        )}
-      >
+        )}>
         {label}
       </Text>
     </TouchableOpacity>

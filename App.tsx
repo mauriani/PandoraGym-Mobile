@@ -1,11 +1,11 @@
-import 'react-native-gesture-handler';
-import '@theme/global.css';
+import React from 'react'
+import { StatusBar } from 'react-native'
+import RootStack from '@routes/index'
+import { ThemeProvider } from '@theme/theme-provider'
 
-import React from 'react';
-import { StatusBar } from 'react-native';
+import 'react-native-gesture-handler'
 
-import RootStack from '@routes/index';
-import { ThemeProvider } from '@theme/theme-provider';
+import '@theme/global.css'
 
 export default function App() {
   return (
@@ -19,5 +19,5 @@ export default function App() {
         <RootStack />
       </ThemeProvider>
     </>
-  );
+  )
 }

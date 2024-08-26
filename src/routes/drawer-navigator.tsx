@@ -1,22 +1,18 @@
-import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { DrawerContent, createDrawerNavigator } from '@react-navigation/drawer';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-
-import { RootStackParamList } from '.';
-import { Dashboard } from '@screens/Dashboard';
+import React from 'react'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { createDrawerNavigator, DrawerContent } from '@react-navigation/drawer'
+import { Dashboard } from '@screens/Dashboard'
 
 // type Props = NativeStackScreenProps<RootStackParamList, 'DrawerNavigator'>
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator()
 
 export default function DrawerNavigator() {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <DrawerContent {...props} />}
       useLegacyImplementation={false}
-      initialRouteName="Home"
-    >
+      initialRouteName="Home">
       <Drawer.Screen
         name="Home"
         component={Dashboard}
@@ -27,5 +23,5 @@ export default function DrawerNavigator() {
         }}
       />
     </Drawer.Navigator>
-  );
+  )
 }
