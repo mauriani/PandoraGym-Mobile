@@ -1,11 +1,11 @@
 import React from 'react'
-import { Text } from 'react-native'
 import { Container } from '@components/Container'
+import { Header } from '@components/Header'
 
 export function PersonalTrainerList() {
   return (
     <Container>
-      <Text>PersonalTrainerList</Text>
+      <Header title={'Personal trainers'} />
     </Container>
   )
 }

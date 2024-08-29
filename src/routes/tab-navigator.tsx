@@ -6,7 +6,6 @@ import {
 import { History } from '@screens/History'
 import { PersonalTrainerList } from '@screens/PersonalTrainerList'
 import { Profile } from '@screens/Profile'
-import { themes } from '@theme/themes'
 import {
   BicepsFlexed,
   CircleUserRound,
@@ -26,8 +25,6 @@ type AppRoutes = {
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>
 
 const Tab = createBottomTabNavigator<AppRoutes>()
-
-console.log('themes', themes)
 
 export default function TabNavigator() {
   return (

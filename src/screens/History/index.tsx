@@ -1,11 +1,11 @@
 import React from 'react'
-import { Text } from 'react-native'
 import { Container } from '@components/Container'
+import { Header } from '@components/Header'
 
 export function History() {
   return (
     <Container>
-      <Text>History</Text>
+      <Header title={'Histórico'} />
     </Container>
   )
 }

@@ -9,9 +9,11 @@ type IProps = {
 export function Header({ title }: IProps) {
   return (
     <View
-      className={'bg-border h-36 items-center - justify-center'}
+      className={'bg-secondary h-32 items-center - justify-center'}
       style={styles.header}>
-      <Text>{title}</Text>
+      <Text className="text-white text-center font-bold text-md mb-6">
+        {title}
+      </Text>
     </View>
   )
 }
@@ -19,5 +21,6 @@ export function Header({ title }: IProps) {
 const styles = StyleSheet.create({
   header: {
     paddingTop: getStatusBarHeight() + 10,
+    // backgroundColor: '#202024',
   },
 })
