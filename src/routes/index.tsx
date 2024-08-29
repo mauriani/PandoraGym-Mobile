@@ -2,10 +2,14 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { SignIn } from '@screens/SignIn'
+import { SignUp } from '@screens/SignUp'
+
+import TabNavigator from './tab-navigator'
 
 export type RootStackParamList = {
   login: undefined
-  DrawerNavigator: undefined
+  tabNavigator: undefined
+  signUp: undefined
 }
 
 const Stack = createNativeStackNavigator()
@@ -24,11 +28,17 @@ export default function RootStack() {
           options={{ headerShown: false }}
         />
 
-        {/* <Stack.Screen
-          name="DrawerNavigator"
-          component={DrawerNavigator}
+        <Stack.Screen
+          name="signUp"
+          component={SignUp}
           options={{ headerShown: false }}
-        /> */}
+        />
+
+        <Stack.Screen
+          name="tabNavigator"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
