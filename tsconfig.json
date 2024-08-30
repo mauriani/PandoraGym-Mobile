@@ -35,7 +35,10 @@
       ],
       "@utils/*": [
         "./src/utils/*"
-      ]
+      ],
+      "@_dtos_/*": [
+        "./src/_dtos_/*"
+      ],
     }
   },
   "exclude": [
