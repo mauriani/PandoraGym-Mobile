@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { ITraining } from '@_dtos_/index'
+import { ITraining } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'

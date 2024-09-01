@@ -1,14 +1,19 @@
+import { useContext } from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { ITraining } from '@_dtos_/trainingDTO'
+import { ThemeContext } from '@theme/theme-provider'
+import { themes } from '@theme/themes'
 import { ChevronRight } from 'lucide-react-native'
-import { ITraining } from 'src/_dtos_'
 
 type IProps = {
   item: ITraining
 }
 
 export function MyTrainingCard({ item }: IProps) {
+  const { colorScheme } = useContext(ThemeContext)
+
   return (
-    <TouchableOpacity className="h-28 flex-row bg-muted rounded-[8px] items-center p-2 relative">
+    <TouchableOpacity className="h-28 flex-row bg-secondary rounded-[8px] items-center p-2 relative">
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{
@@ -26,7 +31,7 @@ export function MyTrainingCard({ item }: IProps) {
 
       <ChevronRight
         size={30}
-        color={'#FDC500'}
+        color={themes[colorScheme].primary}
         style={{ position: 'absolute', right: 16 }}
       />
     </TouchableOpacity>

@@ -10,7 +10,6 @@
 		00E356F31AD99517003FC87E /* PandoraGymMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PandoraGymMobileTests.m */; };
 		02FF5FA9F5034CABAC9786F9 /* Inter-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D69057C3998241D0B3E9E1D3 /* Inter-Light.ttf */; };
 		040682EB0B0845909581C2BF /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0893954D8AF41348116DEA2 /* Inter-Medium.ttf */; };
-		0C80B921A6F3F58F76C31292 /* libPods-PandoraGymMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PandoraGymMobile.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -20,10 +19,11 @@
 		371F604043BD4FF48FFA0F5C /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0CD519315724D118F9252FB /* Poppins-Bold.ttf */; };
 		40DE04F2D568465AB1DF1482 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F455BAB3D38F40228607C1E7 /* Roboto-Bold.ttf */; };
 		594B3DB941B9491EB532CEE6 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47ED918F05844960A6DED137 /* Poppins-Light.ttf */; };
+		5E145219E5F70B43970A0117 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2D015837D9F56992F26D7B8 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */; };
 		6CAEDC8B89D840FF9F608583 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 303F58923FD44454A46CBDB2 /* Poppins-SemiBold.ttf */; };
 		72439FB837BD4F0297CAFB6F /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BDAB703F3374425B41415AE /* Montserrat-Bold.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8584223706A5315C56A50C71 /* libPods-PandoraGymMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 178E419121B54E6DF9D45451 /* libPods-PandoraGymMobile.a */; };
 		872D69C08C7B4ED7A26D4C48 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA45CF22D7E148B3A936ED46 /* Poppins-Regular.ttf */; };
 		95D6CCFB807E4666B591A396 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC09D0C455F74830949D9078 /* Inter-Regular.ttf */; };
 		A95FB22E0DE94C54BBC76B17 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3019ABDFDB4A4E5B95CC2D5F /* Montserrat-SemiBold.ttf */; };
@@ -58,25 +58,25 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PandoraGymMobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PandoraGymMobile/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = PandoraGymMobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PandoraGymMobile-PandoraGymMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		178E419121B54E6DF9D45451 /* libPods-PandoraGymMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PandoraGymMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BCBC780ABD7017FB03A553B /* Pods-PandoraGymMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile.debug.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		2C1D55A74B332CC70FC32665 /* Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3019ABDFDB4A4E5B95CC2D5F /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		303B89C47382456884CB6D07 /* Inter-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.ttf"; path = "../assets/fonts/Inter/Inter-Bold.ttf"; sourceTree = "<group>"; };
 		303F58923FD44454A46CBDB2 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		344FAEE0BAC84812A56B9494 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = ../assets/fonts/roboto/Roboto_medium.ttf; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-PandoraGymMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile.debug.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile.debug.xcconfig"; sourceTree = "<group>"; };
 		3DC464866B714E68BFA321E2 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/roboto/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		43F79281C2BE4445ABA688F1 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../assets/fonts/Inter/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		47ED918F05844960A6DED137 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		4DC46D12460D443186D4EC4C /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = ../assets/fonts/roboto/Roboto.ttf; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-PandoraGymMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile.release.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-PandoraGymMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PandoraGymMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7E9E9D18841FF8729EDDD /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		6E25B3709C894AC48FB15B0C /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../assets/fonts/Poppins/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		72CDEEB431FAA52A9A2B76E6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = PandoraGymMobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		73D8352F8AB2096A55F0E253 /* Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PandoraGymMobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		A2D015837D9F56992F26D7B8 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PandoraGymMobile-PandoraGymMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0E82E8AB834250A2CB3DDF /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../assets/fonts/Montserrat/Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		CB007DAA7F2A93F53FF278EB /* Pods-PandoraGymMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile.release.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile.release.xcconfig"; sourceTree = "<group>"; };
 		D69057C3998241D0B3E9E1D3 /* Inter-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Light.ttf"; path = "../assets/fonts/Inter/Inter-Light.ttf"; sourceTree = "<group>"; };
 		EA45CF22D7E148B3A936ED46 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		EC09D0C455F74830949D9078 /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../assets/fonts/Inter/Inter-Regular.ttf"; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a in Frameworks */,
+				5E145219E5F70B43970A0117 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-PandoraGymMobile.a in Frameworks */,
+				8584223706A5315C56A50C71 /* libPods-PandoraGymMobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,8 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-PandoraGymMobile.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */,
+				178E419121B54E6DF9D45451 /* libPods-PandoraGymMobile.a */,
+				A2D015837D9F56992F26D7B8 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -184,10 +184,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-PandoraGymMobile.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-PandoraGymMobile.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig */,
+				1BCBC780ABD7017FB03A553B /* Pods-PandoraGymMobile.debug.xcconfig */,
+				CB007DAA7F2A93F53FF278EB /* Pods-PandoraGymMobile.release.xcconfig */,
+				2C1D55A74B332CC70FC32665 /* Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig */,
+				73D8352F8AB2096A55F0E253 /* Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -225,12 +225,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "PandoraGymMobileTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				1CE62D9E95019C7B2866127E /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				09163A75EEDA2187E5313C44 /* [CP] Embed Pods Frameworks */,
+				D63C28BE5B8CF137C5DD9454 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -246,13 +246,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "PandoraGymMobile" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				8768A13174AE2AF256420D3A /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				9470C14B1B8673EF1C93E111 /* [CP] Embed Pods Frameworks */,
+				A68170D53E25B79727C80A26 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -355,24 +355,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		09163A75EEDA2187E5313C44 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		1CE62D9E95019C7B2866127E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -394,7 +394,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		8768A13174AE2AF256420D3A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -416,24 +416,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		9470C14B1B8673EF1C93E111 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+		A68170D53E25B79727C80A26 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -450,7 +450,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PandoraGymMobile/Pods-PandoraGymMobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+		D63C28BE5B8CF137C5DD9454 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -500,7 +500,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig */;
+			baseConfigurationReference = 2C1D55A74B332CC70FC32665 /* Pods-PandoraGymMobile-PandoraGymMobileTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -527,7 +527,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig */;
+			baseConfigurationReference = 73D8352F8AB2096A55F0E253 /* Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -551,7 +551,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-PandoraGymMobile.debug.xcconfig */;
+			baseConfigurationReference = 1BCBC780ABD7017FB03A553B /* Pods-PandoraGymMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -579,7 +579,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-PandoraGymMobile.release.xcconfig */;
+			baseConfigurationReference = CB007DAA7F2A93F53FF278EB /* Pods-PandoraGymMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
