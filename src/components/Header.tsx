@@ -20,6 +20,6 @@ export function Header({ title }: IProps) {
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: getStatusBarHeight() + 10,
+    paddingTop: getStatusBarHeight() + 30,
   },
 })

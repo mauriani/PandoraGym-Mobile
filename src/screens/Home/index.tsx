@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { ITraining } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
@@ -6,9 +6,21 @@ import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { MyTrainingCard } from '@components/MyTrainingCard'
 import { Input } from '@components/ui/Input'
+import { useNavigation } from '@react-navigation/native'
 import { Plus } from 'lucide-react-native'
+import { z } from 'zod'
+
+export const formValidationSchema = z.object({
+  tituloTreino: z.string({ required_error: 'Campo obrigatório!' }).min(1, {
+    message: 'Campo obrigatório!',
+  }),
+})
+
+export type zodSchema = z.infer<typeof formValidationSchema>
 
 export function Home() {
+  const navigation = useNavigation()
+  const [title, setTitle] = useState('TESTE')
   const data: ITraining[] = [
     {
       id: '1',
@@ -38,7 +50,34 @@ export function Home() {
       image:
         'https://images.unsplash.com/photo-1669323149885-6bda5714e85b?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
+    {
+      id: '5',
+      title: 'Treino de Abdomen',
+      description: `Sab`,
+      image:
+        'https://images.unsplash.com/photo-1669323149885-6bda5714e85b?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+      id: '6',
+      title: 'Treino de Abdomen',
+      description: `Sab`,
+      image:
+        'https://images.unsplash.com/photo-1669323149885-6bda5714e85b?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
   ]
+
+  // function handleNavigate() {
+  //   if (title?.length == 0) {
+  //     toast.error('Para continuar informe o titulo do treino')
+  //   } else {
+  //     navigate('createTraining', {
+  //       title,
+  //     })
+
+  //     setTitle('')
+  //   }
+  // }
+
   return (
     <Container>
       <Header title={'Meus Treinos'} />
@@ -46,10 +85,24 @@ export function Home() {
         <Heading title="Criar Treino" />
 
         <View style={styles.containerCreateTraining}>
-          <Input label="Nome do treino/exercício" className="w-[85%]" />
+          <Input
+            label="Nome do treino/exercício"
+            className="w-[85%]"
+            onChangeText={(text) => setTitle(text)}
+          />
 
-          <TouchableOpacity className="rounded-[6px] bg-purple-800 w-14 justify-center items-center ml-2">
-            <Plus color={'#FDC500'} size={20} />
+          <TouchableOpacity
+            activeOpacity={title.length > 0 ? 0.2 : 0.2}
+            className="rounded-[6px] bg-purple-800 w-14 justify-center items-center ml-2">
+            <Plus
+              color={'#FDC500'}
+              size={20}
+              onPress={() =>
+                navigation.navigate('createTraining', {
+                  title: 'teste',
+                })
+              }
+            />
           </TouchableOpacity>
         </View>
 
@@ -65,7 +118,7 @@ export function Home() {
                   flexGrow: 1,
                   padding: 10,
                 }
-              : { paddingBottom: 60, gap: 12 }
+              : { paddingBottom: 300, gap: 12 }
           }
           renderItem={({ item }) => <MyTrainingCard item={item} />}
         />
@@ -78,6 +131,6 @@ const styles = StyleSheet.create({
   containerCreateTraining: {
     flexDirection: 'row',
     width: '100%',
-    marginBottom: 16,
+    marginBottom: 24,
   },
 })

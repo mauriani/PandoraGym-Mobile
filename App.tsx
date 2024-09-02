@@ -1,5 +1,6 @@
 import React from 'react'
 import { StatusBar } from 'react-native'
+import Toast from 'react-native-toast-message'
 import RootStack from '@routes/index'
 import { ThemeProvider } from '@theme/theme-provider'
 
@@ -17,6 +18,7 @@ export default function App() {
       />
       <ThemeProvider>
         <RootStack />
+        <Toast visibilityTime={5000} position="bottom" />
       </ThemeProvider>
     </>
   )
