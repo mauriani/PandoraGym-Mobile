@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
+import {
+  FlatList,
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
 import { ITraining } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
@@ -80,49 +87,53 @@ export function Home() {
 
   return (
     <Container>
-      <Header title={'Meus Treinos'} />
-      <View className="px-5 mt-10">
-        <Heading title="Criar Treino" />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={{ flex: 1 }}>
+          <Header title={'Meus Treinos'} />
+          <View className="px-5 mt-10">
+            <Heading title="Criar Treino" />
 
-        <View style={styles.containerCreateTraining}>
-          <Input
-            label="Nome do treino/exercício"
-            className="w-[85%]"
-            onChangeText={(text) => setTitle(text)}
-          />
+            <View style={styles.containerCreateTraining}>
+              <Input
+                label="Nome do treino/exercício"
+                className="w-[85%]"
+                onChangeText={(text) => setTitle(text)}
+              />
 
-          <TouchableOpacity
-            activeOpacity={title.length > 0 ? 0.2 : 0.2}
-            className="rounded-[6px] bg-purple-800 w-14 justify-center items-center ml-2">
-            <Plus
-              color={'#FDC500'}
-              size={20}
-              onPress={() =>
-                navigation.navigate('createTraining', {
-                  title: 'teste',
-                })
+              <TouchableOpacity
+                activeOpacity={title.length > 0 ? 0.2 : 0.2}
+                className="rounded-[6px] bg-purple-800 w-14 justify-center items-center ml-2">
+                <Plus
+                  color={'#FDC500'}
+                  size={20}
+                  onPress={() =>
+                    navigation.navigate('createTraining', {
+                      title: 'teste',
+                    })
+                  }
+                />
+              </TouchableOpacity>
+            </View>
+
+            <Heading title="Meus Treinos" />
+
+            <FlatList
+              data={data}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={
+                data?.length == 0
+                  ? {
+                      flexGrow: 1,
+                      padding: 10,
+                    }
+                  : { paddingBottom: 300, gap: 12 }
               }
+              renderItem={({ item }) => <MyTrainingCard item={item} />}
             />
-          </TouchableOpacity>
+          </View>
         </View>
-
-        <Heading title="Meus Treinos" />
-
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={
-            data?.length == 0
-              ? {
-                  flexGrow: 1,
-                  padding: 10,
-                }
-              : { paddingBottom: 300, gap: 12 }
-          }
-          renderItem={({ item }) => <MyTrainingCard item={item} />}
-        />
-      </View>
+      </TouchableWithoutFeedback>
     </Container>
   )
 }
