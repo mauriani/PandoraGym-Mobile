@@ -4,8 +4,8 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
 import { History } from '@screens/History'
-import { PersonalTrainerList } from '@screens/PersonalTrainerList'
 import { Profile } from '@screens/Profile'
+import { ReadyGymWorkouts } from '@screens/ReadyGymWorkouts'
 import {
   BicepsFlexed,
   CircleUserRound,
@@ -20,6 +20,7 @@ type AppRoutes = {
   history: undefined
   profile: undefined
   personalTrainerList: undefined
+  readyGymWorkouts: undefined
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>
@@ -56,22 +57,23 @@ export default function TabNavigator() {
           tabBarIcon: ({ color, size }) => <Time color={color} size={size} />,
         }}
       />
+
+      <Tab.Screen
+        name="readyGymWorkouts"
+        component={ReadyGymWorkouts}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <BicepsFlexed color={color} size={size} />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="profile"
         component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => (
             <CircleUserRound color={color} size={size} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="personalTrainerList"
-        component={PersonalTrainerList}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <BicepsFlexed color={color} size={size} />
           ),
         }}
       />
