@@ -107,8 +107,8 @@ export function Home() {
                   color={'#FDC500'}
                   size={20}
                   onPress={() =>
-                    navigation.navigate('createTraining', {
-                      title: 'teste',
+                    navigation.navigate('createTrainingFirstStep', {
+                      title: 'Treino de costas',
                     })
                   }
                 />

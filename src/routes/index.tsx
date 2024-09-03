@@ -1,7 +1,9 @@
 import React from 'react'
+import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { CreateTraining } from '@screens/CreateTraining'
+import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
+import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
 import { SignIn } from '@screens/SignIn'
 import { SignUp } from '@screens/SignUp'
 
@@ -11,8 +13,12 @@ export type RootStackParamList = {
   login: undefined
   tabNavigator: undefined
   signUp: undefined
-  createTraining: {
+  createTrainingFirstStep: {
     title: string | null
+  }
+  createTrainingSecondStep: {
+    title: string
+    selectedItems: IExercise[] | null
   }
 }
 
@@ -39,8 +45,14 @@ export default function RootStack() {
         />
 
         <Stack.Screen
-          name="createTraining"
-          component={CreateTraining}
+          name="createTrainingFirstStep"
+          component={CreateTrainingFirstStep}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="createTrainingSecondStep"
+          component={CreateTrainingSecondStep}
           options={{ headerShown: false }}
         />
 

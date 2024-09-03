@@ -8,9 +8,18 @@ import { Heading } from '@components/Heading'
 import { SelectExerciseCard } from '@components/SelectExerciseCard'
 import { Button } from '@components/ui/Button'
 import { Input } from '@components/ui/Input'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
-export function CreateTraining() {
+type IRouteParams = {
+  title: string
+}
+
+export function CreateTrainingFirstStep() {
+  const route = useRoute()
+  const { navigate } = useNavigation()
   const [selectedItems, setSelectedItems] = useState([])
+
+  const { title } = route.params as IRouteParams
 
   const data: IExercise[] = [
     {
@@ -52,12 +61,18 @@ export function CreateTraining() {
   ]
 
   // Função para alternar a seleção de um item
-  const toggleSelectItem = (id) => {
+  const toggleSelectItem = (selectedItem) => {
     setSelectedItems((prevSelectedItems) => {
-      if (prevSelectedItems.includes(id)) {
-        return prevSelectedItems.filter((itemId) => itemId !== id)
+      const isAlreadySelected = prevSelectedItems.some(
+        (item) => item.id === selectedItem.id,
+      )
+
+      if (isAlreadySelected) {
+        // Remove o item se já estiver selecionado
+        return prevSelectedItems.filter((item) => item.id !== selectedItem.id)
       } else {
-        return [...prevSelectedItems, id]
+        // Adiciona o novo item ao array
+        return [...prevSelectedItems, selectedItem]
       }
     })
   }
@@ -95,8 +110,10 @@ export function CreateTraining() {
           renderItem={({ item }) => (
             <SelectExerciseCard
               item={item}
-              isSelected={selectedItems.includes(item.id)}
-              toggleSelectItem={toggleSelectItem}
+              isSelected={selectedItems.some(
+                (selectedItem) => selectedItem.id === item.id,
+              )}
+              toggleSelectItem={() => toggleSelectItem(item)} // Passa o item completo
             />
           )}
         />
@@ -108,7 +125,15 @@ export function CreateTraining() {
           paddingHorizontal: 20,
           paddingBottom: getBottomSpace() + 60,
         }}>
-        <Button label="Próxima Etapa" />
+        <Button
+          label="Próxima Etapa"
+          onPress={() =>
+            navigate('createTrainingSecondStep', {
+              title,
+              selectedItems,
+            })
+          }
+        />
       </View>
     </Container>
   )

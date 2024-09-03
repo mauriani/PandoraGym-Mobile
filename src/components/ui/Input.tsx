@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { TextInput, View } from 'react-native'
+import { Text, TextInput, View } from 'react-native'
 import { cn } from '@utils/cn'
 
 export interface InputProps
@@ -7,11 +7,18 @@ export interface InputProps
   label?: string
   labelClasses?: string
   inputClasses?: string
+  placeholder?: string
 }
 
 const Input = forwardRef<React.ElementRef<typeof TextInput>, InputProps>(
-  ({ className, label, inputClasses, ...props }) => (
-    <View className={cn('flex flex-col', className)}>
+  ({ className, label, inputClasses, placeholder, ...props }) => (
+    <View className={cn('flex flex-col gap-1', className)}>
+      {placeholder && (
+        <Text className="text-muted-foreground font-primary_regular pb-2">
+          {placeholder}
+        </Text>
+      )}
+
       <TextInput
         placeholder={label} // O label será usado como placeholder
         placeholderTextColor="gray" // Cor do placeholder
