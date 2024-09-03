@@ -1,8 +1,14 @@
 import React from 'react'
-import { FlatList, View } from 'react-native'
+import {
+  FlatList,
+  Keyboard,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
 import { IPersonal } from '@_dtos_/personalDTO'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
+import { Input } from '@components/ui/Input'
 
 import { Card } from './__components__/Card'
 
@@ -51,24 +57,29 @@ export function PersonalTrainerList() {
   ]
   return (
     <Container>
-      <Header title={'Personal trainers'} />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={{ flex: 1 }}>
+          <Header title={'Personal trainers'} />
 
-      <View className="px-5 mt-10">
-        <FlatList
-          data={personal}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={
-            personal?.length == 0
-              ? {
-                  flexGrow: 1,
-                  padding: 10,
-                }
-              : { paddingBottom: 150, gap: 12 }
-          }
-          renderItem={({ item }) => <Card key={item.id} item={item} />}
-        />
-      </View>
+          <View className="px-5 mt-10">
+            <Input label="Buscar personal" className="mb-2" />
+            <FlatList
+              data={personal}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={
+                personal?.length == 0
+                  ? {
+                      flexGrow: 1,
+                      padding: 10,
+                    }
+                  : { paddingBottom: 150, gap: 12, paddingTop: 10 }
+              }
+              renderItem={({ item }) => <Card key={item.id} item={item} />}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
     </Container>
   )
 }
