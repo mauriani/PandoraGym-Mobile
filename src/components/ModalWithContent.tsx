@@ -1,13 +1,17 @@
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 import {
   KeyboardAvoidingView,
   Modal,
   Platform,
-  Text,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native'
-import { CircleX } from 'lucide-react-native'
+import { ThemeContext } from '@theme/theme-provider'
+import { themes } from '@theme/themes'
+import { X } from 'lucide-react-native'
+
+import { Heading } from './Heading'
 
 type IProps = {
   isOpen: boolean
@@ -17,13 +21,8 @@ type IProps = {
   subTitle?: string
 }
 
-export function ModalWithContent({
-  isOpen,
-  onClose,
-  title,
-  subTitle,
-  content,
-}: IProps) {
+export function ModalWithContent({ isOpen, onClose, title, content }: IProps) {
+  const { colorScheme } = useContext(ThemeContext)
   return (
     <Modal
       animationType={'fade'}
@@ -34,24 +33,20 @@ export function ModalWithContent({
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1">
-        <View className="flex-1 items-center justify-center bg-blend-overlay">
-          <View className="w-[350px] max-h-[500px] bg-muted-foreground rounded-[8px] px-3">
+        <View style={styles.container}>
+          <View
+            style={styles.content}
+            className="bg-secondary px-2 py-2 rounded-[6px]">
             <TouchableOpacity onPress={onClose}>
-              <CircleX size={25} className="self-end m-2 text-title" />
+              <X
+                size={25}
+                style={{ alignSelf: 'flex-end', margin: 12 }}
+                color={themes[colorScheme].popoverForeground}
+              />
             </TouchableOpacity>
 
-            <View className="gap-1 pl-2 pb-1">
-              {title && (
-                <Text className="text-title text-md font-primary_semibold">
-                  {title}
-                </Text>
-              )}
-
-              {subTitle && (
-                <Text className="text-text text-sm font-secondary_regular">
-                  {subTitle}
-                </Text>
-              )}
+            <View className="gap-1 mb-1">
+              {title && <Heading title={title} />}
             </View>
 
             {content}
@@ -61,3 +56,16 @@ export function ModalWithContent({
     </Modal>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  content: {
+    width: 350,
+    maxHeight: 500,
+  },
+})

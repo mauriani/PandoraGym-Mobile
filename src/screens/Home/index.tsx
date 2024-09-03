@@ -102,16 +102,13 @@ export function Home() {
 
               <TouchableOpacity
                 activeOpacity={title.length > 0 ? 0.2 : 0.2}
-                className="rounded-[6px] bg-purple-800 w-14 justify-center items-center ml-2">
-                <Plus
-                  color={'#FDC500'}
-                  size={20}
-                  onPress={() =>
-                    navigation.navigate('createTrainingFirstStep', {
-                      title: 'Treino de costas',
-                    })
-                  }
-                />
+                className="rounded-[6px] bg-purple-800 w-14 justify-center items-center ml-2 z-10"
+                onPress={() =>
+                  navigation.navigate('createTrainingFirstStep', {
+                    title: 'Treino de costas',
+                  })
+                }>
+                <Plus color={'#FDC500'} size={20} />
               </TouchableOpacity>
             </View>
 

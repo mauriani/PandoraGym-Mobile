@@ -1,5 +1,4 @@
 import { Text, View } from 'react-native'
-import { Heading } from '@components/Heading'
 import { Button } from '@components/ui/Button'
 import { Checkbox } from '@components/ui/Checkbox'
 import { Input } from '@components/ui/Input'
@@ -11,9 +10,7 @@ type IProps = {
 
 export function ConfigExercises({ isSelected, onSekected }: IProps) {
   return (
-    <>
-      <Heading title="Configuração do exercício" />
-
+    <View className="gap-2">
       <View className="flex-row justify-between">
         <Input placeholder="Número de sets/rodadas" label={'Rodadas'} />
         <Input placeholder="Número de repetições" label={'Reps'} />
@@ -29,7 +26,7 @@ export function ConfigExercises({ isSelected, onSekected }: IProps) {
         label={'Descanço entre os exercício'}
       />
 
-      <View className="flex-row gap-3 items-center ">
+      <View className="flex-row gap-4 items-center ">
         <Checkbox isChecked={isSelected} onPress={onSekected} />
 
         <Text className="text-foreground font-primary_bold tex-[16]">
@@ -38,9 +35,9 @@ export function ConfigExercises({ isSelected, onSekected }: IProps) {
       </View>
 
       <View className="flex-row gap-4 justify-end">
-        <Button label="Cancelar" className="px-4" variant="secondary" />
-        <Button label="Concluir" className="px-4" />
+        <Button label="Cancelar" className="px-5" variant="outline" />
+        <Button label="Concluir" className="px-5" />
       </View>
-    </>
+    </View>
   )
 }

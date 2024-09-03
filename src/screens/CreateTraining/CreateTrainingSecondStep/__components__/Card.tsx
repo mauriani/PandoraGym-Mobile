@@ -25,13 +25,23 @@ export function Card({ item, openModal }: IProps) {
           alt=""
         />
 
-        <View className="flex-col justify-center gap-[2] ml-3">
+        <View className="flex-col justify-center gap-2 ml-3">
           <Text className="text-white font-bold tex-[18]">{item.title}</Text>
+          <Text className="text-muted-foreground tex-[14]">
+            3 séries x 12 repetições
+          </Text>
         </View>
       </>
 
       <View className="flex-row justify-between items-center ml-auto">
-        <CircleCheck color={'#FDC500'} size={32} style={{ marginRight: 20 }} />
+        {item.isConfigurable && (
+          <CircleCheck
+            color={'#FDC500'}
+            size={32}
+            style={{ marginRight: 20 }}
+          />
+        )}
+
         <ChevronRight size={30} color={themes[colorScheme].mutedForeground} />
       </View>
     </TouchableOpacity>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
+import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
 import { ModalWithContent } from '@components/ModalWithContent'
+import { Button } from '@components/ui/Button'
 import { useRoute } from '@react-navigation/native'
 
 import { Card } from './__components__/Card'
@@ -35,6 +37,10 @@ export function CreateTrainingSecondStep() {
           </Text>
         </View>
 
+        <Text className="text-muted-foreground font-primary_regular tex-[16]">
+          Clique no exercício para configura-lo
+        </Text>
+
         {selectedItems.map((item) => (
           <Card
             item={item}
@@ -42,60 +48,21 @@ export function CreateTrainingSecondStep() {
             openModal={() => setIsModalOpen(!isModalOpen)}
           />
         ))}
-
-        {/* <>
-          <Heading title="Configuração do exercício" />
-
-          <View className="flex-row justify-between">
-            <Input placeholder="Número de sets/rodadas" label={'Rodadas'} />
-            <Input placeholder="Número de repetições" label={'Reps'} />
-          </View>
-
-          <View className="flex-row justify-between">
-            <Input placeholder="Tempo de descanço" label={'Descanço'} />
-            <Input placeholder="Carga" label={'Peso'} />
-          </View>
-
-          <Input
-            placeholder="Tempo de descanço entre sets"
-            label={'Descanço entre os exercício'}
-          />
-
-          <View className="flex-row gap-3 items-center ">
-            <Checkbox
-              isChecked={isSelected}
-              onPress={() => setIsSelected(!isSelected)}
-            />
-
-            <Text className="text-foreground font-primary_bold tex-[16]">
-              Aplicar para todos os exercicios
-            </Text>
-          </View>
-
-          <View className="flex-row gap-4 justify-end">
-            <Button label="Cancelar" className="px-4" variant="secondary" />
-            <Button label="Concluir" className="px-4" />
-          </View>
-        </> */}
       </View>
 
-      {/* <Modal
-        animationType={'fade'}
-        transparent={false}
-        statusBarTranslucent={true}
-        visible={isModalOpen}>
-        <View className="flex-1 items-center justify-center ">
-          <View className="w-72 max-[500px]"></View>
-          <ConfigExercises
-            isSelected={isSelected}
-            onSekected={() => setIsSelected(!isSelected)}
-          />
-        </View>
-      </Modal> */}
+      <View
+        style={{
+          marginTop: 'auto',
+          paddingHorizontal: 20,
+          paddingBottom: getBottomSpace() + 60,
+        }}>
+        <Button label="Concluir" />
+      </View>
 
       <ModalWithContent
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(!isModalOpen)}
+        title="Configuração do exercício"
         content={
           <ConfigExercises
             isSelected={isSelected}
