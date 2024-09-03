@@ -13,33 +13,6 @@ import { Heading } from '@components/Heading'
 import { ButtonCategories } from './__components__/ButtonCategories'
 
 export function ReadyGymWorkouts() {
-  // const data: IExercise[] = [
-  //   {
-  //     id: '1',
-  //     title: 'Rosca direta barra W',
-  //     image:
-  //       'https://alexandrebento.com.br/wp-content/uploads/2023/08/rosca-direta-barra-w-1024x683.jpg',
-  //   },
-  //   {
-  //     id: '2',
-  //     title: 'Elevação lateral',
-  //     image:
-  //       'https://vitat.com.br/wp-content/uploads/2022/05/beautiful-athletic-girl-dressed.jpg',
-  //   },
-  //   {
-  //     id: '3',
-  //     title: 'Agachamento Livre',
-  //     image:
-  //       'https://cdn.atletis.com.br/atletis-website/base/973/e7a/969/agachamento-barra-livre.jpg',
-  //   },
-  //   {
-  //     id: '4',
-  //     title: 'Agachamento Sumo',
-  //     image:
-  //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxMKF1kYSWNT3TRR-WYvDVMfnMgS7i7EVnR0bQOYJH6IcZzzwmqHlMlt0Q_ytlCmhxKfk&usqp=CAU',
-  //   },
-  // ]
-
   const categories = [
     'Musculação',
     'Calistenia',

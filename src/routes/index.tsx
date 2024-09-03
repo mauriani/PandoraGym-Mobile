@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
+import { Profile } from '@screens/Profile'
 import { SignIn } from '@screens/SignIn'
 import { SignUp } from '@screens/SignUp'
 
@@ -20,6 +21,7 @@ export type RootStackParamList = {
     title: string
     selectedItems: IExercise[] | null
   }
+  profile: undefined
 }
 
 const Stack = createNativeStackNavigator()
@@ -53,6 +55,12 @@ export default function RootStack() {
         <Stack.Screen
           name="createTrainingSecondStep"
           component={CreateTrainingSecondStep}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="profile"
+          component={Profile}
           options={{ headerShown: false }}
         />
 

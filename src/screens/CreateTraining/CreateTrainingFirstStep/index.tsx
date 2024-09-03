@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import {
+  FlatList,
+  Keyboard,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
@@ -79,62 +85,66 @@ export function CreateTrainingFirstStep() {
 
   return (
     <Container>
-      <HeaderGoBack title={'Criar Treino'} />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={{ flex: 1 }}>
+          <HeaderGoBack title={'Criar Treino'} />
 
-      <View className="flex-1 px-5 mt-10 gap-4">
-        <View className={'flex-row justify-between'}>
-          <Heading title="Titulo do treino" />
+          <View className="flex-1 px-5 mt-10 gap-4">
+            <View className={'flex-row justify-between'}>
+              <Heading title="Titulo do treino" />
 
-          <Text className="text-foreground font-primary_bold tex-[16]">
-            Etapa 1 de 2
-          </Text>
-        </View>
+              <Text className="text-foreground font-primary_bold tex-[16]">
+                Etapa 1 de 2
+              </Text>
+            </View>
 
-        <Input label="Buscar exercicio" />
+            <Input label="Buscar exercicio" />
 
-        <Text className="text-foreground font-primary_bold tex-[16]">
-          Listagem de exercícios
-        </Text>
+            <Text className="text-foreground font-primary_bold tex-[16]">
+              Listagem de exercícios
+            </Text>
 
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={
-            data?.length == 0
-              ? {
-                  flexGrow: 1,
-                }
-              : { paddingBottom: getBottomSpace() + 80, gap: 12 }
-          }
-          renderItem={({ item }) => (
-            <SelectExerciseCard
-              item={item}
-              isSelected={selectedItems.some(
-                (selectedItem) => selectedItem.id === item.id,
+            <FlatList
+              data={data}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={
+                data?.length == 0
+                  ? {
+                      flexGrow: 1,
+                    }
+                  : { paddingBottom: getBottomSpace() + 80, gap: 12 }
+              }
+              renderItem={({ item }) => (
+                <SelectExerciseCard
+                  item={item}
+                  isSelected={selectedItems.some(
+                    (selectedItem) => selectedItem.id === item.id,
+                  )}
+                  toggleSelectItem={() => toggleSelectItem(item)} // Passa o item completo
+                />
               )}
-              toggleSelectItem={() => toggleSelectItem(item)} // Passa o item completo
             />
-          )}
-        />
-      </View>
+          </View>
 
-      <View
-        style={{
-          marginTop: 'auto',
-          paddingHorizontal: 20,
-          paddingBottom: getBottomSpace() + 60,
-        }}>
-        <Button
-          label="Próxima Etapa"
-          onPress={() =>
-            navigate('createTrainingSecondStep', {
-              title,
-              selectedItems,
-            })
-          }
-        />
-      </View>
+          <View
+            style={{
+              marginTop: 'auto',
+              paddingHorizontal: 20,
+              paddingBottom: getBottomSpace() + 60,
+            }}>
+            <Button
+              label="Próxima Etapa"
+              onPress={() =>
+                navigate('createTrainingSecondStep', {
+                  title,
+                  selectedItems,
+                })
+              }
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
     </Container>
   )
 }

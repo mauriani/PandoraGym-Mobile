@@ -1,11 +1,11 @@
 import React from 'react'
 import { Container } from '@components/Container'
-import { Header } from '@components/Header'
+import { HeaderGoBack } from '@components/HeaderGoBack'
 
 export function Profile() {
   return (
     <Container>
-      <Header title={'Perfil'} />
+      <HeaderGoBack title={'Perfil'} />
     </Container>
   )
 }

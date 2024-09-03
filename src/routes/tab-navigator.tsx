@@ -3,14 +3,16 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
+import { Evolution } from '@screens/Evolution'
 import { History } from '@screens/History'
-import { Profile } from '@screens/Profile'
+import { PersonalTrainerList } from '@screens/PersonalTrainerList'
 import { ReadyGymWorkouts } from '@screens/ReadyGymWorkouts'
 import {
   BicepsFlexed,
-  CircleUserRound,
+  ChartNoAxesColumn,
   History as Time,
   House,
+  SquareUser,
 } from 'lucide-react-native'
 
 import { Home } from '../screens/Home'
@@ -18,9 +20,9 @@ import { Home } from '../screens/Home'
 type AppRoutes = {
   home: undefined
   history: undefined
-  profile: undefined
   personalTrainerList: undefined
   readyGymWorkouts: undefined
+  evolution: undefined
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>
@@ -69,11 +71,21 @@ export default function TabNavigator() {
       />
 
       <Tab.Screen
-        name="profile"
-        component={Profile}
+        name="personalTrainerList"
+        component={PersonalTrainerList}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <CircleUserRound color={color} size={size} />
+            <SquareUser color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="evolution"
+        component={Evolution}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <ChartNoAxesColumn color={color} size={size} />
           ),
         }}
       />
