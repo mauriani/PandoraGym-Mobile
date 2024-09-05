@@ -9,10 +9,13 @@ import { IPersonal } from '@_dtos_/personalDTO'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
 import { Input } from '@components/ui/Input'
+import { useNavigation } from '@react-navigation/native'
 
 import { Card } from './__components__/Card'
 
 export function PersonalTrainerList() {
+  const { navigate } = useNavigation()
+
   const personal: IPersonal[] = [
     {
       id: '1',
@@ -75,7 +78,13 @@ export function PersonalTrainerList() {
                     }
                   : { paddingBottom: 150, gap: 12, paddingTop: 10 }
               }
-              renderItem={({ item }) => <Card key={item.id} item={item} />}
+              renderItem={({ item }) => (
+                <Card
+                  key={item.id}
+                  item={item}
+                  onPress={() => navigate('personalTrainerProfile')}
+                />
+              )}
             />
           </View>
         </View>

@@ -5,15 +5,20 @@ import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
 import { Star } from 'lucide-react-native'
 
+import { TextDetails } from './TextDetails'
+
 type IProps = {
   item: IPersonal
+  onPress: () => void
 }
 
-export function Card({ item }: IProps) {
+export function Card({ item, onPress }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
 
   return (
-    <TouchableOpacity className="h-52 flex-row bg-secondary rounded-[8px] p-3 relative">
+    <TouchableOpacity
+      onPress={onPress}
+      className="h-56 flex-row bg-secondary rounded-[8px] p-3 relative">
       <Image
         className="h-full w-32 rounded-[6px]"
         source={{
@@ -26,17 +31,12 @@ export function Card({ item }: IProps) {
         <Text className="text-white font-bold text-[18px] mb-2">
           {item.name}
         </Text>
-        <Text className="text-white text-[12px]">
-          <Text className="font-bold t">Credencias • </Text>
-          {item.credencial}
-        </Text>
-        <Text className="text-white text-[12px]">
-          <Text className="font-bold t">Especialização • </Text>
-          {item.especializacao}
-        </Text>
-        <Text className="text-white text-[12px]">
-          <Text className="font-bold t">Experiência • </Text> {item.experiencia}
-        </Text>
+
+        <TextDetails title="Credencias" details={item.credencial} />
+
+        <TextDetails title="Especialização" details={item.especializacao} />
+
+        <TextDetails title="Experiência" details={item.experiencia} />
 
         {/* Seção de classificação com estrelas e pontos */}
         <View className="flex-row items-center mt-2">
