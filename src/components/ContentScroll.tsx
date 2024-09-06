@@ -9,11 +9,9 @@ export function ContentScroll({ children }: IProps) {
     <ScrollView
       contentContainerStyle={{
         gap: 12,
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginTop: 40,
-
-        paddingBottom: 100,
+        paddingBottom: 200,
+        paddingTop: 30,
+        paddingHorizontal: 20,
       }}>
       {children}
     </ScrollView>
