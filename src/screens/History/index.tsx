@@ -5,8 +5,9 @@ import { Container } from '@components/Container'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { HistoryCalendar } from '@components/HistoryCalendar'
-import { MyTrainingHistoryCard } from '@components/MyTrainingHistoryCard'
 import dayjs from 'dayjs'
+
+import { MyTrainingHistoryCard } from './__components__/MyTrainingHistoryCard'
 
 export function History() {
   const [selected, setSelected] = useState(
@@ -50,7 +51,7 @@ export function History() {
   return (
     <Container>
       <Header title={'Histórico'} />
-      <View className="px-5 mt-10">
+      <View className="flex-1 px-5 mt-10">
         <HistoryCalendar onPress={handleSelectedDay} selected={selected} />
 
         <Text className="text-white font-primary_bold tex-[16] mt-8 mb-4">

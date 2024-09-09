@@ -1,18 +1,17 @@
 import React from 'react'
-import {
-  ImageBackground,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { ScrollView, View } from 'react-native'
+import { ItemplateDTO } from '@_dtos_/templateDTO'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
+import { useNavigation } from '@react-navigation/native'
 
 import { ButtonCategories } from './__components__/ButtonCategories'
+import { CardWorkouts } from './__components__/CardWorkouts'
 
 export function ReadyGymWorkouts() {
+  const { navigate } = useNavigation()
+
   const categories = [
     'Musculação',
     'Calistenia',
@@ -21,7 +20,7 @@ export function ReadyGymWorkouts() {
     'Yoga',
   ]
 
-  const workoutsReady = [
+  const workoutsReady: ItemplateDTO[] = [
     {
       id: '1',
       title: 'Treinos recomendados',
@@ -105,6 +104,12 @@ export function ReadyGymWorkouts() {
     },
   ]
 
+  function handleNavigaDetails(title: string) {
+    navigate('detailsTemplate', {
+      title,
+    })
+  }
+
   return (
     <Container>
       <Header title={'Programas de treino'} />
@@ -127,70 +132,15 @@ export function ReadyGymWorkouts() {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ gap: 12 }}>
               {item.training.map((training) => (
-                <ImageBackground
+                <CardWorkouts
                   key={training.id}
-                  className="h-44 w-72 rounded-[8px]"
-                  source={{
-                    uri: training.tumbnail,
-                  }}>
-                  <View className="h-44 justify-between p-4">
-                    <TouchableOpacity className="bg-black rounded-[6px] w-28 h-10 justify-center items-center">
-                      <Text className="text-foreground font-primary_bold text-[14px]">
-                        {training.level}
-                      </Text>
-                    </TouchableOpacity>
-                    <Text className="text-foreground font-primary_bold text-[16px]">
-                      {training.title}
-                    </Text>
-                  </View>
-                </ImageBackground>
+                  training={training}
+                  onNavigate={handleNavigaDetails}
+                />
               ))}
             </ScrollView>
           </View>
         ))}
-
-        {/* <Heading title="Treinos recomendados" />
-
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 12 }}>
-          <ImageBackground
-            className="h-44 w-72 rounded-[8px]"
-            source={{
-              uri: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            }}>
-            <View className="h-44 justify-between p-4">
-              <TouchableOpacity className="bg-black rounded-[6px] w-20 h-10 justify-center items-center">
-                <Text className="text-foreground font-primary_bold text-[14px]">
-                  Avançado
-                </Text>
-              </TouchableOpacity>
-
-              <Text className="text-foreground font-primary_bold text-[16px]">
-                Listagem de exercícios
-              </Text>
-            </View>
-          </ImageBackground>
-
-          <ImageBackground
-            className="h-44 w-72 rounded-[8px]"
-            source={{
-              uri: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?q=80&w=2338&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            }}>
-            <View className="h-44 justify-between p-4">
-              <TouchableOpacity className="bg-black rounded-[6px] w-20 h-10 justify-center items-center">
-                <Text className="text-foreground font-primary_bold text-[14px]">
-                  Avançado
-                </Text>
-              </TouchableOpacity>
-
-              <Text className="text-foreground font-primary_bold text-[16px]">
-                Listagem de exercícios
-              </Text>
-            </View>
-          </ImageBackground>
-        </ScrollView> */}
       </ScrollView>
     </Container>
   )

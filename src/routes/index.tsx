@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
+import { DetailsTemplate } from '@screens/DetailsTemplates'
 import { PersonalTrainerProfile } from '@screens/PersonalTrainerProfile'
 import { Profile } from '@screens/Profile'
 import { SignIn } from '@screens/SignIn'
@@ -28,6 +29,9 @@ export type RootStackParamList = {
   trainingDetails: {
     id_exercise: string
     name: string
+  }
+  detailsTemplate: {
+    title: string
   }
 }
 
@@ -80,6 +84,12 @@ export default function RootStack() {
         <Stack.Screen
           name="trainingDetails"
           component={TrainingDetails}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="detailsTemplate"
+          component={DetailsTemplate}
           options={{ headerShown: false }}
         />
 

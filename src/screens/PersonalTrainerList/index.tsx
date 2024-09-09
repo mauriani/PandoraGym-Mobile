@@ -64,7 +64,7 @@ export function PersonalTrainerList() {
         <View style={{ flex: 1 }}>
           <Header title={'Personal trainers'} />
 
-          <View className="px-5 mt-10">
+          <View className="flex-1 px-5 mt-10">
             <Input label="Buscar personal" className="mb-2" />
             <FlatList
               data={personal}
@@ -76,7 +76,7 @@ export function PersonalTrainerList() {
                       flexGrow: 1,
                       padding: 10,
                     }
-                  : { paddingBottom: 150, gap: 12, paddingTop: 10 }
+                  : { paddingBottom: 30, gap: 12, paddingTop: 10 }
               }
               renderItem={({ item }) => (
                 <Card

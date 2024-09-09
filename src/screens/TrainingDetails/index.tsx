@@ -126,10 +126,6 @@ export function TrainingDetails() {
     }
   }, [])
 
-  const disabled = false
-
-  console.log('selectedItems', selectedItems)
-
   return (
     <Container>
       <HeaderGoBack title={name} />
@@ -199,11 +195,7 @@ export function TrainingDetails() {
         {selectedItems.length == treinoPernas?.length && (
           <View
             style={{ marginTop: 'auto', paddingBottom: getBottomSpace() + 25 }}>
-            <Button
-              label="Concluir Treino"
-              disabled={true}
-              activeOpacity={disabled ? 0.5 : 1}
-            />
+            <Button label="Concluir Treino" disabled={true} />
           </View>
         )}
       </View>

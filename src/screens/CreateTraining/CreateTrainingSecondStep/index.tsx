@@ -7,7 +7,8 @@ import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { Button } from '@components/ui/Button'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { toast } from '@utils/toast-methods'
 
 import { Card } from './__components__/Card'
 import { ConfigExercises } from './__components__/ConfigExercises'
@@ -19,11 +20,17 @@ type IRouteParams = {
 
 export function CreateTrainingSecondStep() {
   const route = useRoute()
+  const { navigate } = useNavigation()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { title, selectedItems } = route.params as IRouteParams
 
   const [isSelected, setIsSelected] = useState(false)
+
+  function handleCreateTraining() {
+    toast.success('Treino criado com sucesso !')
+    navigate('tabNavigator')
+  }
 
   return (
     <Container>
@@ -56,7 +63,7 @@ export function CreateTrainingSecondStep() {
           paddingHorizontal: 20,
           paddingBottom: getBottomSpace() + 60,
         }}>
-        <Button label="Concluir" />
+        <Button label="Concluir" onPress={handleCreateTraining} />
       </View>
 
       <ModalWithContent

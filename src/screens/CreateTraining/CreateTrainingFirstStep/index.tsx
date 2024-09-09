@@ -91,7 +91,7 @@ export function CreateTrainingFirstStep() {
 
           <View className="flex-1 px-5 mt-10 gap-4">
             <View className={'flex-row justify-between'}>
-              <Heading title="Titulo do treino" />
+              <Heading title={title} />
 
               <Text className="text-foreground font-primary_bold tex-[16]">
                 Etapa 1 de 2
