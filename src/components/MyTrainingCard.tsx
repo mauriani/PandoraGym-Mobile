@@ -7,13 +7,16 @@ import { ChevronRight } from 'lucide-react-native'
 
 type IProps = {
   item: ITraining
+  onAccessTraining: (id: string, name: string) => void
 }
 
-export function MyTrainingCard({ item }: IProps) {
+export function MyTrainingCard({ item, onAccessTraining }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
 
   return (
-    <TouchableOpacity className="h-28 flex-row bg-secondary rounded-[8px] items-center p-2 relative">
+    <TouchableOpacity
+      onPress={() => onAccessTraining(item.id, item.title)}
+      className="h-28 flex-row bg-secondary rounded-[8px] items-center p-2 relative">
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{

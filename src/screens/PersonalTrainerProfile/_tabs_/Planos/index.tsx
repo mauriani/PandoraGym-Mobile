@@ -16,7 +16,7 @@ export function Planos() {
     'Dicas semanais de condicionamento físico',
     'Orientação básica de nutrição',
     'Preparação para Campeonatos',
-    'limitações físicas',
+    'Limitações físicas',
     'Compreensão de seus objetivos',
   ]
   return (

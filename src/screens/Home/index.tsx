@@ -72,6 +72,13 @@ export function Home() {
     }
   }
 
+  function handleAccessTraining(id_exercise: string, name: string) {
+    navigate('trainingDetails', {
+      id_exercise,
+      name,
+    })
+  }
+
   return (
     <Container>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -109,7 +116,12 @@ export function Home() {
                     }
                   : { paddingBottom: 300, gap: 12 }
               }
-              renderItem={({ item }) => <MyTrainingCard item={item} />}
+              renderItem={({ item }) => (
+                <MyTrainingCard
+                  item={item}
+                  onAccessTraining={handleAccessTraining}
+                />
+              )}
             />
           </View>
         </View>

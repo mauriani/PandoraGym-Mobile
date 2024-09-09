@@ -33,7 +33,7 @@ function Checkbox({
           className={cn(
             'w-7 h-7 border border-gray-700 rounded bg-background flex justify-center items-center',
             {
-              'bg-foreground': isChecked,
+              'bg-primary': isChecked,
             },
             checkboxClasses,
           )}>

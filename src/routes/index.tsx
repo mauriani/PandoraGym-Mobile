@@ -8,6 +8,7 @@ import { PersonalTrainerProfile } from '@screens/PersonalTrainerProfile'
 import { Profile } from '@screens/Profile'
 import { SignIn } from '@screens/SignIn'
 import { SignUp } from '@screens/SignUp'
+import { TrainingDetails } from '@screens/TrainingDetails'
 
 import TabNavigator from './tab-navigator'
 
@@ -24,6 +25,10 @@ export type RootStackParamList = {
   }
   profile: undefined
   personalTrainerProfile: undefined
+  trainingDetails: {
+    id_exercise: string
+    name: string
+  }
 }
 
 const Stack = createNativeStackNavigator()
@@ -69,6 +74,12 @@ export default function RootStack() {
         <Stack.Screen
           name="personalTrainerProfile"
           component={PersonalTrainerProfile}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="trainingDetails"
+          component={TrainingDetails}
           options={{ headerShown: false }}
         />
 
