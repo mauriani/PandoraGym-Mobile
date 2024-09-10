@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Dimensions,
   Image,
@@ -7,12 +7,18 @@ import {
   Text,
   View,
 } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
 import { Button } from '@components/ui/Button'
 import { Input } from '@components/ui/Input'
 import { useNavigation } from '@react-navigation/native'
 
 export function SignIn() {
   const { navigate } = useNavigation()
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
+
   return (
     <View className="flex-1 bg-background">
       <ImageBackground
