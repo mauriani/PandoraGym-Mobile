@@ -3,6 +3,7 @@ import { FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Container } from '@components/Container'
+import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { IconComponent } from '@components/IconComponent'
 import { Button } from '@components/ui/Button'
@@ -129,8 +130,8 @@ export function TrainingDetails() {
   return (
     <Container>
       <HeaderGoBack title={name} />
-      <View className="flex-1 px-5 mt-10">
-        <View className="px-5">
+      <Content>
+        <View>
           {selectedVideo && (
             <VideoPlayerWithThumbnail
               thumbnailUrl={selectedVideo?.thumbnail}
@@ -141,7 +142,7 @@ export function TrainingDetails() {
             />
           )}
 
-          <View className="flex-row justify-between bg-accent py-5 px-3 mt-[-50px] rounded-b-[6px]">
+          <View className="flex-row justify-between bg-accent py-5 px-3 mt-[10px] rounded-b-[6px]">
             <Row>
               <IconComponent iconName="Dumbbell" />
               <SubTitle title={`${selectedVideo?.numero_series} séries`} />
@@ -198,7 +199,7 @@ export function TrainingDetails() {
             <Button label="Concluir Treino" disabled={true} />
           </View>
         )}
-      </View>
+      </Content>
     </Container>
   )
 }

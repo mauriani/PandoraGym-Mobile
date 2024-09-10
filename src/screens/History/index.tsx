@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { ITrainingHistory } from '@_dtos_/trainingHistoryDTO'
 import { Container } from '@components/Container'
+import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { HistoryCalendar } from '@components/HistoryCalendar'
@@ -51,7 +52,7 @@ export function History() {
   return (
     <Container>
       <Header title={'Histórico'} />
-      <View className="flex-1 px-5 mt-10">
+      <Content>
         <HistoryCalendar onPress={handleSelectedDay} selected={selected} />
 
         <Text className="text-white font-primary_bold tex-[16] mt-8 mb-4">
@@ -80,7 +81,7 @@ export function History() {
           }
           renderItem={({ item }) => <MyTrainingHistoryCard item={item} />}
         />
-      </View>
+      </Content>
     </Container>
   )
 }

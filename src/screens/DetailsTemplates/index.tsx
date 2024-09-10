@@ -1,11 +1,16 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Text, View } from 'react-native'
 import { ITrainingHistory } from '@_dtos_/trainingHistoryDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
+import { Heading } from '@components/Heading'
 import { IconComponent } from '@components/IconComponent'
+import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useRoute } from '@react-navigation/native'
 import { SubTitle } from '@screens/TrainingDetails/__components__/SubTitle'
+import { extractVideoId } from '@utils/extractVideoId'
+
+import { ButtonWithIcon } from './__components__/ButtonWithIcon'
 
 type IRouteParams = {
   title: string
@@ -78,16 +83,32 @@ export function DetailsTemplate() {
       <HeaderGoBack title={title} />
       <Content>
         <View className="flex-row items-center  py-5">
-          <Text className="text-muted-foreground tex-[14]">
-            Montado pelo Professor{' '}
-          </Text>
-
-          <TouchableOpacity className="bg-purple-800 px-2 py-2 rounded-[6px] font-bold">
-            <Text className="text-primary font-bold tex-[14]">
-              Fernando Cruz
-            </Text>
-          </TouchableOpacity>
+          <VideoPlayerWithThumbnail
+            thumbnailUrl={
+              'https://blogdohiellevy.com.br/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-13.22.20-768x1024.jpeg'
+            }
+            videoId={extractVideoId(
+              'https://www.youtube.com/watch?v=T-gAM6dUN5o&ab_channel=GrowthTV',
+            )}
+          />
         </View>
+
+        <View className="flex-row mb-4 gap-3">
+          <ButtonWithIcon title={'60 min'} iconName="Clock1" />
+
+          <ButtonWithIcon title={'350 Cal'} iconName="Flame" />
+
+          <ButtonWithIcon title={'Meu Perfil'} iconName="User" />
+        </View>
+
+        <Text className="text-white font-primary_regular font-[12px] mb-3">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the standard dummy text ever since the
+          1500s, when an unknown printer took a galley of type and scrambled it
+          to make a type specimen book.
+        </Text>
+
+        <Heading title={'Exercícios'} />
 
         <FlatList
           data={data}

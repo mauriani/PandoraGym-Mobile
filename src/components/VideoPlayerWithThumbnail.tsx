@@ -15,7 +15,7 @@ export function VideoPlayerWithThumbnail({ videoId, thumbnailUrl }: IProps) {
   const [playing, setPlaying] = useState(false)
 
   return (
-    <View className="w-[100%] h-72 overflow-hidden rounded-[6px]">
+    <View className="w-[100%] aspect-video overflow-hidden rounded-[6px]">
       {playing ? (
         <View className="flex-1">
           <YoutubePlayer

@@ -114,7 +114,11 @@ export function ReadyGymWorkouts() {
     <Container>
       <Header title={'Programas de treino'} />
 
-      <ScrollView className="px-5 mt-10 gap-4">
+      <ScrollView
+        contentContainerStyle={{
+          gap: 12,
+          padding: 12,
+        }}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -125,7 +129,7 @@ export function ReadyGymWorkouts() {
         </ScrollView>
 
         {workoutsReady.map((item) => (
-          <View key={item.id} className="mb-4">
+          <View key={item.id} className="gap-4">
             <Heading title={item.title} />
             <ScrollView
               horizontal={true}
