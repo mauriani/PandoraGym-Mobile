@@ -115,7 +115,7 @@ export function Home() {
                       flexGrow: 1,
                       padding: 10,
                     }
-                  : { paddingBottom: 300, gap: 12 }
+                  : { paddingBottom: 80, gap: 12 }
               }
               renderItem={({ item }) => (
                 <MyTrainingCard

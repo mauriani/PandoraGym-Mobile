@@ -6,5 +6,5 @@ type IProps = {
 }
 
 export function Content({ children }: IProps) {
-  return <View className="flex-1 pt-3 px-3">{children}</View>
+  return <View className="flex-1 pt-4 px-4">{children}</View>
 }
