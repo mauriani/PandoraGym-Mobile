@@ -1,6 +1,7 @@
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import { ITrainingHistory } from '@_dtos_/trainingHistoryDTO'
 import { Container } from '@components/Container'
+import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { IconComponent } from '@components/IconComponent'
 import { useRoute } from '@react-navigation/native'
@@ -75,7 +76,7 @@ export function DetailsTemplate() {
   return (
     <Container>
       <HeaderGoBack title={title} />
-      <View className="flex-1 px-5 mt-10">
+      <Content>
         <View className="flex-row items-center  py-5">
           <Text className="text-muted-foreground tex-[14]">
             Montado pelo Professor{' '}
@@ -133,7 +134,7 @@ export function DetailsTemplate() {
             </View>
           )}
         />
-      </View>
+      </Content>
     </Container>
   )
 }

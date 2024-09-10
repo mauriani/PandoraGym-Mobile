@@ -30,7 +30,7 @@ export const themes = {
     background: '#000000',
     foreground: '#fafaf9',
     card: '	#0c0a09',
-    cardForeground: '##fafaf9',
+    cardForeground: '#fafaf9',
     popover: '#0c0a09',
     popoverForeground: '#fafaf9',
     primary: '#facc15',

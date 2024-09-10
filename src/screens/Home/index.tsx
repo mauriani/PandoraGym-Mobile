@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { ITraining } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
+import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { MyTrainingCard } from '@components/MyTrainingCard'
@@ -84,7 +85,7 @@ export function Home() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={{ flex: 1 }}>
           <Header title={'Meus Treinos'} />
-          <View className="px-5 mt-10">
+          <Content>
             <Heading title="Criar Treino" />
 
             <View style={styles.containerCreateTraining}>
@@ -123,7 +124,7 @@ export function Home() {
                 />
               )}
             />
-          </View>
+          </Content>
         </View>
       </TouchableWithoutFeedback>
     </Container>

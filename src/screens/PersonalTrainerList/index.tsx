@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { IPersonal } from '@_dtos_/personalDTO'
 import { Container } from '@components/Container'
+import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Input } from '@components/ui/Input'
 import { useNavigation } from '@react-navigation/native'
@@ -64,7 +65,7 @@ export function PersonalTrainerList() {
         <View style={{ flex: 1 }}>
           <Header title={'Personal trainers'} />
 
-          <View className="flex-1 px-5 mt-10">
+          <Content>
             <Input label="Buscar personal" className="mb-2" />
             <FlatList
               data={personal}
@@ -86,7 +87,7 @@ export function PersonalTrainerList() {
                 />
               )}
             />
-          </View>
+          </Content>
         </View>
       </TouchableWithoutFeedback>
     </Container>
