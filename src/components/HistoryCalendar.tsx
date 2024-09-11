@@ -24,23 +24,29 @@ export function HistoryCalendar({ onPress, selected }: IProps) {
       theme={{
         calendarBackground: themes[colorScheme].secondary,
         textSectionTitleColor: themes[colorScheme].foreground,
-        selectedDayBackgroundColor: themes[colorScheme].primary,
-        selectedDayTextColor: themes[colorScheme].background,
+        selectedDayBackgroundColor: themes[colorScheme].purple,
+        selectedDayTextColor: themes[colorScheme].primary,
         arrowColor: themes[colorScheme].primary,
         monthTextColor: themes[colorScheme].foreground,
         dayTextColor: themes[colorScheme].foreground,
         textDisabledColor: themes[colorScheme].mutedForeground,
         textMonthFontWeight: '700',
         textDayHeaderFontSize: 10,
-        textMonthFontSize: 16,
+        textMonthFontSize: 14,
       }}
       onDayPress={(day) => {
         onPress(day.dateString)
       }}
+      markingType={'custom'}
       markedDates={{
         [selected]: {
           selected: true,
           disableTouchEvent: true,
+          customStyles: {
+            container: {
+              borderRadius: 0,
+            },
+          },
         },
       }}
     />

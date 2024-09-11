@@ -25,6 +25,7 @@ export const themes = {
     chart3: '#5f87a4',
     chart4: '#f4cf86',
     chart5: '#f2ab72',
+    purple: '#6b21a8',
   },
   dark: {
     background: '#000000',
@@ -51,5 +52,6 @@ export const themes = {
     chart3: '#7bbf8f',
     chart4: '#aa5fc9',
     chart5: '#d9477b',
+    purple: '#6b21a8',
   },
 }

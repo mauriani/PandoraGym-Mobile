@@ -1,4 +1,10 @@
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { ItrainingTemplate } from '@_dtos_/templateDTO'
 
 type IProps = {
@@ -14,13 +20,20 @@ export function CardWorkouts({ training, onNavigate }: IProps) {
         source={{
           uri: training.tumbnail,
         }}>
+        <View
+          style={{
+            ...StyleSheet.absoluteFillObject,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            borderRadius: 8,
+          }}
+        />
         <View className="h-44 justify-between p-4">
           <TouchableOpacity className="bg-black rounded-[6px] w-28 h-10 justify-center items-center">
-            <Text className="text-foreground font-primary_bold text-[14px]">
+            <Text className="text-foreground font-primary_bold text-sm">
               {training.level}
             </Text>
           </TouchableOpacity>
-          <Text className="text-foreground font-primary_bold text-[16px]">
+          <Text className="text-foreground font-primary_bold text-base">
             {training.title}
           </Text>
         </View>

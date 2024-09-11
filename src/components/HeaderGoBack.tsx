@@ -29,7 +29,7 @@ export function HeaderGoBack({ title }: IProps) {
         <ArrowLeft size={24} color={'#FDC500'} />
       </TouchableOpacity>
 
-      <Text className="text-white text-center primary_bold font-bold">
+      <Text className="text-white text-center font-primary_bold text-lg">
         {title}
       </Text>
 

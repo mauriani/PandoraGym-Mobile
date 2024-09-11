@@ -101,7 +101,7 @@ export function DetailsTemplate() {
           <ButtonWithIcon title={'Meu Perfil'} iconName="User" />
         </View>
 
-        <Text className="text-white font-primary_regular font-[12px] mb-3">
+        <Text className="text-white font-primary_regular text-sm mb-3">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the standard dummy text ever since the
           1500s, when an unknown printer took a galley of type and scrambled it
@@ -132,11 +132,11 @@ export function DetailsTemplate() {
                 alt=""
               />
 
-              <View className="flex-col justify-center gap-2 ml-3">
-                <Text className="text-white font-bold tex-[18]">
+              <View className="flex-col justify-center gap-1 ml-3">
+                <Text className="text-white font-bold text-base">
                   {item.title}
                 </Text>
-                <Text className="text-muted-foreground tex-[14]">
+                <Text className="text-muted-foreground text-sm">
                   {item.volume}
                 </Text>
 

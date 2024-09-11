@@ -17,17 +17,17 @@ export function MyTrainingHistoryCard({ item }: IProps) {
       />
 
       <View className="flex-col justify-center gap-[2] ml-3">
-        <Text className="text-white font-primary_bold tex-[18px]">
+        <Text className="text-white font-primary_bold text-base">
           {item.title}
         </Text>
-        <Text className="text-muted-foreground tex-[14]">{item.volume}</Text>
+        <Text className="text-muted-foreground text-sm">{item.volume}</Text>
       </View>
 
-      <Text className="text-primary tex-[16px] font-primary_regular">
+      <Text className="text-primary text-base font-primary_bold">
         {item.time}
       </Text>
 
-      <Text className="text-primary tex-[16px] font-primary_regular">
+      <Text className="text-primary text-base font-primary_bold">
         {item.load}
       </Text>
     </View>
