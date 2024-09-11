@@ -28,3 +28,5 @@
 [] - Start em treinos
 [] - Gráficos de treinos
 [] - tela de agendamentos
+
+npx nativecn-ui add Avatar -c "src"

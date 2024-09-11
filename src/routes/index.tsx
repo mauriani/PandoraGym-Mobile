@@ -9,7 +9,7 @@ import { PersonalTrainerProfile } from '@screens/PersonalTrainerProfile'
 import { Profile } from '@screens/Profile'
 import { SignIn } from '@screens/SignIn'
 import { SignUp } from '@screens/SignUp'
-import { TrainingDetails } from '@screens/TrainingDetails'
+import { StartTraining } from '@screens/StartTraining'
 
 import TabNavigator from './tab-navigator'
 
@@ -26,7 +26,7 @@ export type RootStackParamList = {
   }
   profile: undefined
   personalTrainerProfile: undefined
-  trainingDetails: {
+  startTraining: {
     id_exercise: string
     name: string
   }
@@ -82,8 +82,8 @@ export default function RootStack() {
         />
 
         <Stack.Screen
-          name="trainingDetails"
-          component={TrainingDetails}
+          name="startTraining"
+          component={StartTraining}
           options={{ headerShown: false }}
         />
 

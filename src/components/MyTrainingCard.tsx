@@ -25,9 +25,11 @@ export function MyTrainingCard({ item, onAccessTraining }: IProps) {
         alt=""
       />
 
-      <View className="flex-col justify-center gap-[2] ml-3">
-        <Text className="text-white font-bold tex-[18]">{item.title}</Text>
-        <Text className="text-muted-foreground tex-[14]">
+      <View className="flex-col justify-center gap-1 ml-3">
+        <Text className="text-white font-primary_bold text-base">
+          {item.title}
+        </Text>
+        <Text className="text-muted-foreground font-primary_regular text-sm">
           {item.description}
         </Text>
       </View>

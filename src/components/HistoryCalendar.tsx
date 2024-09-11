@@ -32,7 +32,7 @@ export function HistoryCalendar({ onPress, selected }: IProps) {
         textDisabledColor: themes[colorScheme].mutedForeground,
         textMonthFontWeight: '700',
         textDayHeaderFontSize: 10,
-        textMonthFontSize: 20,
+        textMonthFontSize: 16,
       }}
       onDayPress={(day) => {
         onPress(day.dateString)

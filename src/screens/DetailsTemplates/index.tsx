@@ -5,12 +5,12 @@ import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
 import { IconComponent } from '@components/IconComponent'
+import { SubTitle } from '@components/SubTitle'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useRoute } from '@react-navigation/native'
-import { SubTitle } from '@screens/TrainingDetails/__components__/SubTitle'
 import { extractVideoId } from '@utils/extractVideoId'
 
-import { ButtonWithIcon } from './__components__/ButtonWithIcon'
+import { ButtonWithIcon } from '../../components/ButtonWithIcon'
 
 type IRouteParams = {
   title: string

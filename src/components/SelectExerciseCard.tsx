@@ -25,7 +25,9 @@ export function SelectExerciseCard({
       />
 
       <View className="flex-col justify-center gap-[2] ml-3">
-        <Text className="text-white font-bold tex-[18]">{item.title}</Text>
+        <Text className="text-white font-primary_bold tex-[18]">
+          {item.title}
+        </Text>
       </View>
 
       <Checkbox

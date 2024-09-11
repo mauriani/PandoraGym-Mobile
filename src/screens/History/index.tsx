@@ -55,14 +55,14 @@ export function History() {
       <Content>
         <HistoryCalendar onPress={handleSelectedDay} selected={selected} />
 
-        <Text className="text-white font-primary_bold tex-[16] mt-8 mb-4">
-          {dayjs(selected).format('DD/MM/YYYY')}
-        </Text>
+        {/* <Text className="text-muted-foreground font-primary_bold tex-[16px] mt-8 mb-4">
+          Data: {dayjs(selected).format('DD/MM/YYYY')}
+        </Text> */}
 
-        <View className="flex-row items-center justify-between mb-1">
+        <View className="flex-row items-center justify-between mt-8 mb-1 mr-2">
           <Heading title="Treino de peito" />
 
-          <Text className="text-muted-foreground font-primary_regular tex-[16]">
+          <Text className="text-muted-foreground font-primary_regular tex-[16px]">
             08:56
           </Text>
         </View>

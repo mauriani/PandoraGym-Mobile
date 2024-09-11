@@ -23,9 +23,7 @@ export function Header({ title }: IProps) {
       <View className="flex-row  justify-between items-center">
         <View className="h-9 w-9" />
 
-        <Text className="text-white primary_bold font-bold text-md">
-          {title}
-        </Text>
+        <Text className="text-white font-primary_bold text-lg">{title}</Text>
 
         <TouchableOpacity
           onPress={() => navigate('profile')}

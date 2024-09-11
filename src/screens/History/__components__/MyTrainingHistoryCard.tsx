@@ -17,13 +17,19 @@ export function MyTrainingHistoryCard({ item }: IProps) {
       />
 
       <View className="flex-col justify-center gap-[2] ml-3">
-        <Text className="text-white font-bold tex-[18]">{item.title}</Text>
+        <Text className="text-white font-primary_bold tex-[18px]">
+          {item.title}
+        </Text>
         <Text className="text-muted-foreground tex-[14]">{item.volume}</Text>
       </View>
 
-      <Text className="text-primary tex-[16] font-bold">{item.time}</Text>
+      <Text className="text-primary tex-[16px] font-primary_regular">
+        {item.time}
+      </Text>
 
-      <Text className="text-primary tex-[16] font-bold">{item.load}</Text>
+      <Text className="text-primary tex-[16px] font-primary_regular">
+        {item.load}
+      </Text>
     </View>
   )
 }

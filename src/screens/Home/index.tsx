@@ -74,7 +74,7 @@ export function Home() {
   }
 
   function handleAccessTraining(id_exercise: string, name: string) {
-    navigate('trainingDetails', {
+    navigate('startTraining', {
       id_exercise,
       name,
     })
