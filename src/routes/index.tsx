@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
 import { DetailsTemplate } from '@screens/DetailsTemplates'
+import { EditProfile } from '@screens/EditProfile'
 import { PersonalTrainerProfile } from '@screens/PersonalTrainerProfile'
 import { Profile } from '@screens/Profile'
 import { SignIn } from '@screens/SignIn'
@@ -33,6 +34,7 @@ export type RootStackParamList = {
   detailsTemplate: {
     title: string
   }
+  editProfile: undefined
 }
 
 const Stack = createNativeStackNavigator()
@@ -90,6 +92,12 @@ export default function RootStack() {
         <Stack.Screen
           name="detailsTemplate"
           component={DetailsTemplate}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="editProfile"
+          component={EditProfile}
           options={{ headerShown: false }}
         />
 

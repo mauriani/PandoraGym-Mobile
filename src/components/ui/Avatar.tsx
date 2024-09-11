@@ -9,7 +9,7 @@ const Avatar = forwardRef<
   <View
     ref={ref}
     className={cn(
-      'relative flex h-16 w-16 shrink-0 overflow-hidden rounded-full',
+      'relative flex h-40 w-40 shrink-0 overflow-hidden rounded-full',
       className,
     )}
     {...props}

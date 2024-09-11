@@ -33,7 +33,7 @@ export function CardWorkouts({ training, onNavigate }: IProps) {
               {training.level}
             </Text>
           </TouchableOpacity>
-          <Text className="text-foreground font-primary_bold text-base">
+          <Text className="text-foreground font-primary_bold text-sm">
             {training.title}
           </Text>
         </View>

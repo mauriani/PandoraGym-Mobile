@@ -82,7 +82,7 @@ export function DetailsTemplate() {
     <Container>
       <HeaderGoBack title={title} />
       <Content>
-        <View className="flex-row items-center  py-5">
+        <View className="flex-row items-center py-5">
           <VideoPlayerWithThumbnail
             thumbnailUrl={
               'https://blogdohiellevy.com.br/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-13.22.20-768x1024.jpeg'
@@ -101,14 +101,16 @@ export function DetailsTemplate() {
           <ButtonWithIcon title={'Meu Perfil'} iconName="User" />
         </View>
 
-        <Text className="text-white font-primary_regular text-sm mb-3">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the standard dummy text ever since the
-          1500s, when an unknown printer took a galley of type and scrambled it
-          to make a type specimen book.
-        </Text>
+        <View className="gap-2">
+          <Text className="text-white font-primary_regular text-sm">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the standard dummy text ever since
+            the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book.
+          </Text>
 
-        <Heading title={'Exercícios'} />
+          <Heading title={'Exercícios'} />
+        </View>
 
         <FlatList
           data={data}
