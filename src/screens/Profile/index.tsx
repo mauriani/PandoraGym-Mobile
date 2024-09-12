@@ -35,7 +35,11 @@ export function Profile() {
             iconName="ChevronRight"
             onPress={() => navigate('editProfile')}
           />
-          <ButtonProfile title={'Notificações'} iconName="ChevronRight" />
+          <ButtonProfile
+            title={'Notificações'}
+            iconName="ChevronRight"
+            onPress={() => navigate('notifications')}
+          />
           <ButtonProfile title={'Me ajuda ?'} iconName="ChevronRight" />
 
           <ButtonProfile title={'Sair'} iconName="LogOut" size={22} />
