@@ -7,8 +7,10 @@ import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { IconComponent } from '@components/IconComponent'
+import { ModalWithContent } from '@components/ModalWithContent'
 import { SubTitle } from '@components/SubTitle'
 import { Button } from '@components/ui/Button'
+import { Input } from '@components/ui/Input'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useRoute } from '@react-navigation/native'
 
@@ -27,6 +29,7 @@ export function StartTraining() {
   const [selectedVideo, setSelectedVideo] = useState<StartExerciseDTO | null>(
     null,
   )
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const isSelected = (id) => selectedItems.includes(id)
 
   const [selectedItems, setSelectedItems] = useState([])
@@ -166,7 +169,11 @@ export function StartTraining() {
                 selectedVideo?.time != undefined && selectedVideo?.time
               }
             />
-            <ButtonWithIcon title={'Editar Carga'} iconName="Weight" />
+            <ButtonWithIcon
+              title={'Editar Carga'}
+              iconName="Weight"
+              onPress={() => setIsModalOpen(!isModalOpen)}
+            />
           </View>
         </View>
 
@@ -204,6 +211,19 @@ export function StartTraining() {
           </View>
         )}
       </Content>
+
+      <ModalWithContent
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(!isModalOpen)}
+        title="Adicionar Carga"
+        content={
+          <View className="gap-5 py-3">
+            <Input label="Carga kg" />
+
+            <Button label="Salvar" />
+          </View>
+        }
+      />
     </Container>
   )
 }

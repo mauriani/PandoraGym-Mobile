@@ -6,12 +6,21 @@ type IProps = {
   iconName: IconNames
   color?: string
   size?: number
+  onPress?: () => void
 }
 
-export function ButtonWithIcon({ title, iconName, color, size }: IProps) {
+export function ButtonWithIcon({
+  title,
+  iconName,
+  color,
+  size,
+  onPress,
+}: IProps) {
   return (
     <View className="flex items-center justify-center mt-3 mb-3 relative">
-      <TouchableOpacity className="flex-row items-center justify-center bg-neutral-700 rounded-[6px] px-5 py-2">
+      <TouchableOpacity
+        onPress={onPress}
+        className="flex-row items-center justify-center bg-neutral-700 rounded-[6px] px-5 py-2">
         <IconComponent
           iconName={iconName}
           style={{ position: 'absolute', left: 5 }}

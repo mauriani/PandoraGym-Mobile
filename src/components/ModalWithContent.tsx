@@ -4,14 +4,13 @@ import {
   Modal,
   Platform,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native'
 import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
 import { X } from 'lucide-react-native'
-
-import { Heading } from './Heading'
 
 type IProps = {
   isOpen: boolean
@@ -45,8 +44,12 @@ export function ModalWithContent({ isOpen, onClose, title, content }: IProps) {
               />
             </TouchableOpacity>
 
-            <View className="gap-1 mb-1">
-              {title && <Heading title={title} />}
+            <View className="gap-1 mb-1 pl-3">
+              {title && (
+                <Text className="text-foreground font-primary_regular text-base">
+                  {title}
+                </Text>
+              )}
             </View>
 
             {content}

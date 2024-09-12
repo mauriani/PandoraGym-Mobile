@@ -36,7 +36,7 @@ export function MyTrainingCard({ item, onAccessTraining }: IProps) {
 
       <ChevronRight
         size={30}
-        color={themes[colorScheme].primary}
+        color={themes[colorScheme].mutedForeground}
         style={{ position: 'absolute', right: 16 }}
       />
     </TouchableOpacity>
