@@ -40,7 +40,11 @@ export function Profile() {
             iconName="ChevronRight"
             onPress={() => navigate('notifications')}
           />
-          <ButtonProfile title={'Me ajuda ?'} iconName="ChevronRight" />
+          <ButtonProfile
+            title={'Me ajuda ?'}
+            iconName="ChevronRight"
+            onPress={() => navigate('helpMe')}
+          />
 
           <ButtonProfile title={'Sair'} iconName="LogOut" size={22} />
         </ScrollView>

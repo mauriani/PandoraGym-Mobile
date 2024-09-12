@@ -10,7 +10,7 @@ export function Notifications() {
   const data = [
     {
       id: '1',
-      title: 'Super promoção',
+      title: 'Super promoção !!',
       message: `Estamos com um super desconto em
 whey, juntos com a growth. CUPOM: PANDORAPBZ`,
     },

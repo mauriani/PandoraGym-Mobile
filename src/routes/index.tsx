@@ -6,6 +6,7 @@ import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingF
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
 import { DetailsTemplate } from '@screens/DetailsTemplates'
 import { EditProfile } from '@screens/EditProfile'
+import { HelpMe } from '@screens/HelpMe'
 import { Notifications } from '@screens/Notifications'
 import { PersonalTrainerProfile } from '@screens/PersonalTrainerProfile'
 import { Profile } from '@screens/Profile'
@@ -37,6 +38,7 @@ export type RootStackParamList = {
   }
   editProfile: undefined
   notifications: undefined
+  helpMe: undefined
 }
 
 const Stack = createNativeStackNavigator()
@@ -106,6 +108,12 @@ export default function RootStack() {
         <Stack.Screen
           name="notifications"
           component={Notifications}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="helpMe"
+          component={HelpMe}
           options={{ headerShown: false }}
         />
 

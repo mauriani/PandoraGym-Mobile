@@ -1,5 +1,7 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
+import SystemNavigationBar from 'react-native-system-navigation-bar'
+import { themes } from '@theme/themes'
 import { cn } from '@utils/cn'
 
 interface ThemeContextProps {
@@ -21,6 +23,10 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   function toggleMode() {
     setColorScheme((state) => (state === 'light' ? 'dark' : 'light'))
   }
+
+  useEffect(() => {
+    SystemNavigationBar.setNavigationColor(themes[colorScheme].popover, 'light')
+  }, [colorScheme])
 
   return (
     <ThemeContext.Provider value={{ colorScheme, toggleMode }}>

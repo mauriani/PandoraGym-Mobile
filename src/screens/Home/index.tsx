@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import {
   FlatList,
   Keyboard,
-  StyleSheet,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
@@ -12,11 +10,10 @@ import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
+import { InputWithIcon } from '@components/InputWithIcon'
 import { MyTrainingCard } from '@components/MyTrainingCard'
-import { Input } from '@components/ui/Input'
 import { useNavigation } from '@react-navigation/native'
 import { toast } from '@utils/toast-methods'
-import { Plus } from 'lucide-react-native'
 import { z } from 'zod'
 
 export const formValidationSchema = z.object({
@@ -30,6 +27,7 @@ export type zodSchema = z.infer<typeof formValidationSchema>
 export function Home() {
   const { navigate } = useNavigation()
   const [title, setTitle] = useState('')
+
   const data: ITraining[] = [
     {
       id: '1',
@@ -88,20 +86,13 @@ export function Home() {
           <Content>
             <Heading title="Criar Treino" />
 
-            <View style={styles.containerCreateTraining}>
-              <Input
-                label="Nome do treino/exercício"
-                className="w-[85%]"
-                onChangeText={(text) => setTitle(text)}
-              />
-
-              <TouchableOpacity
-                activeOpacity={title.length > 0 ? 0.2 : 0.2}
-                className="rounded-[6px] bg-purple-800 w-14 justify-center items-center ml-2 z-10"
-                onPress={handleNavigate}>
-                <Plus color={'#FDC500'} size={20} />
-              </TouchableOpacity>
-            </View>
+            <InputWithIcon
+              label="Nome do treino/exercício"
+              iconName="Plus"
+              size={20}
+              onChangeText={(text) => setTitle(text)}
+              onNavigate={handleNavigate}
+            />
 
             <Heading title="Meus Treinos" />
 
@@ -130,11 +121,3 @@ export function Home() {
     </Container>
   )
 }
-
-const styles = StyleSheet.create({
-  containerCreateTraining: {
-    flexDirection: 'row',
-    width: '100%',
-    marginBottom: 24,
-  },
-})

@@ -24,11 +24,11 @@ export function CardNotification({ item }: IProps) {
           <Star size={28} color={themes[colorScheme].foreground} />
         </View>
         <View className="flex-1 gap-1">
-          <Text className="text-foreground font-primary_bold text-xl">
+          <Text className="text-foreground font-primary_bold text-base">
             {item.title}
           </Text>
           <Text
-            className="text-muted-foreground font-primary_regular text-base"
+            className="text-muted-foreground font-primary_regular text-sm"
             numberOfLines={3}>
             {item.message}
           </Text>

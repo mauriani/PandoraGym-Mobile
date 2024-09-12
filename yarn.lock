@@ -3495,6 +3495,7 @@ __metadata:
     react-native-splash-screen: ^3.3.0
     react-native-svg: ^15.6.0
     react-native-svg-transformer: ^1.5.0
+    react-native-system-navigation-bar: ^2.6.4
     react-native-toast-message: ^2.2.0
     react-native-vector-icons: ^9.2.0
     react-native-webview: ^13.12.1
@@ -9888,6 +9889,16 @@ __metadata:
   version: 1.0.5
   resolution: "react-native-swipe-gestures@npm:1.0.5"
   checksum: d637bc40baa50fa0ce3b6cf2b494efeceaea03cc3875cb7cf7d76922914a21d5e6b098d4a084fb291ce61bfbb0a241c03cff24b15bebf0cfae1c146f4ad10d92
+  languageName: node
+  linkType: hard
+
+"react-native-system-navigation-bar@npm:^2.6.4":
+  version: 2.6.4
+  resolution: "react-native-system-navigation-bar@npm:2.6.4"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: b0fe20a00c5640ec98efb80c4441c0b38ea9fd7c87289be588bd27ff2553f4e5e2d3c9df9e4c752c7f6bcc135c7a848eea37c94e97259dd3f4e47de8e84d0de5
   languageName: node
   linkType: hard
 
