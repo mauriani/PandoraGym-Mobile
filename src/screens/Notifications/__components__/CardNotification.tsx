@@ -18,7 +18,7 @@ export function CardNotification({ item }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
 
   return (
-    <TouchableOpacity className="max-h-28 flex-row bg-secondary rounded-[8px] items-center px-3 py-4 relative">
+    <TouchableOpacity className="max-h-32 flex-row bg-secondary rounded-[8px] items-center px-3 py-4 relative">
       <View className="flex-row gap-3 items-center">
         <View className="h-16 w-16 bg-purple-800 rounded-full items-center justify-center">
           <Star size={28} color={themes[colorScheme].foreground} />
