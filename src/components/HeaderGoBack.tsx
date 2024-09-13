@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Platform,
   StyleSheet,
@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 import { useNavigation } from '@react-navigation/native'
+import { ThemeContext } from '@theme/theme-provider'
+import { themes } from '@theme/themes'
 import { ArrowLeft } from 'lucide-react-native'
 
 type IProps = {
@@ -16,6 +18,7 @@ type IProps = {
 
 export function HeaderGoBack({ title }: IProps) {
   const { goBack } = useNavigation()
+  const { colorScheme } = useContext(ThemeContext)
 
   return (
     <View
@@ -26,7 +29,7 @@ export function HeaderGoBack({ title }: IProps) {
       <TouchableOpacity
         className="w-14 h-14 justify-center items-cente"
         onPress={() => goBack()}>
-        <ArrowLeft size={24} color={'#FDC500'} />
+        <ArrowLeft size={24} color={themes[colorScheme].primary} />
       </TouchableOpacity>
 
       <Text className="text-white text-center font-primary_bold text-lg">

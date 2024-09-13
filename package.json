@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
+    "@react-native-community/slider": "^4.5.3",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native-stack": "^6.9.26",

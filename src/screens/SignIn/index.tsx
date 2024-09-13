@@ -33,6 +33,10 @@ export function SignIn() {
 
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      email: 'maurianim@gmail.com',
+      password: '123456',
+    },
   })
 
   const {
@@ -43,7 +47,7 @@ export function SignIn() {
 
   async function submit(data: zodSchema) {
     console.log('data', data)
-    // navigate('tabNavigator')
+    navigate('tabNavigator')
   }
 
   useEffect(() => {
