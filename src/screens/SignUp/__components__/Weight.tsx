@@ -22,7 +22,7 @@ export function Weight() {
   }
 
   return (
-    <View>
+    <View className="px-5">
       <ScrollView
         ref={scrollViewRef}
         horizontal
