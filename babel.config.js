@@ -14,6 +14,7 @@ module.exports = {
           '@storage': './src/storage',
           '@theme': './src/theme',
           '@utils': './src/utils',
+          '@services': './src/services',
           '@_dtos_': './src/_dtos_',
         },
       },

@@ -5,14 +5,13 @@ import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { InputFormControl } from '@components/ui/InputFormControl'
-import { FormSelect } from '@components/ui/Select'
 import { zodResolver } from '@hookform/resolvers/zod'
 import zod from 'zod'
 
 import { Bullet } from './__components__/Bullet'
 
-const pesoArray = Array.from({ length: 141 }, (_, i) => i + 40) // De 40kg a 180kg
-const alturaArray = Array.from({ length: 121 }, (_, i) => i + 100) // De 100cm a 220cm
+// const pesoArray = Array.from({ length: 141 }, (_, i) => i + 40) // De 40kg a 180kg
+// const alturaArray = Array.from({ length: 121 }, (_, i) => i + 100) // De 100cm a 220cm
 
 const schema = zod.object({
   nome: zod.string().min(1, { message: 'O campo de nome é obrigatório' }),
@@ -55,7 +54,7 @@ export function SignUp() {
             error={errors.email}
           />
 
-          <FormSelect />
+          {/* <FormSelect /> */}
 
           <InputFormControl
             control={control}

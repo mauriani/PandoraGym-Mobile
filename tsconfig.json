@@ -39,6 +39,9 @@
       "@_dtos_/*": [
         "./src/_dtos_/*"
       ],
+      "@services/*": [
+        "./src/services/*"
+      ],
     }
   },
   "exclude": [
