@@ -6,6 +6,8 @@ import { ThemeProvider } from '@theme/theme-provider'
 
 import 'react-native-gesture-handler'
 
+import { AppProvider } from './src/hooks'
+
 import '@theme/global.css'
 
 export default function App() {
@@ -17,7 +19,10 @@ export default function App() {
         translucent
       />
       <ThemeProvider>
-        <RootStack />
+        <AppProvider>
+          <RootStack />
+        </AppProvider>
+
         <Toast visibilityTime={5000} position="bottom" />
       </ThemeProvider>
     </>

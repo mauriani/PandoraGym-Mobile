@@ -18,6 +18,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigation } from '@react-navigation/native'
 import zod from 'zod'
 
+import { useAuth } from '../../hooks/auth'
+
 const schema = zod.object({
   email: zod
     .string()
@@ -30,6 +32,7 @@ export type zodSchema = zod.infer<typeof schema>
 
 export function SignIn() {
   const { navigate } = useNavigation()
+  const { signIn } = useAuth()
 
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
@@ -47,7 +50,11 @@ export function SignIn() {
 
   async function submit(data: zodSchema) {
     console.log('data', data)
-    navigate('tabNavigator')
+    const { email, password } = data
+
+    signIn({ email, password })
+
+    // navigate('tabNavigator')
   }
 
   useEffect(() => {

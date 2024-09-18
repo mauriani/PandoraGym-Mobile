@@ -1,19 +1,17 @@
 import { MMKV } from 'react-native-mmkv'
+import { IUser } from '@_dtos_/userDTO'
 
 export const storage = new MMKV()
 
-export const KEY_USER_ADMIN = '@pincel:adm:usuario'
+export const USER_STORAGE_KEY = '@pandora:user'
 
-type IUser = {
-  name: string
+export function saveUserInStorage(user: IUser) {
+  storage.set(USER_STORAGE_KEY, JSON.stringify(user))
 }
 
-function setUserAdmin(user: IUser) {
-  storage.set(KEY_USER_ADMIN, JSON.stringify(user))
-}
+export function getUserFromStorage() {
+  const jsonUser = storage.getString(USER_STORAGE_KEY)
+  const userObject = jsonUser ? JSON.parse(jsonUser) : null
 
-function getUserAdmin(user: IUser) {
-  const jsonUser = storage.getString(KEY_USER_ADMIN)
-  const userObject = JSON.parse(jsonUser)
-  return userObject
+  return userObject as IUser
 }
