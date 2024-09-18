@@ -5,7 +5,7 @@ import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar'
 import { useAuth } from '@hooks/auth'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 import { ButtonProfile } from './__components__/ButtonProfile'
 
@@ -36,9 +36,6 @@ export function Profile() {
 
   async function submitLogout() {
     await signOut()
-    navigation.dispatch(
-      StackActions.replace('login'), // Ajuste o nome para a rota correta
-    )
   }
 
   return (

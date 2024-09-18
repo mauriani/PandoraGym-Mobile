@@ -8,11 +8,9 @@ import RootStack from './stack.routes'
 export function Routes() {
   const { user } = useAuth()
 
-  console.log('routes-user', user)
-
   return (
     <NavigationContainer>
-      {user ? <RootStack /> : <AuthRoutes />}
+      {user?.token ? <RootStack /> : <AuthRoutes />}
     </NavigationContainer>
   )
 }
