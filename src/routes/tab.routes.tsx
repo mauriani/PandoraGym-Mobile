@@ -17,7 +17,7 @@ import {
 
 import { Home } from '../screens/Home'
 
-type AppRoutes = {
+type RootStackParamList = {
   home: undefined
   history: undefined
   personalTrainerList: undefined
@@ -25,13 +25,14 @@ type AppRoutes = {
   evolution: undefined
 }
 
-export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>
+export type AppNavigatorRoutesProps =
+  BottomTabNavigationProp<RootStackParamList>
 
-const Tab = createBottomTabNavigator<AppRoutes>()
+const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>()
 
 export default function TabNavigator() {
   return (
-    <Tab.Navigator
+    <Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
@@ -45,14 +46,14 @@ export default function TabNavigator() {
         },
       }}
       initialRouteName="home">
-      <Tab.Screen
+      <Screen
         name="home"
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => <House color={color} size={size} />,
         }}
       />
-      <Tab.Screen
+      <Screen
         name="history"
         component={History}
         options={{
@@ -60,7 +61,7 @@ export default function TabNavigator() {
         }}
       />
 
-      <Tab.Screen
+      <Screen
         name="readyGymWorkouts"
         component={ReadyGymWorkouts}
         options={{
@@ -70,7 +71,7 @@ export default function TabNavigator() {
         }}
       />
 
-      <Tab.Screen
+      <Screen
         name="personalTrainerList"
         component={PersonalTrainerList}
         options={{
@@ -80,7 +81,7 @@ export default function TabNavigator() {
         }}
       />
 
-      <Tab.Screen
+      <Screen
         name="evolution"
         component={Evolution}
         options={{
@@ -89,6 +90,6 @@ export default function TabNavigator() {
           ),
         }}
       />
-    </Tab.Navigator>
+    </Navigator>
   )
 }

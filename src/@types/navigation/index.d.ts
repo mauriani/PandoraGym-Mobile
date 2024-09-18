@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-import { RootStackParamList } from '@routes/index'
+import { RootStackParamList } from '../../routes/app.stack.routes'
 
 declare global {
   namespace ReactNavigation {

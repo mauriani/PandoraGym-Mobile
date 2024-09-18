@@ -33,8 +33,6 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<AuthState>({} as AuthState)
 
   async function signIn({ email, password }: SignInCredentials) {
-    console.log(email, password)
-
     const response = await api.post('/session', {
       email,
       password,
@@ -50,6 +48,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     saveUserInStorage(user)
   }
+
+  console.log('data.user', data.user)
 
   return (
     <AuthContext.Provider

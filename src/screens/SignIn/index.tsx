@@ -17,6 +17,8 @@ import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '@routes/auth.routes'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 import zod from 'zod'
@@ -31,9 +33,11 @@ const schema = zod.object({
 
 export type zodSchema = zod.infer<typeof schema>
 
+type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'signUp'>
+
 export function SignIn() {
-  const { navigate } = useNavigation()
-  const { signIn } = useAuth()
+  const { navigate } = useNavigation<NavigationProps>()
+  const { signIn, user } = useAuth()
 
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
@@ -53,8 +57,6 @@ export function SignIn() {
     const { email, password } = data
     try {
       await signIn({ email, password })
-
-      navigate('tabNavigator')
     } catch (error) {
       const isAppError = error instanceof AppError
 
@@ -68,7 +70,7 @@ export function SignIn() {
 
   useEffect(() => {
     SplashScreen.hide()
-  }, [])
+  }, [user])
 
   return (
     <Container>

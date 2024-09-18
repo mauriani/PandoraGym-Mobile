@@ -1,0 +1,125 @@
+import React from 'react'
+import { IExercise } from '@_dtos_/SelectExerciseDTO'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
+import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
+import { DetailsTemplate } from '@screens/DetailsTemplates'
+import { EditProfile } from '@screens/EditProfile'
+import { HelpMe } from '@screens/HelpMe'
+import { Notifications } from '@screens/Notifications'
+import { PersonalTrainerProfile } from '@screens/PersonalTrainerProfile'
+import { Profile } from '@screens/Profile'
+import { StartTraining } from '@screens/StartTraining'
+
+import TabNavigator from './tab.routes'
+
+export type RootStackParamList = {
+  login: undefined
+  tabNavigator: undefined
+  signUp: undefined
+  createTrainingFirstStep: {
+    title: string | null
+  }
+  createTrainingSecondStep: {
+    title: string | null
+    selectedItems: IExercise[] | null
+  }
+  profile: undefined
+  personalTrainerProfile: undefined
+  startTraining: {
+    id_exercise: string
+    name: string
+  }
+  detailsTemplate: {
+    title: string
+  }
+  editProfile: undefined
+  notifications: undefined
+  helpMe: undefined
+}
+
+const { Navigator, Screen } = createNativeStackNavigator()
+
+export default function RootStack() {
+  return (
+    <>
+      <Navigator
+        initialRouteName="tabNavigator"
+        screenOptions={{
+          headerTransparent: false,
+        }}>
+        {/* <Stack
+          name="login"
+          component={SignIn}
+          options={{ headerShown: false }}
+        />
+
+        <Stack
+          name="signUp"
+          component={SignUp}
+          options={{ headerShown: false }}
+        /> */}
+
+        <Screen
+          name="createTrainingFirstStep"
+          component={CreateTrainingFirstStep}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="createTrainingSecondStep"
+          component={CreateTrainingSecondStep}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="profile"
+          component={Profile}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="personalTrainerProfile"
+          component={PersonalTrainerProfile}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="startTraining"
+          component={StartTraining}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="detailsTemplate"
+          component={DetailsTemplate}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="editProfile"
+          component={EditProfile}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="notifications"
+          component={Notifications}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="helpMe"
+          component={HelpMe}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="tabNavigator"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+      </Navigator>
+    </>
+  )
+}
