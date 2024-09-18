@@ -1,11 +1,21 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { IUser } from '@_dtos_/userDTO'
-import { saveUserInStorage } from '@storage/index'
+import {
+  getUserFromStorage,
+  removeUserFromStorage,
+  saveUserInStorage,
+} from '@storage/index'
 
 import { api } from '../services/api'
 
 // aquilo que vou armazenar no meu estado
-interface AuthState {
+export interface AuthState {
   token: string
   user: IUser
 }
@@ -17,8 +27,9 @@ interface SignInCredentials {
 
 // aquilo que vou querer compartilhar
 interface AuthContextData {
-  user: IUser
+  user: AuthState
   signIn: (credentials: SignInCredentials) => Promise<void>
+  signOut: () => Promise<void>
 }
 
 interface AuthProviderProps {
@@ -44,18 +55,43 @@ function AuthProvider({ children }: AuthProviderProps) {
       api.defaults.headers.common['x-auth-token'] = token
     }
 
-    setData({ token, user })
+    const newItem = { ...user, token }
 
-    saveUserInStorage(user)
+    setData({ ...user, token })
+
+    saveUserInStorage(newItem)
   }
 
-  console.log('data.user', data.user)
+  async function signOut() {
+    removeUserFromStorage()
+    setData({} as AuthState)
+    if (api.defaults?.headers && api.defaults.headers.common) {
+      delete api.defaults.headers.common['x-auth-token']
+    }
+  }
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const user = getUserFromStorage()
+
+        if (user) {
+          setData(user)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    loadData()
+  }, [])
 
   return (
     <AuthContext.Provider
       value={{
-        user: data.user,
+        user: data,
         signIn,
+        signOut,
       }}>
       {children}
     </AuthContext.Provider>

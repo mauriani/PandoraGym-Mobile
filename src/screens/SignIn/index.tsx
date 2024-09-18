@@ -18,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '@routes/auth.routes'
+import { RootSAuthParamList } from '@routes/auth.routes'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 import zod from 'zod'
@@ -33,7 +33,7 @@ const schema = zod.object({
 
 export type zodSchema = zod.infer<typeof schema>
 
-type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'signUp'>
+type NavigationProps = NativeStackNavigationProp<RootSAuthParamList, 'signUp'>
 
 export function SignIn() {
   const { navigate } = useNavigation<NavigationProps>()

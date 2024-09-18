@@ -1,15 +1,46 @@
 import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { Alert, ScrollView, Text, View } from 'react-native'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar'
-import { useNavigation } from '@react-navigation/native'
+import { useAuth } from '@hooks/auth'
+import { StackActions, useNavigation } from '@react-navigation/native'
 
 import { ButtonProfile } from './__components__/ButtonProfile'
 
 export function Profile() {
+  const { signOut } = useAuth()
   const { navigate } = useNavigation()
+
+  const navigation = useNavigation()
+
+  function handleLogout() {
+    Alert.alert(
+      'Sair',
+      'Você realmente deseja sair do Fall Alert ?',
+      [
+        {
+          text: 'Sair',
+          onPress: () => submitLogout(),
+        },
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    )
+  }
+
+  async function submitLogout() {
+    await signOut()
+    navigation.dispatch(
+      StackActions.replace('login'), // Ajuste o nome para a rota correta
+    )
+  }
+
   return (
     <Container>
       <HeaderGoBack title={'Perfil'} />
@@ -46,7 +77,12 @@ export function Profile() {
             onPress={() => navigate('helpMe')}
           />
 
-          <ButtonProfile title={'Sair'} iconName="LogOut" size={22} />
+          <ButtonProfile
+            title={'Sair'}
+            iconName="LogOut"
+            size={22}
+            onPress={handleLogout}
+          />
         </ScrollView>
       </Content>
     </Container>

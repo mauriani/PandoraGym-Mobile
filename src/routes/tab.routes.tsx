@@ -17,7 +17,7 @@ import {
 
 import { Home } from '../screens/Home'
 
-type RootStackParamList = {
+type AppRoutes = {
   home: undefined
   history: undefined
   personalTrainerList: undefined
@@ -25,10 +25,9 @@ type RootStackParamList = {
   evolution: undefined
 }
 
-export type AppNavigatorRoutesProps =
-  BottomTabNavigationProp<RootStackParamList>
+export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>
 
-const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>()
+const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>()
 
 export default function TabNavigator() {
   return (

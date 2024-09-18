@@ -13,6 +13,8 @@ import { Heading } from '@components/Heading'
 import { InputWithIcon } from '@components/InputWithIcon'
 import { MyTrainingCard } from '@components/MyTrainingCard'
 import { useNavigation } from '@react-navigation/native'
+import { api } from '@services/api'
+import { useQuery } from '@tanstack/react-query'
 import { toast } from '@utils/toast-methods'
 import { z } from 'zod'
 
@@ -77,6 +79,17 @@ export function Home() {
       name,
     })
   }
+
+  const { data: workouts } = useQuery({
+    queryKey: ['get-training-for-user'],
+    queryFn: async () => {
+      const { data } = await api.post('workouts')
+
+      return data
+    },
+  })
+
+  console.log('data', workouts)
 
   return (
     <Container>

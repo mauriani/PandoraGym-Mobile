@@ -14,9 +14,7 @@ import { StartTraining } from '@screens/StartTraining'
 import TabNavigator from './tab.routes'
 
 export type RootStackParamList = {
-  login: undefined
   tabNavigator: undefined
-  signUp: undefined
   createTrainingFirstStep: {
     title: string | null
   }
@@ -38,7 +36,7 @@ export type RootStackParamList = {
   helpMe: undefined
 }
 
-const { Navigator, Screen } = createNativeStackNavigator()
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>()
 
 export default function RootStack() {
   return (
@@ -48,18 +46,6 @@ export default function RootStack() {
         screenOptions={{
           headerTransparent: false,
         }}>
-        {/* <Stack
-          name="login"
-          component={SignIn}
-          options={{ headerShown: false }}
-        />
-
-        <Stack
-          name="signUp"
-          component={SignUp}
-          options={{ headerShown: false }}
-        /> */}
-
         <Screen
           name="createTrainingFirstStep"
           component={CreateTrainingFirstStep}
