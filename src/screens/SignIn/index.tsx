@@ -15,10 +15,11 @@ import { Container } from '@components/Container'
 import { Button } from '@components/ui/Button'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
+import { AppError } from '@utils/AppError'
+import { toast } from '@utils/toast-methods'
 import zod from 'zod'
-
-import { useAuth } from '../../hooks/auth'
 
 const schema = zod.object({
   email: zod
@@ -37,7 +38,7 @@ export function SignIn() {
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: 'maurianim@gmail.com',
+      email: 'michael@smith.com',
       password: '123456',
     },
   })
@@ -49,12 +50,20 @@ export function SignIn() {
   } = methods
 
   async function submit(data: zodSchema) {
-    console.log('data', data)
     const { email, password } = data
+    try {
+      await signIn({ email, password })
 
-    signIn({ email, password })
+      navigate('tabNavigator')
+    } catch (error) {
+      const isAppError = error instanceof AppError
 
-    // navigate('tabNavigator')
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao realizar login. Tente novamente mais tarde'
+
+      toast.error(title)
+    }
   }
 
   useEffect(() => {

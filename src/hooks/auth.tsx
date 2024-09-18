@@ -33,6 +33,8 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<AuthState>({} as AuthState)
 
   async function signIn({ email, password }: SignInCredentials) {
+    console.log(email, password)
+
     const response = await api.post('/session', {
       email,
       password,
@@ -43,8 +45,6 @@ function AuthProvider({ children }: AuthProviderProps) {
     if (api.defaults?.headers && api.defaults.headers.common) {
       api.defaults.headers.common['x-auth-token'] = token
     }
-
-    console.log(user)
 
     setData({ token, user })
 
