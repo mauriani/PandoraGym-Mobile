@@ -4,5 +4,4 @@ export interface IUser {
   email: string
   avatarUrl: string
   phone: string
-  token: string
 }

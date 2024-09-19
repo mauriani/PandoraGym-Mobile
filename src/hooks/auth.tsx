@@ -7,8 +7,10 @@ import React, {
 } from 'react'
 import { IUser } from '@_dtos_/userDTO'
 import {
+  getTokenFromStorage,
   getUserFromStorage,
   removeUserFromStorage,
+  saveTokenInStorage,
   saveUserInStorage,
 } from '@storage/index'
 
@@ -43,6 +45,17 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   const [data, setData] = useState<AuthState>({} as AuthState)
 
+  function loadInteceptor(token: string) {
+    const authInterceptor = (config) => {
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+      return config
+    }
+
+    api.interceptors.request.use(authInterceptor)
+  }
+
   async function signIn({ email, password }: SignInCredentials) {
     const response = await api.post('/session', {
       email,
@@ -51,22 +64,20 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     const { token, user } = response.data
 
-    if (api.defaults?.headers && api.defaults.headers.common) {
-      api.defaults.headers.common['x-auth-token'] = token
-    }
-
-    const newItem = { ...user, token }
+    loadInteceptor(token)
 
     setData({ ...user, token })
 
-    saveUserInStorage(newItem)
+    saveUserInStorage(user)
+    saveTokenInStorage(token)
   }
 
   async function signOut() {
     removeUserFromStorage()
     setData({} as AuthState)
     if (api.defaults?.headers && api.defaults.headers.common) {
-      delete api.defaults.headers.common['x-auth-token']
+      // eslint-disable-next-line prettier/prettier, dot-notation
+      delete  api.defaults.headers.common['Authorization']
     }
   }
 
@@ -74,9 +85,17 @@ function AuthProvider({ children }: AuthProviderProps) {
     async function loadData() {
       try {
         const user = getUserFromStorage()
+        const token = getTokenFromStorage()
+
+        const item = { user, token }
 
         if (user) {
-          setData(user)
+          setData(item)
+        }
+
+        if (token) {
+          // eslint-disable-next-line dot-notation
+          api.defaults.headers.common['Authorization'] = `Bearer ${token}`
         }
       } catch (e) {
         console.log(e)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   FlatList,
   Keyboard,
@@ -12,9 +12,11 @@ import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { InputWithIcon } from '@components/InputWithIcon'
 import { MyTrainingCard } from '@components/MyTrainingCard'
+import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
+import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 import { z } from 'zod'
 
@@ -29,37 +31,7 @@ export type zodSchema = z.infer<typeof formValidationSchema>
 export function Home() {
   const { navigate } = useNavigation()
   const [title, setTitle] = useState('')
-
-  const data: ITraining[] = [
-    {
-      id: '1',
-      title: 'Treino de Pernas',
-      description: `Seg, Sex`,
-      image:
-        'https://plus.unsplash.com/premium_photo-1663013143273-c7f032f07d89?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-    {
-      id: '2',
-      title: 'Treino de Gluteo',
-      description: `Ter`,
-      image:
-        'https://blog.ciaathletica.com.br/wp-content/uploads/2024/03/Cia-Athletica-avanco-Autores-Grupo-S2-Marketing-Freepik-1024x684.jpg',
-    },
-    {
-      id: '3',
-      title: 'Treino de Costas',
-      description: `Qua`,
-      image:
-        'https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-    {
-      id: '4',
-      title: 'Treino de Abdomen',
-      description: `Qui`,
-      image:
-        'https://images.unsplash.com/photo-1669323149885-6bda5714e85b?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-  ]
+  const { user } = useAuth()
 
   function handleNavigate() {
     if (title?.length == 0) {
@@ -80,16 +52,25 @@ export function Home() {
     })
   }
 
-  const { data: workouts } = useQuery({
-    queryKey: ['get-training-for-user'],
+  const { data, error } = useQuery<ITraining[]>({
+    queryKey: ['get-training-for-user', user.user?.id],
     queryFn: async () => {
-      const { data } = await api.post('workouts')
+      const { data } = await api.get('/workouts')
 
-      return data
+      return data?.workouts
     },
   })
 
-  console.log('data', workouts)
+  useEffect(() => {
+    if (error) {
+      const isAppError = error instanceof AppError
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao buscar os treinos. Tente novamente mais tarde'
+
+      toast.error(title)
+    }
+  }, [])
 
   return (
     <Container>

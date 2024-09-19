@@ -1,6 +1,6 @@
 export type ITraining = {
   id: string
-  title: string
-  image: string
+  name: string
+  thumbnail: string
   description: string
 }

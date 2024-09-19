@@ -13,8 +13,6 @@ export function Profile() {
   const { signOut } = useAuth()
   const { navigate } = useNavigation()
 
-  const navigation = useNavigation()
-
   function handleLogout() {
     Alert.alert(
       'Sair',
