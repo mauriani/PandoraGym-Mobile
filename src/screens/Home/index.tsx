@@ -11,6 +11,7 @@ import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { InputWithIcon } from '@components/InputWithIcon'
+import { Loading } from '@components/Loading'
 import { MyTrainingCard } from '@components/MyTrainingCard'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
@@ -51,7 +52,7 @@ export function Home() {
     })
   }
 
-  const { data, error } = useQuery<ITraining[]>({
+  const { data, error, isLoading } = useQuery<ITraining[]>({
     queryKey: ['get-training-for-user'],
     queryFn: async () => {
       const { data } = await api.get('/workouts')
@@ -72,47 +73,55 @@ export function Home() {
   }, [error])
 
   return (
-    <Container>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={{ flex: 1 }}>
-          <Header title={'Meus Treinos'} />
-          <Content>
-            <Heading title="Criar Treino" />
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <TouchableWithoutFeedback
+            onPress={Keyboard.dismiss}
+            accessible={false}>
+            <View style={{ flex: 1 }}>
+              <Header title={'Meus Treinos'} />
+              <Content>
+                <Heading title="Criar Treino" />
 
-            <InputWithIcon
-              label="Nome do treino/exercício"
-              iconName="Plus"
-              size={20}
-              onChangeText={(text) => setTitle(text)}
-              onNavigate={handleNavigate}
-            />
-
-            <Heading title="Meus Treinos" />
-
-            <FlatList
-              data={data}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={
-                data?.length == 0
-                  ? {
-                      flexGrow: 1,
-                      padding: 10,
-                    }
-                  : { paddingBottom: 80, gap: 10 }
-              }
-              renderItem={({ item }) => (
-                <MyTrainingCard
-                  item={item}
-                  onAccessTraining={() =>
-                    handleAccessTraining(item.id, item.name)
-                  }
+                <InputWithIcon
+                  label="Nome do treino/exercício"
+                  iconName="Plus"
+                  size={20}
+                  onChangeText={(text) => setTitle(text)}
+                  onNavigate={handleNavigate}
                 />
-              )}
-            />
-          </Content>
-        </View>
-      </TouchableWithoutFeedback>
-    </Container>
+
+                <Heading title="Meus Treinos" />
+
+                <FlatList
+                  data={data}
+                  keyExtractor={(item) => item.id}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={
+                    data?.length == 0
+                      ? {
+                          flexGrow: 1,
+                          padding: 10,
+                        }
+                      : { paddingBottom: 80, gap: 10 }
+                  }
+                  renderItem={({ item }) => (
+                    <MyTrainingCard
+                      item={item}
+                      onAccessTraining={() =>
+                        handleAccessTraining(item.id, item.name)
+                      }
+                    />
+                  )}
+                />
+              </Content>
+            </View>
+          </TouchableWithoutFeedback>
+        </Container>
+      )}
+    </>
   )
 }

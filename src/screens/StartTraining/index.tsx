@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
@@ -26,12 +26,15 @@ type IRouteParams = {
 }
 
 export function StartTraining() {
+  const intervalRef = useRef(null)
   const route = useRoute()
   const [playing, setPlaying] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState<StartExerciseDTO | null>(
     null,
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [seconds, setSeconds] = useState(0)
+
   const isSelected = (id) => selectedItems.includes(id)
 
   const [selectedItems, setSelectedItems] = useState([])
@@ -73,6 +76,12 @@ export function StartTraining() {
     })
   }
 
+  function handleFinishTraining() {
+    console.log('seconds', seconds)
+
+    console.log('selectedItems', selectedItems)
+  }
+
   useEffect(() => {
     if (data) {
       const newItem = {
@@ -85,6 +94,14 @@ export function StartTraining() {
       }
     }
   }, [data])
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setSeconds((prevMinutes) => prevMinutes + 1)
+    }, 1000)
+
+    return () => clearInterval(intervalRef.current)
+  }, [])
 
   return (
     <Container>
@@ -126,7 +143,7 @@ export function StartTraining() {
               }
             />
             <ButtonWithIcon
-              title={'Editar Carga'}
+              title={'Editar Carga utilizada ?'}
               iconName="Weight"
               onPress={() => setIsModalOpen(!isModalOpen)}
             />
@@ -165,7 +182,10 @@ export function StartTraining() {
         {selectedItems.length == data?.length && (
           <View
             style={{ marginTop: 'auto', paddingBottom: getBottomSpace() + 25 }}>
-            <Button label="Concluir Treino" disabled={true} />
+            <Button
+              label="Concluir Treino"
+              onPress={() => handleFinishTraining()}
+            />
           </View>
         )}
       </Content>
