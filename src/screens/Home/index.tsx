@@ -12,7 +12,6 @@ import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { InputWithIcon } from '@components/InputWithIcon'
 import { MyTrainingCard } from '@components/MyTrainingCard'
-import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
@@ -31,7 +30,7 @@ export type zodSchema = z.infer<typeof formValidationSchema>
 export function Home() {
   const { navigate } = useNavigation()
   const [title, setTitle] = useState('')
-  const { user } = useAuth()
+  // const { user } = useAuth()
 
   function handleNavigate() {
     if (title?.length == 0) {
@@ -45,19 +44,19 @@ export function Home() {
     }
   }
 
-  function handleAccessTraining(id_exercise: string, name: string) {
+  function handleAccessTraining(id: string, name: string) {
     navigate('startTraining', {
-      id_exercise,
+      id,
       name,
     })
   }
 
   const { data, error } = useQuery<ITraining[]>({
-    queryKey: ['get-training-for-user', user.token],
+    queryKey: ['get-training-for-user'],
     queryFn: async () => {
       const { data } = await api.get('/workouts')
 
-      return data?.workouts
+      return data
     },
   })
 
@@ -70,7 +69,7 @@ export function Home() {
 
       toast.error(title)
     }
-  }, [])
+  }, [error])
 
   return (
     <Container>
@@ -105,7 +104,9 @@ export function Home() {
               renderItem={({ item }) => (
                 <MyTrainingCard
                   item={item}
-                  onAccessTraining={handleAccessTraining}
+                  onAccessTraining={() =>
+                    handleAccessTraining(item.id, item.name)
+                  }
                 />
               )}
             />

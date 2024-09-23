@@ -25,7 +25,7 @@ export type RootStackParamList = {
   profile: undefined
   personalTrainerProfile: undefined
   startTraining: {
-    id_exercise: string
+    id: String
     name: string
   }
   detailsTemplate: {

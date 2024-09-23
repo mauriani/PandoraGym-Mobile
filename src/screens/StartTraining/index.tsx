@@ -13,13 +13,15 @@ import { Button } from '@components/ui/Button'
 import { Input } from '@components/ui/Input'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useRoute } from '@react-navigation/native'
+import { api } from '@services/api'
+import { useQuery } from '@tanstack/react-query'
 
 import { CardExercise } from './__components__/CardExercise'
 import { Row } from './__components__/Row'
 import TimerWithSound from './__components__/Timer'
 
 type IRouteParams = {
-  id_exercise: string
+  id: string
   name: string
 }
 
@@ -34,66 +36,16 @@ export function StartTraining() {
 
   const [selectedItems, setSelectedItems] = useState([])
 
-  const { name } = route.params as IRouteParams
+  const { name, id } = route.params as IRouteParams
 
-  const treinoPernas = [
-    {
-      id: '1',
-      nome: 'Agachamento Livre',
-      repeticoes: 12,
-      time: 45,
-      numero_series: 4,
-      video_url:
-        'https://www.youtube.com/watch?v=s7i94Okznns&ab_channel=RodrigoZagoTreinador',
-      carga: '80kg',
-      thumbnail:
-        'https://images.unsplash.com/photo-1662045010188-b5e91a7f504b?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3F1YXQlMjBmaXRuZXNzfGVufDB8fDB8fHww',
+  const { data } = useQuery<StartExerciseDTO[]>({
+    queryKey: ['get-training-for-workoutid', id],
+    queryFn: async () => {
+      const { data } = await api.get(`/workout/${id}`)
+
+      return data?.exerciseConfig
     },
-    {
-      id: '2',
-      nome: 'Leg Press',
-      repeticoes: 15,
-      time: 50,
-      numero_series: 4,
-      video_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      carga: '200kg',
-      thumbnail:
-        'https://images.unsplash.com/photo-1675026482808-33f7515ecddd?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-    {
-      id: '3',
-      nome: 'Afundo',
-      repeticoes: 12,
-      time: 40,
-      numero_series: 3,
-      video_url: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-      carga: '60kg',
-      thumbnail:
-        'https://uniguacu.com.br/wp-content/uploads/2024/02/afundo-scaled.jpg',
-    },
-    {
-      id: '4',
-      nome: 'Cadeira Extensora',
-      repeticoes: 12,
-      time: 60,
-      numero_series: 3,
-      video_url: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-      carga: '70kg',
-      thumbnail:
-        'https://alexandrebento.com.br/wp-content/uploads/2023/08/cadeira-extensora.jpg',
-    },
-    {
-      id: '5',
-      nome: 'Stiff',
-      repeticoes: 10,
-      time: 60,
-      numero_series: 4,
-      video_url: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-      carga: '50kg',
-      thumbnail:
-        'https://image.tuasaude.com/media/article/jj/hd/stiff_62843_l.jpg',
-    },
-  ]
+  })
 
   const extractVideoId = (url) => {
     const match = url.match(/v=([^&]+)/)
@@ -120,16 +72,19 @@ export function StartTraining() {
       return [...prevSelectedItems, id]
     })
   }
+
   useEffect(() => {
-    const newItem = {
-      ...treinoPernas[0],
-      number: 1,
+    if (data) {
+      const newItem = {
+        ...data[0],
+        number: 1,
+      }
+      if (data.length > 0) {
+        setSelectedVideo(newItem)
+        setPlaying(true)
+      }
     }
-    if (treinoPernas.length > 0) {
-      setSelectedVideo(newItem)
-      setPlaying(true)
-    }
-  }, [])
+  }, [data])
 
   return (
     <Container>
@@ -138,10 +93,10 @@ export function StartTraining() {
         <View>
           {selectedVideo && (
             <VideoPlayerWithThumbnail
-              thumbnailUrl={selectedVideo?.thumbnail}
+              thumbnailUrl={selectedVideo?.exerciseThumb}
               videoId={
-                selectedVideo?.video_url != undefined &&
-                extractVideoId(selectedVideo?.video_url)
+                selectedVideo?.exerciseVideo != undefined &&
+                extractVideoId(selectedVideo?.exerciseVideo)
               }
             />
           )}
@@ -149,24 +104,25 @@ export function StartTraining() {
           <View className="flex-row justify-between bg-accent py-5 px-3 mt-[10px] rounded-b-[6px]">
             <Row>
               <IconComponent iconName="Dumbbell" />
-              <SubTitle title={`${selectedVideo?.numero_series} séries`} />
+              <SubTitle title={`${selectedVideo?.sets} séries`} />
             </Row>
 
             <Row>
               <IconComponent iconName="Repeat" />
-              <SubTitle title={`${selectedVideo?.repeticoes} séries`} />
+              <SubTitle title={`${selectedVideo?.reps} séries`} />
             </Row>
 
             <Row>
               <IconComponent iconName="Weight" />
-              <SubTitle title={`${selectedVideo?.carga}`} />
+              <SubTitle title={`${selectedVideo?.load}`} />
             </Row>
           </View>
 
           <View className="flex-row items-center py-2 gap-4">
             <TimerWithSound
               initialSeconds={
-                selectedVideo?.time != undefined && selectedVideo?.time
+                selectedVideo?.restTimeBetweenSets != undefined &&
+                selectedVideo?.restTimeBetweenSets
               }
             />
             <ButtonWithIcon
@@ -177,21 +133,23 @@ export function StartTraining() {
           </View>
         </View>
 
-        <View className="self-end pb-4">
-          <Text className="text-muted-foreground tex-[14]">
-            Exercício {selectedVideo?.number} de {treinoPernas?.length}
+        <View className="flex-row justify-between pb-2">
+          <Text className="text-foreground text-[14px]">
+            {selectedVideo?.exerciseTitle}
+          </Text>
+
+          <Text className="text-muted-foreground text-[14px]">
+            Exercício {selectedVideo?.number} de {data?.length}
           </Text>
         </View>
 
         <FlatList
-          data={treinoPernas}
+          data={data}
           keyExtractor={(item) => item.id}
           horizontal={false}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={
-            treinoPernas?.length == 0
-              ? { flexGrow: 1 }
-              : { paddingBottom: 30, gap: 12 }
+            data?.length == 0 ? { flexGrow: 1 } : { paddingBottom: 30, gap: 12 }
           }
           renderItem={({ item, index }) => (
             <CardExercise
@@ -204,7 +162,7 @@ export function StartTraining() {
           )}
         />
 
-        {selectedItems.length == treinoPernas?.length && (
+        {selectedItems.length == data?.length && (
           <View
             style={{ marginTop: 'auto', paddingBottom: getBottomSpace() + 25 }}>
             <Button label="Concluir Treino" disabled={true} />

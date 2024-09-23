@@ -24,15 +24,17 @@ export function CardExercise({
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{
-          uri: item.thumbnail,
+          uri: item.exerciseThumb,
         }}
         alt=""
       />
 
       <View className="flex-col justify-center gap-[4px] ml-3">
-        <Text className="text-white font-bold tex-[18]">{item.nome}</Text>
+        <Text className="text-white font-bold tex-[18]">
+          {item.exerciseTitle}
+        </Text>
         <Text className="text-muted-foreground tex-[14]">
-          {item.numero_series} séries x {item.repeticoes}repetições
+          {item.sets} séries x {item.reps} repetições
         </Text>
       </View>
 
