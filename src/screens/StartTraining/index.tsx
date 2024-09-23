@@ -15,6 +15,8 @@ import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
+import { extractVideoId } from '@utils/extractVideoId'
+import dayjs from 'dayjs'
 
 import { CardExercise } from './__components__/CardExercise'
 import { Row } from './__components__/Row'
@@ -35,8 +37,6 @@ export function StartTraining() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [seconds, setSeconds] = useState(0)
 
-  const isSelected = (id) => selectedItems.includes(id)
-
   const [selectedItems, setSelectedItems] = useState([])
 
   const { name, id } = route.params as IRouteParams
@@ -50,11 +50,6 @@ export function StartTraining() {
     },
   })
 
-  const extractVideoId = (url) => {
-    const match = url.match(/v=([^&]+)/)
-    return match ? match[1] : null
-  }
-
   function handleSelectedVideo(item, index) {
     const number = index + 1
     const newItem = {
@@ -65,21 +60,44 @@ export function StartTraining() {
     setPlaying(!playing)
   }
 
-  const toggleSelectItem = (id) => {
+  const toggleSelectItem = (selectedItem: StartExerciseDTO) => {
     setSelectedItems((prevSelectedItems) => {
-      // Se o item já está selecionado, remove-o
-      if (prevSelectedItems.includes(id)) {
-        return prevSelectedItems.filter((itemId) => itemId !== id)
+      const isAlreadySelected = prevSelectedItems.some(
+        (item) => item.id === selectedItem.id,
+      )
+
+      if (isAlreadySelected) {
+        // Remove o item se já estiver selecionado
+        return prevSelectedItems.filter((item) => item.id !== selectedItem.id)
+      } else {
+        const newItem = {
+          workoutId: selectedItem.workoutId,
+          executionDate: dayjs().format('YYYY-MM-DD'),
+          executionTime: dayjs().toISOString(),
+          weight: selectedItem.load.toString(),
+          sets: selectedItem.sets.toString(),
+          reps: selectedItem.reps.toString(),
+          restTime: selectedItem.restTimeBetweenSets,
+          thumbnail: selectedItem.exerciseThumb,
+          exerciseTitle: selectedItem.exerciseTitle,
+          exerciseId: selectedItem.id,
+        }
+
+        // Adiciona o novo item ao array
+        return [...prevSelectedItems, newItem]
       }
-      // Caso contrário, adiciona o ID ao array
-      return [...prevSelectedItems, id]
     })
   }
 
-  function handleFinishTraining() {
-    console.log('seconds', seconds)
-
-    console.log('selectedItems', selectedItems)
+  async function handleFinishTraining() {
+    try {
+      await api.post('workout/finish', {
+        timeTotalWorkout: seconds,
+        exercise: selectedItems,
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   useEffect(() => {
@@ -173,8 +191,10 @@ export function StartTraining() {
               item={item}
               index={index}
               onSectedVideo={handleSelectedVideo}
-              toggleSelectItem={toggleSelectItem}
-              isSelected={isSelected(item.id)}
+              isSelected={selectedItems.some(
+                (selectedItem) => selectedItem.exerciseId === item.id,
+              )}
+              toggleSelectItem={() => toggleSelectItem(item)}
             />
           )}
         />

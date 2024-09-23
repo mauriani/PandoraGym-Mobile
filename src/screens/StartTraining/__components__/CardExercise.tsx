@@ -6,7 +6,7 @@ type IProps = {
   item: StartExerciseDTO
   index: number
   onSectedVideo: (item: StartExerciseDTO, index: number) => void
-  toggleSelectItem: (id: string) => void
+  toggleSelectItem: (item: StartExerciseDTO) => void
   isSelected: boolean
 }
 
@@ -41,7 +41,7 @@ export function CardExercise({
       <Checkbox
         style={{ position: 'absolute', right: 16 }}
         isChecked={isSelected}
-        onPress={() => toggleSelectItem(item.id)}
+        onPress={() => toggleSelectItem(item)}
       />
     </TouchableOpacity>
   )
