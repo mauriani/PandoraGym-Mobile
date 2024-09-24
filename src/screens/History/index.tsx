@@ -44,7 +44,7 @@ export function History() {
           <Heading title={data && data[0]?.workout?.name} />
 
           <Text className="text-muted-foreground font-primary_regular text-base">
-            {data && formatTime(data[0]?.timeTotalWorkout)}
+            {data?.length > 0 && formatTime(data[0]?.timeTotalWorkout)}
           </Text>
         </View>
 

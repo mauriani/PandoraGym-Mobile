@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Alert, FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { ButtonWithIcon } from '@components/ButtonWithIcon'
@@ -12,10 +12,13 @@ import { SubTitle } from '@components/SubTitle'
 import { Button } from '@components/ui/Button'
 import { Input } from '@components/ui/Input'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
+import { AppError } from '@utils/AppError'
 import { extractVideoId } from '@utils/extractVideoId'
+import { toast } from '@utils/toast-methods'
+import { differenceInMilliseconds } from 'date-fns'
 import dayjs from 'dayjs'
 
 import { CardExercise } from './__components__/CardExercise'
@@ -28,15 +31,15 @@ type IRouteParams = {
 }
 
 export function StartTraining() {
-  const intervalRef = useRef(null)
   const route = useRoute()
+  const startTime = new Date()
+  const { goBack } = useNavigation()
+
   const [playing, setPlaying] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState<StartExerciseDTO | null>(
     null,
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [seconds, setSeconds] = useState(0)
-
   const [selectedItems, setSelectedItems] = useState([])
 
   const { name, id } = route.params as IRouteParams
@@ -72,7 +75,6 @@ export function StartTraining() {
       } else {
         const newItem = {
           workoutId: selectedItem.workoutId,
-          executionDate: dayjs().format('YYYY-MM-DD'),
           executionTime: dayjs().toISOString(),
           weight: selectedItem.load.toString(),
           sets: selectedItem.sets.toString(),
@@ -91,12 +93,31 @@ export function StartTraining() {
 
   async function handleFinishTraining() {
     try {
-      await api.post('workout/finish', {
-        timeTotalWorkout: seconds,
-        exercise: selectedItems,
-      })
-    } catch (e) {
-      console.log(e)
+      const endTime = new Date()
+      const diffInMilliseconds = differenceInMilliseconds(endTime, startTime)
+
+      const seconds = diffInMilliseconds / 1000
+
+      await api
+        .post('workout/finish', {
+          timeTotalWorkout: seconds,
+          exerciseConfig: selectedItems,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            Alert.alert(response.data.message)
+
+            goBack()
+          }
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      toast.error(title)
     }
   }
 
@@ -112,14 +133,6 @@ export function StartTraining() {
       }
     }
   }, [data])
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setSeconds((prevMinutes) => prevMinutes + 1)
-    }, 1000)
-
-    return () => clearInterval(intervalRef.current)
-  }, [])
 
   return (
     <Container>

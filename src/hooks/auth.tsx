@@ -89,8 +89,6 @@ function AuthProvider({ children }: AuthProviderProps) {
 
         const item = { user, token }
 
-        console.log('token', token)
-
         if (user) {
           setData(item)
         }
