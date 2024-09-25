@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Text, TouchableOpacity } from 'react-native'
 import { cn } from '@utils/cn'
 import { cva, type VariantProps } from 'class-variance-authority'
 
@@ -13,12 +13,12 @@ const buttonVariants = cva(
         destructive: 'bg-destructive',
         ghost: 'bg-slate-700',
         link: 'text-primary underline-offset-4',
-        outline: 'border border-primary bg-transparent', // Nova variante outline
+        outline: 'border border-primary bg-transparent',
       },
       size: {
-        default: 'h-14', // Aqui garantimos que todos os botões tenham tamanho 56
-        sm: 'h-14 px-2', // Pequeno também terá 56 de altura
-        lg: 'h-14 px-8', // Grande também terá 56 de altura
+        default: 'h-14',
+        sm: 'h-14 px-2',
+        lg: 'h-14 px-8',
       },
     },
     defaultVariants: {
@@ -36,7 +36,7 @@ const buttonTextVariants = cva('text-base font-roboto font-bold text-center', {
       destructive: 'text-destructive-foreground',
       ghost: 'text-primary-foreground',
       link: 'text-primary-foreground underline',
-      outline: 'text-primary', // Estilo de texto para o botão outline
+      outline: 'text-primary',
     },
     size: {
       default: 'text-base',
@@ -53,8 +53,9 @@ const buttonTextVariants = cva('text-base font-roboto font-bold text-center', {
 interface ButtonProps
   extends React.ComponentPropsWithoutRef<typeof TouchableOpacity>,
     VariantProps<typeof buttonVariants> {
-  label: string
+  label?: string // Tornar o label opcional
   labelClasses?: string
+  loading?: boolean // Adiciona a propriedade loading
 }
 
 function Button({
@@ -63,18 +64,24 @@ function Button({
   className,
   variant,
   size,
+  loading = false, // Padrão como false
   ...props
 }: ButtonProps) {
   return (
     <TouchableOpacity
       className={cn(buttonVariants({ variant, size, className }))}
+      disabled={loading} // Desativa o botão se estiver carregando
       {...props}>
-      <Text
-        className={cn(
-          buttonTextVariants({ variant, size, className: labelClasses }),
-        )}>
-        {label}
-      </Text>
+      {loading ? (
+        <ActivityIndicator size="small" color="#ffffff" /> // Exibe o indicador de carregamento
+      ) : (
+        <Text
+          className={cn(
+            buttonTextVariants({ variant, size, className: labelClasses }),
+          )}>
+          {label}
+        </Text>
+      )}
     </TouchableOpacity>
   )
 }

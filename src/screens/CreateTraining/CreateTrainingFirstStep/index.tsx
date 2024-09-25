@@ -1,70 +1,45 @@
-import React, { useState } from 'react'
-import {
-  FlatList,
-  Keyboard,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
 import { HeaderGoBack } from '@components/HeaderGoBack'
-import { Heading } from '@components/Heading'
 import { SelectExerciseCard } from '@components/SelectExerciseCard'
-import { Button } from '@components/ui/Button'
-import { Input } from '@components/ui/Input'
+import { InputFormControl } from '@components/ui/InputFormControl'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { api } from '@services/api'
+import { useQuery } from '@tanstack/react-query'
+import { AppError } from '@utils/AppError'
+import { toast } from '@utils/toast-methods'
+import zod from 'zod'
+
+import { Footer } from '../__components__/Footer'
+import { Form } from '../__components__/Form'
+import { StepHeader } from '../__components__/StepHeader'
 
 type IRouteParams = {
   title: string
 }
 
+const schema = zod.object({
+  search: zod.string().min(1, { message: 'O campo de nome é obrigatório !' }),
+})
+
+export type zodSchema = zod.infer<typeof schema>
+
 export function CreateTrainingFirstStep() {
   const route = useRoute()
   const { navigate } = useNavigation()
   const [selectedItems, setSelectedItems] = useState([])
+  const [exercise, setExercise] = useState<IExercise[] | []>([])
+  const [originalExercises, setOriginalExercises] = useState<IExercise[]>([])
+
+  const methods = useForm<zodSchema>()
+
+  const { control } = methods
 
   const { title } = route.params as IRouteParams
-
-  const data: IExercise[] = [
-    {
-      id: '1',
-      title: 'Rosca direta barra W',
-      image:
-        'https://alexandrebento.com.br/wp-content/uploads/2023/08/rosca-direta-barra-w-1024x683.jpg',
-    },
-    {
-      id: '2',
-      title: 'Elevação lateral',
-      image:
-        'https://vitat.com.br/wp-content/uploads/2022/05/beautiful-athletic-girl-dressed.jpg',
-    },
-    {
-      id: '3',
-      title: 'Agachamento Livre',
-      image:
-        'https://cdn.atletis.com.br/atletis-website/base/973/e7a/969/agachamento-barra-livre.jpg',
-    },
-    {
-      id: '4',
-      title: 'Agachamento Sumo',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxMKF1kYSWNT3TRR-WYvDVMfnMgS7i7EVnR0bQOYJH6IcZzzwmqHlMlt0Q_ytlCmhxKfk&usqp=CAU',
-    },
-    {
-      id: '5',
-      title: 'Agachamento Sumo',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxMKF1kYSWNT3TRR-WYvDVMfnMgS7i7EVnR0bQOYJH6IcZzzwmqHlMlt0Q_ytlCmhxKfk&usqp=CAU',
-    },
-    {
-      id: '6',
-      title: 'Agachamento Sumo',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxMKF1kYSWNT3TRR-WYvDVMfnMgS7i7EVnR0bQOYJH6IcZzzwmqHlMlt0Q_ytlCmhxKfk&usqp=CAU',
-    },
-  ]
 
   // Função para alternar a seleção de um item
   const toggleSelectItem = (selectedItem) => {
@@ -83,68 +58,93 @@ export function CreateTrainingFirstStep() {
     })
   }
 
+  const { error } = useQuery<IExercise[]>({
+    queryKey: ['get-templates'],
+    queryFn: async () => {
+      const { data } = await api.get('/templates')
+
+      setExercise(data.exercise)
+      setOriginalExercises(data.exercise)
+
+      return data.exercise
+    },
+  })
+
+  function getTypeInfo(title: string) {
+    const newItem: IExercise[] = [...exercise]
+
+    if (title.length > 0) {
+      const tipoInfo = newItem.filter((item) =>
+        item.exerciseTitle.toLowerCase().includes(title.toLowerCase()),
+      )
+
+      setExercise(tipoInfo)
+    } else {
+      setExercise(originalExercises)
+    }
+  }
+
+  useEffect(() => {
+    if (error) {
+      const isAppError = error instanceof AppError
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao carregar os exercicios. Tente novamente mais tarde !'
+
+      toast.error(title)
+    }
+  }, [error])
+
   return (
     <Container>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <>
         <View style={{ flex: 1 }}>
           <HeaderGoBack title={'Criar Treino'} />
 
-          <View className="flex-1 px-5 mt-10 gap-4">
-            <View className={'flex-row justify-between'}>
-              <Heading title={title} />
+          <Form>
+            <StepHeader title={title} current={1} />
 
-              <Text className="text-foreground font-primary_bold tex-[16]">
-                Etapa 1 de 2
-              </Text>
-            </View>
-
-            <Input label="Buscar exercicio" />
+            <InputFormControl
+              control={control}
+              name="search"
+              label="Buscar exercicio"
+              change={(text) => getTypeInfo(text)}
+            />
 
             <Text className="text-foreground font-primary_bold tex-[16]">
               Listagem de exercícios
             </Text>
 
             <FlatList
-              data={data}
+              data={exercise}
               keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={
-                data?.length == 0
-                  ? {
-                      flexGrow: 1,
-                    }
-                  : { paddingBottom: getBottomSpace() + 80, gap: 12 }
-              }
+              contentContainerStyle={{
+                paddingBottom: getBottomSpace() + 80,
+                gap: 12,
+              }}
               renderItem={({ item }) => (
                 <SelectExerciseCard
                   item={item}
                   isSelected={selectedItems.some(
                     (selectedItem) => selectedItem.id === item.id,
                   )}
-                  toggleSelectItem={() => toggleSelectItem(item)} // Passa o item completo
+                  toggleSelectItem={() => toggleSelectItem(item)}
                 />
               )}
             />
-          </View>
+          </Form>
 
-          <View
-            style={{
-              marginTop: 'auto',
-              paddingHorizontal: 20,
-              paddingBottom: getBottomSpace() + 60,
-            }}>
-            <Button
-              label="Próxima Etapa"
-              onPress={() =>
-                navigate('createTrainingSecondStep', {
-                  title,
-                  selectedItems,
-                })
-              }
-            />
-          </View>
+          <Footer
+            label="Próxima Etapa"
+            onSubmit={() =>
+              navigate('createTrainingSecondStep', {
+                title,
+                selectedItems,
+              })
+            }
+          />
         </View>
-      </TouchableWithoutFeedback>
+      </>
     </Container>
   )
 }

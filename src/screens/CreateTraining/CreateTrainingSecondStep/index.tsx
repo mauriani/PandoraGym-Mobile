@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { Text } from 'react-native'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
 import { HeaderGoBack } from '@components/HeaderGoBack'
-import { Heading } from '@components/Heading'
 import { ModalWithContent } from '@components/ModalWithContent'
-import { Button } from '@components/ui/Button'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { toast } from '@utils/toast-methods'
 
+import { Footer } from '../__components__/Footer'
+import { Form } from '../__components__/Form'
+import { StepHeader } from '../__components__/StepHeader'
+
 import { Card } from './__components__/Card'
-import { ConfigExercises } from './__components__/ConfigExercises'
+import { ConfigExercises, IData } from './__components__/ConfigExercises'
 
 type IRouteParams = {
   title: string
@@ -25,46 +26,84 @@ export function CreateTrainingSecondStep() {
 
   const { title, selectedItems } = route.params as IRouteParams
 
-  const [isSelected, setIsSelected] = useState(false)
+  const [exercises, setExercises] = useState<IExercise[] | []>(selectedItems)
+  const [exerciseConfig, setexerciseConfig] = useState<IExercise>(
+    {} as IExercise,
+  )
 
-  function handleCreateTraining() {
-    toast.success('Treino criado com sucesso !')
-    navigate('tabNavigator')
+  const allWeightsFilled = exercises.every(
+    (exercise) => exercise.load && exercise.load > 0,
+  )
+
+  function handleOpenModal(item: IExercise) {
+    setIsModalOpen(!isModalOpen)
+    setexerciseConfig(item)
+  }
+
+  function onUpdateExercises(id: string, data: IData, changeAll: boolean) {
+    const newItem: IExercise[] = [...exercises]
+
+    if (changeAll == false) {
+      let name = ''
+
+      newItem.forEach((item) => {
+        name = item.exerciseTitle
+        if (item.id === id) {
+          item.load = data.load
+          item.reps = data.reps
+          item.restTimeBetweenSets = data.restTimeBetweenSets
+          item.sets = data.sets
+        }
+      })
+
+      toast.success(`${name} Alterada com sucesso!`)
+    } else {
+      newItem.forEach((item) => {
+        item.load = data.load
+        item.reps = data.reps
+        item.restTimeBetweenSets = data.restTimeBetweenSets
+        item.sets = data.sets
+      })
+
+      toast.success(`Todos os exercícios alterados com sucesso!`)
+    }
+
+    setExercises(newItem)
+    setIsModalOpen(!isModalOpen)
   }
 
   return (
     <Container>
       <HeaderGoBack title={'Criar Treino'} />
-      <View className="flex-1 px-5 mt-10 gap-4">
-        <View className={'flex-row justify-between'}>
-          <Heading title={title} />
-
-          <Text className="text-foreground font-primary_bold tex-[16]">
-            Etapa 2 de 2
-          </Text>
-        </View>
+      <Form>
+        <StepHeader title={title} current={2} />
 
         <Text className="text-muted-foreground font-primary_regular tex-[16]">
-          Clique no exercício para configura-lo
+          Clique no exercício para configura-lo.
         </Text>
 
-        {selectedItems.map((item) => (
+        {exercises.map((item) => (
           <Card
             item={item}
             key={item.id}
-            openModal={() => setIsModalOpen(!isModalOpen)}
+            openModal={() => handleOpenModal(item)}
           />
         ))}
-      </View>
+      </Form>
 
-      <View
-        style={{
-          marginTop: 'auto',
-          paddingHorizontal: 20,
-          paddingBottom: getBottomSpace() + 60,
-        }}>
-        <Button label="Concluir" onPress={handleCreateTraining} />
-      </View>
+      <Footer
+        label="Próxima Etapa"
+        onSubmit={() => {
+          if (allWeightsFilled) {
+            navigate('createTrainingThirdStep', {
+              title,
+              selectedItems: exercises,
+            })
+          } else {
+            toast.error('Existem exercícios com o peso não preenchido.')
+          }
+        }}
+      />
 
       <ModalWithContent
         isOpen={isModalOpen}
@@ -72,8 +111,8 @@ export function CreateTrainingSecondStep() {
         title="Configuração do exercício"
         content={
           <ConfigExercises
-            isSelected={isSelected}
-            onSekected={() => setIsSelected(!isSelected)}
+            item={exerciseConfig}
+            onUpdateExercises={onUpdateExercises}
           />
         }
       />

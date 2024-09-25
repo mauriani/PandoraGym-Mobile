@@ -1,7 +1,11 @@
 export type IExercise = {
   id: string
-  title: string
-  image: string
-  volume?: string
-  isConfigurable?: boolean
+  exerciseTitle: string
+  exerciseThumb: string
+  load?: number
+  exerciseVideo: string
+  sets: number
+  reps: number
+  restTimeBetweenSets: number
+  isConfigured: boolean
 }

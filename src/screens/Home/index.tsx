@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   FlatList,
   Keyboard,
@@ -30,20 +30,6 @@ export type zodSchema = z.infer<typeof formValidationSchema>
 
 export function Home() {
   const { navigate } = useNavigation()
-  const [title, setTitle] = useState('')
-  // const { user } = useAuth()
-
-  function handleNavigate() {
-    if (title?.length == 0) {
-      toast.error('Para continuar informe o titulo do treino')
-    } else {
-      navigate('createTrainingFirstStep', {
-        title,
-      })
-
-      setTitle('')
-    }
-  }
 
   function handleAccessTraining(id: string, name: string) {
     navigate('startTraining', {
@@ -90,8 +76,6 @@ export function Home() {
                   label="Nome do treino/exercício"
                   iconName="Plus"
                   size={20}
-                  onChangeText={(text) => setTitle(text)}
-                  onNavigate={handleNavigate}
                 />
 
                 <Heading title="Meus Treinos" />

@@ -19,14 +19,14 @@ export function SelectExerciseCard({
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{
-          uri: item.image,
+          uri: item.exerciseThumb,
         }}
         alt=""
       />
 
       <View className="flex-col justify-center gap-[2] ml-3">
         <Text className="text-white font-primary_bold tex-[18PX]">
-          {item.title}
+          {item.exerciseTitle}
         </Text>
       </View>
 

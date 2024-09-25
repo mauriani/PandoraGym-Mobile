@@ -15,6 +15,7 @@ export interface InputProps
   defaultValue?: string
   error?: FieldError | undefined
   typePassword?: boolean
+  change?: (value: string) => void
 }
 
 const InputFormControl = forwardRef<
@@ -31,6 +32,7 @@ const InputFormControl = forwardRef<
     defaultValue,
     error,
     typePassword = false,
+    change,
     ...props
   }) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false)
@@ -52,7 +54,10 @@ const InputFormControl = forwardRef<
                 placeholder={label}
                 placeholderTextColor="gray"
                 value={value}
-                onChangeText={onChange}
+                onChangeText={(value) => {
+                  onChange(value)
+                  change && change(value)
+                }}
                 secureTextEntry={typePassword && !isPasswordVisible}
                 className={cn(
                   inputClasses,
@@ -77,7 +82,7 @@ const InputFormControl = forwardRef<
         />
 
         {error?.message != undefined && (
-          <Text className="text-xs text-red-300 font-primary_medium">
+          <Text className="text-[12px] text-red-400 font-primary_medium mt-2 pl-1">
             {error?.message}
           </Text>
         )}

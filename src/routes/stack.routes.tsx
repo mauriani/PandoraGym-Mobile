@@ -3,6 +3,7 @@ import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
+import { CreateTrainingThirdStep } from '@screens/CreateTraining/CreateTrainingThirdStep'
 import { DetailsTemplate } from '@screens/DetailsTemplates'
 import { EditProfile } from '@screens/EditProfile'
 import { HelpMe } from '@screens/HelpMe'
@@ -19,6 +20,10 @@ export type RootStackParamList = {
     title: string | null
   }
   createTrainingSecondStep: {
+    title: string | null
+    selectedItems: IExercise[] | null
+  }
+  createTrainingThirdStep: {
     title: string | null
     selectedItems: IExercise[] | null
   }
@@ -55,6 +60,12 @@ export default function RootStack() {
         <Screen
           name="createTrainingSecondStep"
           component={CreateTrainingSecondStep}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="createTrainingThirdStep"
+          component={CreateTrainingThirdStep}
           options={{ headerShown: false }}
         />
 

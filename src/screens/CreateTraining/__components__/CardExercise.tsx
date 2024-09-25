@@ -1,18 +1,18 @@
 import { Image, Text, View } from 'react-native'
-import { ITrainingHistory } from '@_dtos_/trainingHistoryDTO'
+import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { formatTime } from '@utils/formatTime'
 
 type IProps = {
-  item: ITrainingHistory
+  item: IExercise
 }
 
-export function MyTrainingHistoryCard({ item }: IProps) {
+export function CardExercise({ item }: IProps) {
   return (
     <View className="h-20 flex-row gap-4 bg-secondary rounded-[8px] items-center p-2 relative">
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{
-          uri: item.thumbnail,
+          uri: item.exerciseThumb,
         }}
         alt=""
       />
@@ -30,11 +30,11 @@ export function MyTrainingHistoryCard({ item }: IProps) {
       </View>
 
       <Text className="text-primary text-base font-primary_bold">
-        {formatTime(item.restTime)}
+        {formatTime(item.restTimeBetweenSets)}
       </Text>
 
       <Text className="text-primary text-base font-primary_bold">
-        {item.weight} kg
+        {item.load} kg
       </Text>
     </View>
   )
