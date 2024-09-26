@@ -33,7 +33,7 @@ export function MyTrainingCard({ item, onAccessTraining }: IProps) {
         <Text
           numberOfLines={2}
           className="text-muted-foreground font-primary_regular text-sm">
-          {item.description}
+          {item.weekDays.join(', ')}
         </Text>
       </View>
 

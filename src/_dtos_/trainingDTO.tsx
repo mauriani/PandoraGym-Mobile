@@ -1,3 +1,13 @@
+enum Day {
+  Dom = 'Dom',
+  Seg = 'Seg',
+  Ter = 'Ter',
+  Qua = 'Qua',
+  Qui = 'Qui',
+  Sex = 'Sex',
+  Sab = 'Sab',
+}
+
 export type IExerciseConfig = {
   id: string
   workoutId: string
@@ -16,4 +26,5 @@ export type ITraining = {
   thumbnail: string
   description: string
   exerciseConfig: IExerciseConfig[]
+  weekDays: Day[]
 }

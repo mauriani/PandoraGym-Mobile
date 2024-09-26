@@ -3,12 +3,12 @@ import { FlatList, Text } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
+import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { toast } from '@utils/toast-methods'
 
-import { Footer } from '../__components__/Footer'
 import { Form } from '../__components__/Form'
 import { StepHeader } from '../__components__/StepHeader'
 

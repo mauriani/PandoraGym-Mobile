@@ -2,6 +2,7 @@ import { FlatList, Image, Text, View } from 'react-native'
 import { ITrainingHistory } from '@_dtos_/trainingHistoryDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
+import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
 import { IconComponent } from '@components/IconComponent'
@@ -157,6 +158,8 @@ export function DetailsTemplate() {
             </View>
           )}
         />
+
+        <Footer label="Usar Treino" onSubmit={() => console.log('teste')} />
       </Content>
     </Container>
   )
