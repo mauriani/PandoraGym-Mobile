@@ -7,12 +7,18 @@ import { HeaderGoBack } from '@components/HeaderGoBack'
 import { NoContent } from '@components/NoContent'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { api } from '@services/api'
+import { useQueryClient } from '@tanstack/react-query'
+import { AppError } from '@utils/AppError'
+import { toast } from '@utils/toast-methods'
+import { daysOfWeek } from '@utils/weekDay'
 import zod from 'zod'
 
 import { CardExercise } from '../__components__/CardExercise'
+import { Footer } from '../__components__/Footer'
 import { Form } from '../__components__/Form'
-import MultiSelect from '../__components__/MultiSelect'
+import { MultiSelect } from '../__components__/MultiSelect'
 import { StepHeader } from '../__components__/StepHeader'
 
 type IRouteParams = {
@@ -21,19 +27,16 @@ type IRouteParams = {
 }
 
 const schema = zod.object({
-  name: zod
-    .string({ required_error: 'Campo obrigatório!' })
-    .min(1, {
-      message: 'Campo obrigatório!',
-    })
-    .transform((value) => (value ? parseInt(value) : null))
-    .nullable(),
+  name: zod.string({ required_error: 'Campo obrigatório!' }).nullable(),
+  week: zod.array(zod.string()),
 })
 
 export type zodSchema = zod.infer<typeof schema>
 
 export function CreateTrainingThirdStep() {
   const route = useRoute()
+  const queryClient = useQueryClient()
+  const { navigate } = useNavigation()
   const { title, selectedItems } = route.params as IRouteParams
 
   const methods = useForm<zodSchema>({
@@ -41,10 +44,44 @@ export function CreateTrainingThirdStep() {
   })
 
   const {
-    //   handleSubmit,
+    handleSubmit,
     control,
     formState: { errors },
   } = methods
+
+  async function submit(data: zodSchema) {
+    const { name, week } = data
+
+    try {
+      await api
+        .post('/create-workout', {
+          name,
+          thumbnail: selectedItems[0].exerciseThumb,
+          exercises: selectedItems,
+          weekDays: week,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            toast.success(response.data.message)
+
+            // Invalide a query para que ela seja recarregada com os novos dados
+            queryClient.invalidateQueries({
+              queryKey: ['get-training-for-user'],
+            })
+
+            navigate('tabNavigator')
+          }
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      toast.error(title)
+    }
+  }
 
   return (
     <Container>
@@ -52,16 +89,23 @@ export function CreateTrainingThirdStep() {
       <Form>
         <StepHeader title={title} current={3} />
 
-        <InputFormControl
-          control={control}
-          name="name"
-          placeholder="Nome do treino/exercício"
-          label="Nome do treino/exercício"
-          error={errors.name}
-          defaultValue={title}
-        />
+        <>
+          <InputFormControl
+            control={control}
+            name="name"
+            placeholder="Nome do treino/exercício"
+            label="Nome do treino/exercício"
+            error={errors.name}
+            defaultValue={title}
+          />
 
-        <MultiSelect />
+          <MultiSelect
+            options={daysOfWeek}
+            name={'week'}
+            control={control}
+            label="Selecione os dias que você faz esse treino ?"
+          />
+        </>
 
         <Text className="text-foreground font-primary_bold tex-[16]">
           Listagem de exercícios
@@ -87,6 +131,8 @@ export function CreateTrainingThirdStep() {
           }
         />
       </Form>
+
+      <Footer label="Concluir" onSubmit={handleSubmit(submit)} />
     </Container>
   )
 }

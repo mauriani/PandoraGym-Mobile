@@ -2,7 +2,7 @@ export type IExercise = {
   id: string
   exerciseTitle: string
   exerciseThumb: string
-  load?: number
+  load: number
   exerciseVideo: string
   sets: number
   reps: number

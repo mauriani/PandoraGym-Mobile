@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Text } from 'react-native'
+import { FlatList, Text } from 'react-native'
+import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
 import { HeaderGoBack } from '@components/HeaderGoBack'
@@ -31,9 +32,9 @@ export function CreateTrainingSecondStep() {
     {} as IExercise,
   )
 
-  const allWeightsFilled = exercises.every(
-    (exercise) => exercise.load && exercise.load > 0,
-  )
+  const allWeightsFilled =
+    exercises &&
+    exercises.every((exercise) => exercise?.load && exercise?.load > 0)
 
   function handleOpenModal(item: IExercise) {
     setIsModalOpen(!isModalOpen)
@@ -82,13 +83,21 @@ export function CreateTrainingSecondStep() {
           Clique no exercício para configura-lo.
         </Text>
 
-        {exercises.map((item) => (
-          <Card
-            item={item}
-            key={item.id}
-            openModal={() => handleOpenModal(item)}
-          />
-        ))}
+        <FlatList
+          data={exercises}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={{
+            paddingBottom: getBottomSpace() + 80,
+            gap: 12,
+          }}
+          renderItem={({ item }) => (
+            <Card
+              item={item}
+              key={item.id}
+              openModal={() => handleOpenModal(item)}
+            />
+          )}
+        />
       </Form>
 
       <Footer
