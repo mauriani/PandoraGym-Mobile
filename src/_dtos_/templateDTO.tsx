@@ -1,12 +1,29 @@
-export type ItrainingTemplate = {
+export enum Level {
+  Avancado = 'AVANCADO',
+  Iniciante = 'INICIANTE',
+  Intermediario = 'INTERMEDIARIO',
+}
+
+export type User = {
+  name: string
+  avatarUrl: string
+}
+
+export type Personal = {
+  user: User
+}
+
+export type Workout = {
   id: string
-  title: string
-  level: string
-  tumbnail: string
+  name: string
+  description: string
+  thumbnail: string
+  personalId: null | string
+  level: Level
+  personal?: Personal
 }
 
 export type ItemplateDTO = {
-  id: string
-  title: string
-  training: ItrainingTemplate[]
+  workoutAdm: Workout[]
+  workoutsByPersonal: { [key: string]: Workout[] }
 }

@@ -5,26 +5,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { ItrainingTemplate } from '@_dtos_/templateDTO'
+import { Workout } from '@_dtos_/templateDTO'
 
 type IProps = {
-  training: ItrainingTemplate
+  training: Workout
   onNavigate: (title: string) => void
 }
 
 export function CardWorkouts({ training, onNavigate }: IProps) {
   return (
-    <TouchableOpacity onPress={() => onNavigate(training.title)}>
+    <TouchableOpacity
+      className="h-44 w-72 rounded-[8px]"
+      onPress={() => onNavigate(training.name)}>
       <ImageBackground
-        className="h-44 w-72 rounded-[8px]"
+        width={288}
+        borderRadius={8}
         source={{
-          uri: training.tumbnail,
+          uri: training.thumbnail,
         }}>
         <View
           style={{
             ...StyleSheet.absoluteFillObject,
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            borderRadius: 8,
           }}
         />
         <View className="h-44 justify-between p-4">
@@ -34,7 +36,7 @@ export function CardWorkouts({ training, onNavigate }: IProps) {
             </Text>
           </TouchableOpacity>
           <Text className="text-foreground font-primary_bold text-sm">
-            {training.title}
+            {training.name}
           </Text>
         </View>
       </ImageBackground>
