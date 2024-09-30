@@ -13,6 +13,7 @@ interface IData {
 }
 
 interface IProps {
+  color?: string
   name: string
   defaultValue?: string[]
   label?: string
@@ -66,7 +67,7 @@ export function MultiSelect({
                 }}
                 renderButton={(selectedItem, isOpen) => (
                   <View
-                    className={`w-full h-12 border border-input rounded-lg flex-row justify-center items-center px-3`}>
+                    className={`w-full h-14 border border-input rounded-lg flex-row justify-center items-center px-3 bg-black`}>
                     <Text className={`flex-1 text-white`}>
                       {selectedItems.length > 0
                         ? selectedItems

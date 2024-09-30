@@ -40,7 +40,7 @@ const InputFormControl = forwardRef<
     return (
       <View className={cn('flex flex-col gap-1', className)}>
         {placeholder && (
-          <Text className="text-muted-foreground font-primary_regular pb-2">
+          <Text className="text-muted-foreground font-primary_regular pb-1">
             {placeholder}
           </Text>
         )}

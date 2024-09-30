@@ -6,6 +6,8 @@ type IProps = {
 
 export function SubTitle({ title }: IProps) {
   return (
-    <Text className="text-white font-primary_regular text-lg">{title}</Text>
+    <Text className="text-white font-primary_bold text-lg font-bold">
+      {title}
+    </Text>
   )
 }

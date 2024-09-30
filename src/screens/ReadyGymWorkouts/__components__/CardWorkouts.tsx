@@ -9,14 +9,16 @@ import { Workout } from '@_dtos_/templateDTO'
 
 type IProps = {
   training: Workout
-  onNavigate: (title: string) => void
+  onNavigate: (title: string, id: string, thumbnail: string) => void
 }
 
 export function CardWorkouts({ training, onNavigate }: IProps) {
   return (
     <TouchableOpacity
       className="h-44 w-72 rounded-[8px]"
-      onPress={() => onNavigate(training.name)}>
+      onPress={() =>
+        onNavigate(training.name, training.id, training.thumbnail)
+      }>
       <ImageBackground
         width={288}
         borderRadius={8}

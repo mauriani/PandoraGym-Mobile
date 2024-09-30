@@ -9,7 +9,7 @@ import { HistoryCalendar } from '@components/HistoryCalendar'
 import { NoContent } from '@components/NoContent'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
-import { formatTime } from '@utils/formatTime'
+import { secondsToHourMinute } from '@utils/formatTime'
 import dayjs from 'dayjs'
 
 import { MyTrainingHistoryCard } from './__components__/MyTrainingHistoryCard'
@@ -44,7 +44,7 @@ export function History() {
           <Heading title={data && data[0]?.workout?.name} />
 
           <Text className="text-muted-foreground font-primary_regular text-base">
-            {data?.length > 0 && formatTime(data[0]?.timeTotalWorkout)}
+            {data?.length > 0 && secondsToHourMinute(data[0]?.timeTotalWorkout)}
           </Text>
         </View>
 

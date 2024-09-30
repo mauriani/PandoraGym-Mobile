@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { FlatList, Text } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
@@ -89,7 +89,7 @@ export function CreateTrainingThirdStep() {
       <Form>
         <StepHeader title={title} current={3} />
 
-        <>
+        <View>
           <InputFormControl
             control={control}
             name="name"
@@ -105,7 +105,7 @@ export function CreateTrainingThirdStep() {
             control={control}
             label="Selecione os dias que você faz esse treino ?"
           />
-        </>
+        </View>
 
         <Text className="text-foreground font-primary_bold tex-[16]">
           Listagem de exercícios

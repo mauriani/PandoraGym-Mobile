@@ -35,6 +35,8 @@ export type RootStackParamList = {
   }
   detailsTemplate: {
     title: string
+    id: string
+    tumbnail: string
   }
   editProfile: undefined
   notifications: undefined

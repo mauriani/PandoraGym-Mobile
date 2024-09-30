@@ -1,83 +1,110 @@
-import { FlatList, Image, Text, View } from 'react-native'
-import { ITrainingHistory } from '@_dtos_/trainingHistoryDTO'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { FlatList, Text, View } from 'react-native'
+import { IDetailsTemplate } from '@_dtos_/detailsTemplateDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
-import { IconComponent } from '@components/IconComponent'
-import { SubTitle } from '@components/SubTitle'
+import { ModalWithContent } from '@components/ModalWithContent'
+import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRoute } from '@react-navigation/native'
-import { extractVideoId } from '@utils/extractVideoId'
+import { MultiSelect } from '@screens/CreateTraining/__components__/MultiSelect'
+import { api } from '@services/api'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { AppError } from '@utils/AppError'
+import { extractVideoId, getYoutubeThumbnail } from '@utils/extractVideoId'
+import { secondsToHourMinute } from '@utils/formatTime'
+import { toast } from '@utils/toast-methods'
+import { daysOfWeek } from '@utils/weekDay'
+import zod from 'zod'
 
 import { ButtonWithIcon } from '../../components/ButtonWithIcon'
 
+import { CardDetails } from './__components__/CardDetails'
+
 type IRouteParams = {
   title: string
+  id: string
+  tumbnail: string
 }
+
+const schema = zod.object({
+  week: zod.array(zod.string()),
+})
+
+export type zodSchema = zod.infer<typeof schema>
 
 export function DetailsTemplate() {
   const route = useRoute()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const queryClient = useQueryClient()
 
-  const { title } = route.params as IRouteParams
+  const { title, id, tumbnail } = route.params as IRouteParams
 
-  const data: ITrainingHistory[] = [
-    {
-      id: '1',
-      title: 'Flexão de braço',
-      image:
-        'https://plus.unsplash.com/premium_photo-1663013143273-c7f032f07d89?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      volume: '3 séries x 12 repetições',
-      time: '00:30',
-      load: '0kg',
+  const methods = useForm<zodSchema>({
+    resolver: zodResolver(schema),
+  })
+
+  const { handleSubmit, control, reset } = methods
+
+  const { data, error } = useQuery<IDetailsTemplate>({
+    queryKey: ['get-training-workout-free', id],
+    queryFn: async () => {
+      const { data } = await api.get(`/training-programs/${id}`)
+
+      return data
     },
-    {
-      id: '2',
-      title: 'Flexão de braço inclinada',
-      image:
-        'https://blog.ciaathletica.com.br/wp-content/uploads/2024/03/Cia-Athletica-avanco-Autores-Grupo-S2-Marketing-Freepik-1024x684.jpg',
-      volume: '3 séries x 12 repetições',
-      time: '1:00',
-      load: '20kg',
-    },
-    {
-      id: '3',
-      title: 'Rosca martelo',
-      image:
-        'https://image.tuasaude.com/media/article/eq/sm/rosca-martelo_63246_l.jpg',
-      volume: '3 séries x 12 repetições',
-      time: '1:00',
-      load: '20kg',
-    },
-    {
-      id: '4',
-      title: 'Rosca martelo',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR17kdd6OCtzKfBwjzgdcTmdOgTJkpWyz-ffw&s',
-      volume: '3 séries x 12 repetições',
-      time: '00:60',
-      load: '20kg',
-    },
-    {
-      id: '5',
-      title: 'Rosca martelo',
-      image:
-        'https://images.unsplash.com/photo-1669323149885-6bda5714e85b?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      volume: '3 séries x 12 repetições',
-      time: '1:30',
-      load: '20kg',
-    },
-    {
-      id: '6',
-      title: 'Rosca martelo',
-      image:
-        'https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      volume: '3 séries x 12 repetições',
-      time: '00:40',
-      load: '20kg',
-    },
-  ]
+  })
+
+  useEffect(() => {
+    if (error) {
+      const isAppError = error instanceof AppError
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao buscar os treinos. Tente novamente mais tarde'
+
+      toast.error(title)
+    }
+  }, [error])
+
+  async function submit(form: zodSchema) {
+    const { week } = form
+    const { exerciseConfig } = data?.data
+
+    try {
+      await api
+        .post('/create-workout', {
+          name: title,
+          thumbnail: tumbnail,
+          exercises: exerciseConfig,
+          weekDays: week,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            toast.success(response.data.message)
+            // Invalide a query para que ela seja recarregada com os novos dados
+            queryClient.invalidateQueries({
+              queryKey: ['get-training-for-user'],
+            })
+
+            reset({ week: null })
+            setIsModalOpen(!isModalOpen)
+          }
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      toast.error(title)
+    }
+  }
 
   return (
     <Container>
@@ -85,82 +112,77 @@ export function DetailsTemplate() {
       <Content>
         <View className="flex-row items-center py-5">
           <VideoPlayerWithThumbnail
-            thumbnailUrl={
-              'https://blogdohiellevy.com.br/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-13.22.20-768x1024.jpeg'
-            }
-            videoId={extractVideoId(
-              'https://www.youtube.com/watch?v=T-gAM6dUN5o&ab_channel=GrowthTV',
+            thumbnailUrl={getYoutubeThumbnail(
+              data?.data?.personal?.presentationVideo,
             )}
+            videoId={
+              data?.data?.personal?.presentationVideo
+                ? extractVideoId(data?.data?.personal?.presentationVideo)
+                : ''
+            }
           />
         </View>
 
         <View className="flex-row mb-4 gap-3">
-          <ButtonWithIcon title={'60 min'} iconName="Clock1" />
+          <ButtonWithIcon
+            title={`${secondsToHourMinute(data?.data?.totalDuration)}`}
+            iconName="Clock1"
+          />
 
-          <ButtonWithIcon title={'350 Cal'} iconName="Flame" />
+          <ButtonWithIcon
+            title={`${data?.data?.totalCalories}Cal`}
+            iconName="Flame"
+          />
 
-          <ButtonWithIcon title={'Meu Perfil'} iconName="User" />
+          <ButtonWithIcon title={'Perfil'} iconName="User" />
         </View>
 
         <View className="gap-2">
           <Text className="text-white font-primary_regular text-sm">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
+            {data?.data?.description}
           </Text>
 
           <Heading title={'Exercícios'} />
         </View>
 
         <FlatList
-          data={data}
+          data={data?.data?.exerciseConfig}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={
-            data?.length == 0
+            data?.data?.exerciseConfig?.length == 0
               ? {
                   flexGrow: 1,
                   padding: 10,
                 }
               : { paddingBottom: 60, gap: 12 }
           }
-          renderItem={({ item }) => (
-            <View className="h-32 flex-row gap-4 bg-secondary rounded-[8px] items-center p-2 relative">
-              <Image
-                className="h-full w-20 rounded-[6px]"
-                source={{
-                  uri: item.image,
-                }}
-                alt=""
-              />
-
-              <View className="flex-col justify-center gap-1 ml-3">
-                <Text className="text-white font-bold text-base">
-                  {item.title}
-                </Text>
-                <Text className="text-muted-foreground text-sm">
-                  {item.volume}
-                </Text>
-
-                <View className="flex-row justify-between items-center gap-2">
-                  <View className="flex-row items-center gap-2 bg-accent px-2 py-2 rounded-[6px]">
-                    <IconComponent iconName="Timer" size={20} />
-                    <SubTitle title={`${item?.time}`} />
-                  </View>
-
-                  <View className="flex-row items-center gap-2 bg-accent px-2 py-2 rounded-[6px]">
-                    <IconComponent iconName="Weight" size={20} />
-                    <SubTitle title={`${item?.load}`} />
-                  </View>
-                </View>
-              </View>
-            </View>
-          )}
+          renderItem={({ item }) => <CardDetails key={item.id} item={item} />}
         />
 
-        <Footer label="Usar Treino" onSubmit={() => console.log('teste')} />
+        <Footer
+          label="Usar Treino"
+          onSubmit={() => setIsModalOpen(!isModalOpen)}
+        />
       </Content>
+
+      <ModalWithContent
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(!isModalOpen)}
+        title="Em qual dia você realizará esse treino ?"
+        content={
+          <View className="gap-5 py-3">
+            <MultiSelect
+              options={daysOfWeek}
+              name={'week'}
+              control={control}
+              label="Selecione o dia"
+            />
+
+            <Button label="Salvar" onPress={handleSubmit(submit)} />
+          </View>
+        }
+      />
     </Container>
   )
 }
