@@ -28,7 +28,9 @@ export type RootStackParamList = {
     selectedItems: IExercise[] | null
   }
   profile: undefined
-  personalTrainerProfile: undefined
+  personalTrainerProfile: {
+    id: string
+  }
   startTraining: {
     id: String
     name: string

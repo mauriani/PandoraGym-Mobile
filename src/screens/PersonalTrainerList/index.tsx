@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   FlatList,
   Keyboard,
@@ -22,54 +22,19 @@ import { Card } from './__components__/Card'
 export function PersonalTrainerList() {
   const { navigate } = useNavigation()
 
-  // const personal: IPersonal[] = [
-  //   {
-  //     id: '1',
-  //     name: 'Julia Rekamie',
-  //     image:
-  //       'https://images.unsplash.com/photo-1606902965551-dce093cda6e7?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  //     credencial: 'Certificado Personal Trainer (CPT)',
-  //     especializacao: 'Cardio interval Training (HIIT)',
-  //     experiencia: '5 anos',
-  //     rating: 4,
-  //   },
-  //   {
-  //     id: '2',
-  //     name: 'Aline Rekamie',
-  //     image:
-  //       'https://media.istockphoto.com/id/1466988074/photo/a-fit-muscular-female-personal-trainer-is-holding-tablet-in-her-hands-and-smiling-at-the.webp?b=1&s=612x612&w=0&k=20&c=PJHOPdWhhE9F863ScFTLRVOlUZQoTXr2P3-BEb5cfbw=',
-  //     credencial: 'Certificado Personal Trainer (CPT)',
-  //     especializacao: 'Cardio interval Training (HIIT)',
-  //     experiencia: '4 anos',
-  //     rating: 4,
-  //   },
-  //   {
-  //     id: '3',
-  //     name: 'Marcos Antônio',
-  //     image:
-  //       'https://media.istockphoto.com/id/1483989790/photo/adult-indian-male-yoga-instructor-smiling-at-the-camera-and-holding-a-yoga-mat-under-his-arm.webp?b=1&s=612x612&w=0&k=20&c=2G7rtUS5Sie2h38C0dHMOwSdLYuzvEFjtNd7DJd060w=',
-  //     credencial: 'Certificado Personal Trainer (CPT)',
-  //     especializacao: 'Cardio interval Training (HIIT)',
-  //     experiencia: '4 anos',
-  //     rating: 3,
-  //   },
-  //   {
-  //     id: '4',
-  //     name: 'Marcos Antônio',
-  //     image:
-  //       'https://rwfitness.com/wp-content/uploads/2022/03/Best-Personal-Trainers-in-Edgewater-MD.png',
-  //     credencial: 'Certificado Personal Trainer (CPT)',
-  //     especializacao: 'Cardio interval Training (HIIT)',
-  //     experiencia: '4 anos',
-  //     rating: 5,
-  //   },
-  // ]
+  const [personalTrainers, setPersonalTrainers] =
+    useState<IPersonalList[]>(null)
+  const [originalPersonalTrainers, setOriginalPersonalTrainers] = useState<
+    IPersonalList[]
+  >([])
 
-  const { data, error, isLoading } = useQuery<IPersonalList[]>({
+  const { error, isLoading } = useQuery<IPersonalList[]>({
     queryKey: ['get-list-personal'],
     queryFn: async () => {
       const { data } = await api.get('/list-personal')
 
+      setPersonalTrainers(data.data)
+      setOriginalPersonalTrainers(data.data)
       return data.data
     },
   })
@@ -85,7 +50,19 @@ export function PersonalTrainerList() {
     }
   }, [error])
 
-  console.log('data', data)
+  function getSearchPersonal(title: string) {
+    const newItem: IPersonalList[] = [...personalTrainers]
+
+    if (title.length > 0) {
+      const tipoInfo = newItem.filter((item) =>
+        item.user.name.toLowerCase().includes(title.toLowerCase()),
+      )
+
+      setPersonalTrainers(tipoInfo)
+    } else {
+      setPersonalTrainers(originalPersonalTrainers)
+    }
+  }
 
   return (
     <>
@@ -100,13 +77,17 @@ export function PersonalTrainerList() {
               <Header title={'Personal trainers'} />
 
               <Content>
-                <Input label="Buscar personal" className="mb-2" />
+                <Input
+                  label="Buscar personal"
+                  className="mb-2"
+                  onChangeText={(text) => getSearchPersonal(text)}
+                />
                 <FlatList
-                  data={data}
+                  data={personalTrainers}
                   keyExtractor={(item) => item.id}
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={
-                    data?.length == 0
+                    personalTrainers?.length == 0
                       ? {
                           flexGrow: 1,
                           padding: 10,
@@ -117,7 +98,11 @@ export function PersonalTrainerList() {
                     <Card
                       key={item.id}
                       item={item}
-                      onPress={() => navigate('personalTrainerProfile')}
+                      onPress={() =>
+                        navigate('personalTrainerProfile', {
+                          id: item.id,
+                        })
+                      }
                     />
                   )}
                 />

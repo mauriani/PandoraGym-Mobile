@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { Image, Text, View } from 'react-native'
 import { IComment } from '@_dtos_/commentDTO'
+import { IPersonalDTO } from '@_dtos_/personalDTO'
 import { ContentScroll } from '@components/ContentScroll'
 import { Heading } from '@components/Heading'
 import { ButtonSports } from '@screens/PersonalTrainerProfile/__components__/ButtonSports'
@@ -10,7 +11,11 @@ import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
 import { CircleDollarSign, Star, Users } from 'lucide-react-native'
 
-export function Profile() {
+type IProps = {
+  data: IPersonalDTO
+}
+
+export function Profile({ data }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
 
   const comments: IComment[] = [
@@ -48,20 +53,22 @@ export function Profile() {
         <Image
           className="h-32 w-32 rounded-full"
           source={{
-            uri: 'https://images.unsplash.com/photo-1606902965551-dce093cda6e7?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            uri: data?.user?.avatarUrl,
           }}
           alt=""
         />
 
         <View className="flex-col gap-2">
-          <Heading title="Julia Rekamie" />
+          <Heading title={data?.user?.name} />
 
           <View className="flex-row gap-2 items-center">
             <CircleDollarSign color={themes[colorScheme].primary} size={20} />
 
-            <Text className="text-white primary_bold font-bold text-xs">
-              R$ 70 por hora/aula
-            </Text>
+            {data?.plan[0]?.price && (
+              <Text className="text-white primary_bold font-bold text-xs">
+                R$ {data?.plan[0]?.price} por hora/aula
+              </Text>
+            )}
           </View>
 
           <View className="flex-row gap-2 items-center">
@@ -80,7 +87,7 @@ export function Profile() {
             />
 
             <Text className="text-white primary_bold font-bold text-xs">
-              5 (23 avaliações)
+              {data?.rating} (23 avaliações)
             </Text>
           </View>
         </View>
@@ -100,12 +107,7 @@ export function Profile() {
 
       <View className="bg-secondary rounded-[6px] px-2 py-2">
         <Text className="text-foreground font-primary_regular text-md leading-6">
-          A aula é completamente personalizada para seu objetivo, dentro das
-          possibilidade de materiais, espaço e condicionamento físico prévio.
-          Pode ser feita em academias de condomínio ou em academia de rede,
-          também levo em consideração a preferência do tipo de atividade física
-          que o aluno mais gosta. O foco é atingir o objetivo do aluno de
-          maneira sustentável e inteligente.
+          {data?.description}
         </Text>
       </View>
 

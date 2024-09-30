@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { Text, View } from 'react-native'
+import { IPersonalDTO } from '@_dtos_/personalDTO'
 import { ContentScroll } from '@components/ContentScroll'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/ui/Button'
@@ -8,7 +9,11 @@ import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
 import { CheckCheck } from 'lucide-react-native'
 
-export function Planos() {
+type IProps = {
+  data: IPersonalDTO
+}
+
+export function Planos({ data }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
 
   const planBenefits = [
@@ -19,6 +24,8 @@ export function Planos() {
     'Limitações físicas',
     'Compreensão de seus objetivos',
   ]
+
+  console.log('data', data)
   return (
     <ContentScroll>
       <View className="gap-10">
