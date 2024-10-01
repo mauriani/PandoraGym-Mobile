@@ -30,6 +30,7 @@ export type RootStackParamList = {
   profile: undefined
   personalTrainerProfile: {
     id: string
+    planId?: string
   }
   startTraining: {
     id: String

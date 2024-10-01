@@ -1,16 +1,22 @@
-import React from 'react'
-import { Alert, ScrollView, Text, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { UserData } from '@_dtos_/profileDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
+import { Loading } from '@components/Loading'
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar'
 import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
+import { api } from '@services/api'
+import { useQuery } from '@tanstack/react-query'
+import { AppError } from '@utils/AppError'
+import { toast } from '@utils/toast-methods'
 
 import { ButtonProfile } from './__components__/ButtonProfile'
 
 export function Profile() {
-  const { signOut } = useAuth()
+  const { signOut, user } = useAuth()
   const { navigate } = useNavigation()
 
   function handleLogout() {
@@ -36,50 +42,92 @@ export function Profile() {
     await signOut()
   }
 
+  const { data, error, isLoading } = useQuery<UserData>({
+    queryKey: ['get-profile-user', user.token],
+    queryFn: async () => {
+      const { data } = await api.get('/profile')
+
+      return data.userData
+    },
+  })
+
+  useEffect(() => {
+    if (error) {
+      const isAppError = error instanceof AppError
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao buscar os treinos. Tente novamente mais tarde'
+
+      toast.error(title)
+    }
+  }, [error])
+
   return (
-    <Container>
-      <HeaderGoBack title={'Perfil'} />
-      <Content>
-        <View className="items-center justify-center gap-4">
-          <Avatar>
-            <AvatarImage
-              source={{
-                uri: 'https://pbs.twimg.com/profile_images/1745949238519803904/ZHwM5B07_400x400.jpg',
-              }}
-            />
-            <AvatarFallback>CG</AvatarFallback>
-          </Avatar>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <HeaderGoBack title={'Perfil'} />
+          <Content>
+            <View className="items-center justify-center gap-4">
+              <Avatar>
+                <AvatarImage
+                  source={{
+                    uri: data?.avatarUrl,
+                  }}
+                />
+                <AvatarFallback>CG</AvatarFallback>
+              </Avatar>
 
-          <Text className="text-base text-primary font-primary_bold">
-            Othávio Augusto Morais Rubim
-          </Text>
-        </View>
+              <View className="items-center justify-center gap-1">
+                <Text className="text-base text-primary font-primary_bold">
+                  {data?.name}
+                </Text>
+                <Text className="text-muted-foreground font-primary_regular text-sm">
+                  {data?.email}
+                </Text>
+              </View>
 
-        <ScrollView contentContainerStyle={{ gap: 12, marginTop: 20 }}>
-          <ButtonProfile
-            title={'Editar dados do Perfil'}
-            iconName="ChevronRight"
-            onPress={() => navigate('editProfile')}
-          />
-          <ButtonProfile
-            title={'Notificações'}
-            iconName="ChevronRight"
-            onPress={() => navigate('notifications')}
-          />
-          <ButtonProfile
-            title={'Me ajuda ?'}
-            iconName="ChevronRight"
-            onPress={() => navigate('helpMe')}
-          />
+              {data?.planName && (
+                <TouchableOpacity className="py-2 w-44 rounded-full items-center bg-primary-foreground ">
+                  <Text className="text-muted-foreground font-base">
+                    {data?.planName}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
 
-          <ButtonProfile
-            title={'Sair'}
-            iconName="LogOut"
-            size={22}
-            onPress={handleLogout}
-          />
-        </ScrollView>
-      </Content>
-    </Container>
+            <ScrollView contentContainerStyle={{ gap: 12, marginTop: 20 }}>
+              {data?.personalId && (
+                <ButtonProfile
+                  title={'Meu Personal'}
+                  iconName="ChevronRight"
+                  onPress={() =>
+                    navigate('personalTrainerProfile', {
+                      id: data?.personalId,
+                      planId: data?.planId,
+                    })
+                  }
+                />
+              )}
+
+              <ButtonProfile
+                title={'Editar dados do Perfil'}
+                iconName="ChevronRight"
+                onPress={() => navigate('editProfile')}
+              />
+
+              <ButtonProfile
+                title={'Sair'}
+                iconName="LogOut"
+                size={22}
+                onPress={handleLogout}
+              />
+            </ScrollView>
+          </Content>
+        </Container>
+      )}
+    </>
   )
 }

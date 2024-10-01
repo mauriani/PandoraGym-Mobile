@@ -4,7 +4,6 @@ import { IComment } from '@_dtos_/commentDTO'
 import { IPersonalDTO } from '@_dtos_/personalDTO'
 import { ContentScroll } from '@components/ContentScroll'
 import { Heading } from '@components/Heading'
-import { ButtonSports } from '@screens/PersonalTrainerProfile/__components__/ButtonSports'
 import { Comment } from '@screens/PersonalTrainerProfile/__components__/Comment'
 import { TitleSection } from '@screens/PersonalTrainerProfile/__components__/TitleSection'
 import { ThemeContext } from '@theme/theme-provider'
@@ -62,12 +61,16 @@ export function Profile({ data }: IProps) {
           <Heading title={data?.user?.name} />
 
           <View className="flex-row gap-2 items-center">
-            <CircleDollarSign color={themes[colorScheme].primary} size={20} />
-
             {data?.plan[0]?.price && (
-              <Text className="text-white primary_bold font-bold text-xs">
-                R$ {data?.plan[0]?.price} por hora/aula
-              </Text>
+              <>
+                <CircleDollarSign
+                  color={themes[colorScheme].primary}
+                  size={20}
+                />
+                <Text className="text-white primary_bold font-bold text-xs">
+                  R$ {data?.plan[0]?.price} por hora/aula
+                </Text>
+              </>
             )}
           </View>
 
@@ -75,7 +78,7 @@ export function Profile({ data }: IProps) {
             <Users color={themes[colorScheme].primary} size={20} />
 
             <Text className="text-white primary_bold font-bold text-xs">
-              50 alunos
+              {data?.student.length} alunos
             </Text>
           </View>
 
@@ -93,7 +96,7 @@ export function Profile({ data }: IProps) {
         </View>
       </View>
 
-      <View className="gap-2 mt-2">
+      {/* <View className="gap-2 mt-2">
         <TitleSection title="Esportes" />
 
         <View className="flex-row gap-3">
@@ -101,7 +104,7 @@ export function Profile({ data }: IProps) {
           <ButtonSports title="🏃‍♂️ Corrida" />
           <ButtonSports title="🏋️ Workout" />
         </View>
-      </View>
+      </View> */}
 
       <TitleSection title="Sobre mim" />
 

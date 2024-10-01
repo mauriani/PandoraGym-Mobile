@@ -11,6 +11,7 @@ import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Loading } from '@components/Loading'
 import { Input } from '@components/ui/Input'
+import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
@@ -21,6 +22,7 @@ import { Card } from './__components__/Card'
 
 export function PersonalTrainerList() {
   const { navigate } = useNavigation()
+  const { user } = useAuth()
 
   const [personalTrainers, setPersonalTrainers] =
     useState<IPersonalList[]>(null)
@@ -64,6 +66,18 @@ export function PersonalTrainerList() {
     }
   }
 
+  function isStudentInList(item: IPersonalList) {
+    const studentInList = item.student.find(
+      (student) => student.id === user.user.id,
+    )
+
+    if (studentInList) {
+      return studentInList.plan?.id
+    }
+
+    return null
+  }
+
   return (
     <>
       {isLoading ? (
@@ -101,6 +115,7 @@ export function PersonalTrainerList() {
                       onPress={() =>
                         navigate('personalTrainerProfile', {
                           id: item.id,
+                          planId: isStudentInList(item),
                         })
                       }
                     />

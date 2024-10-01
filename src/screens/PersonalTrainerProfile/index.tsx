@@ -15,18 +15,19 @@ import { Profile } from './_tabs_/Profile'
 
 type IRouteParams = {
   id: string
+  planId?: string
 }
 
 export function PersonalTrainerProfile() {
   const route = useRoute()
-  const { id } = route.params as IRouteParams
+  const { id, planId } = route.params as IRouteParams
 
-  const { data, error } = useQuery<IPersonalDTO[]>({
+  const { data, error } = useQuery<IPersonalDTO>({
     queryKey: ['get-personal-id', id],
     queryFn: async () => {
       const { data } = await api.get(`/list-personal/${id}`)
 
-      return data.data
+      return data.data as IPersonalDTO
     },
   })
 
@@ -41,8 +42,6 @@ export function PersonalTrainerProfile() {
     }
   }, [error])
 
-  console.log('data', data)
-
   return (
     <Container>
       <HeaderGoBack title={'Trainers'} />
@@ -56,7 +55,7 @@ export function PersonalTrainerProfile() {
             <Profile data={data} />
           </TabsContent>
           <TabsContent value="planos">
-            <Planos data={data} />
+            <Planos data={data?.plan} planId={planId} />
           </TabsContent>
         </Tabs>
       </View>

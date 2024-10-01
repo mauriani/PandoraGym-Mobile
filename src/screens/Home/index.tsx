@@ -13,6 +13,8 @@ import { Heading } from '@components/Heading'
 import { InputWithIcon } from '@components/InputWithIcon'
 import { Loading } from '@components/Loading'
 import { MyTrainingCard } from '@components/MyTrainingCard'
+import { NoContent } from '@components/NoContent'
+import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
@@ -29,6 +31,7 @@ export const formValidationSchema = z.object({
 export type zodSchema = z.infer<typeof formValidationSchema>
 
 export function Home() {
+  const { user } = useAuth()
   const { navigate } = useNavigation()
 
   function handleAccessTraining(id: string, name: string) {
@@ -39,7 +42,7 @@ export function Home() {
   }
 
   const { data, error, isLoading } = useQuery<ITraining[]>({
-    queryKey: ['get-training-for-user'],
+    queryKey: ['get-training-for-user', user.token],
     queryFn: async () => {
       const { data } = await api.get('/workouts')
 
@@ -91,6 +94,9 @@ export function Home() {
                           padding: 10,
                         }
                       : { paddingBottom: 80, gap: 10 }
+                  }
+                  ListEmptyComponent={
+                    <NoContent message="Opss ... você não tem nenhum treino cadastrado até o momento!" />
                   }
                   renderItem={({ item }) => (
                     <MyTrainingCard
