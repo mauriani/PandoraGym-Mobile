@@ -31,6 +31,7 @@ export type RootStackParamList = {
   personalTrainerProfile: {
     id: string
     planId?: string
+    isButtonComment?: boolean
   }
   startTraining: {
     id: String
