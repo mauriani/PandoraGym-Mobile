@@ -47,12 +47,22 @@ export function CardPlan({ item, planId }: IProps) {
         ))}
       </View>
 
-      <Button
-        variant={planId != null && planId == item.id ? 'secondary' : 'default'}
-        label={
-          planId != null && planId == item.id ? 'Plano Contratado' : 'Contratar'
-        }
-      />
+      <View className="gap-3">
+        <Button
+          variant={
+            planId != null && planId == item.id ? 'secondary' : 'default'
+          }
+          label={
+            planId != null && planId == item.id
+              ? 'Plano Contratado'
+              : 'Contratar'
+          }
+        />
+
+        {planId != null && planId == item.id && (
+          <Button variant={'destructive'} label={'Cancelar Plano'} />
+        )}
+      </View>
     </View>
   )
 }
