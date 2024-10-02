@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar'
 import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
+import { getUserFromStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
@@ -18,6 +19,8 @@ import { ButtonProfile } from './__components__/ButtonProfile'
 export function Profile() {
   const { signOut, user } = useAuth()
   const { navigate } = useNavigation()
+
+  const { id } = getUserFromStorage()
 
   function handleLogout() {
     Alert.alert(
@@ -43,7 +46,7 @@ export function Profile() {
   }
 
   const { data, error, isLoading } = useQuery<UserData>({
-    queryKey: ['get-profile-user', user.token],
+    queryKey: ['get-profile-user-id', user.token, id],
     queryFn: async () => {
       const { data } = await api.get('/profile')
 

@@ -12,6 +12,7 @@ export type User = {
 }
 
 export type IPersonalDTO = {
+  id: string
   description: string
   plan: Plan[]
   rating: number

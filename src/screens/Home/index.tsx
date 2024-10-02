@@ -34,6 +34,9 @@ export function Home() {
   const { user } = useAuth()
   const { navigate } = useNavigation()
 
+  // console.log('userStorage', userStorage)
+  // console.log('user', user)
+
   function handleAccessTraining(id: string, name: string) {
     navigate('startTraining', {
       id,
@@ -42,7 +45,7 @@ export function Home() {
   }
 
   const { data, error, isLoading } = useQuery<ITraining[]>({
-    queryKey: ['get-training-for-user', user.token],
+    queryKey: ['get-training-for-user', user?.user?.id],
     queryFn: async () => {
       const { data } = await api.get('/workouts')
 

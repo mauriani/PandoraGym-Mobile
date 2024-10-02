@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
+import { RichEditor } from 'react-native-pell-rich-editor'
 import { IPersonalDTO } from '@_dtos_/personalDTO'
 import { Container } from '@components/Container'
 import { HeaderGoBack } from '@components/HeaderGoBack'
@@ -24,9 +25,11 @@ type IRouteParams = {
 
 export function PersonalTrainerProfile() {
   const route = useRoute()
+  const richText = useRef<RichEditor>(null)
 
   const { id, planId } = route.params as IRouteParams
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [comment, setComment] = useState('')
 
   const { data, error } = useQuery<IPersonalDTO>({
     queryKey: ['get-personal-id', id],
@@ -37,14 +40,42 @@ export function PersonalTrainerProfile() {
     },
   })
 
-  // const handleSave = async () => {
-  //   // Aqui você pode enviar ou salvar o conteúdo do editor
-  //   richText.current &&
-  //     (await richText.current?.getContentHtml().then((html) => {
-  //       console.log(html)
-  //       // Enviar ou salvar o HTML
-  //     }))
-  // }
+  const handleGetContentHtmlEditor = useCallback(async () => {
+    const content = await richText.current.getContentHtml()
+
+    const mensagem = content.toString()
+
+    setComment(mensagem)
+  }, [])
+
+  const handleGetEditor = () => {
+    return richText.current
+  }
+
+  async function handleCommentPersonal() {
+    try {
+      await api
+        .post('/comment', {
+          comment,
+          personalId: id,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            toast.success(response.data.message)
+          }
+
+          setIsModalOpen(!isModalOpen)
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      toast.error(title)
+    }
+  }
 
   useEffect(() => {
     if (error) {
@@ -68,7 +99,7 @@ export function PersonalTrainerProfile() {
             <TabsTrigger id="planos" title="Planos" value="planos" />
           </TabsList>
           <TabsContent value="perfil">
-            <Profile data={data} />
+            <Profile data={data} personalId={id} />
           </TabsContent>
           <TabsContent value="planos">
             <Planos data={data?.plan} planId={planId} />
@@ -82,7 +113,15 @@ export function PersonalTrainerProfile() {
         title="Adicionar Comentário"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(!isModalOpen)}
-        content={<EditorText />}
+        content={
+          <EditorText
+            richText={richText}
+            handleGetContentHtmlEditor={handleGetContentHtmlEditor}
+            handleGetEditor={handleGetEditor}
+            comment={comment}
+            onSubmit={() => handleCommentPersonal()}
+          />
+        }
       />
     </Container>
   )

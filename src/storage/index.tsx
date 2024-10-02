@@ -31,3 +31,7 @@ export function getTokenFromStorage() {
 export function removeUserFromStorage() {
   storage.delete(USER_STORAGE_KEY)
 }
+
+export function removeTokenFromStorage() {
+  storage.delete(USER_STORAGE_TOKEN)
+}

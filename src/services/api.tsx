@@ -1,3 +1,4 @@
+import { getTokenFromStorage } from '@storage/index'
 import { AppError } from '@utils/AppError'
 import axios from 'axios'
 
@@ -17,5 +18,13 @@ api.interceptors.response.use(
     }
   },
 )
+
+api.interceptors.request.use((config) => {
+  const token = getTokenFromStorage()
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
 
 export { api }

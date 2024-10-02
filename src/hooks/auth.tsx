@@ -9,6 +9,7 @@ import { IUser } from '@_dtos_/userDTO'
 import {
   getTokenFromStorage,
   getUserFromStorage,
+  removeTokenFromStorage,
   removeUserFromStorage,
   saveTokenInStorage,
   saveUserInStorage,
@@ -45,35 +46,28 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   const [data, setData] = useState<AuthState>({} as AuthState)
 
-  function loadInteceptor(token: string) {
-    const authInterceptor = (config) => {
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-      }
-      return config
-    }
-
-    api.interceptors.request.use(authInterceptor)
-  }
-
   async function signIn({ email, password }: SignInCredentials) {
-    const response = await api.post('/session', {
-      email,
-      password,
-    })
+    try {
+      const response = await api.post('/session', {
+        email,
+        password,
+      })
 
-    const { token, user } = response.data
+      const { token, user } = response.data
 
-    loadInteceptor(token)
+      setData({ ...user, token })
 
-    setData({ ...user, token })
-
-    saveUserInStorage(user)
-    saveTokenInStorage(token)
+      saveUserInStorage(user)
+      saveTokenInStorage(token)
+    } catch (error) {
+      console.error('Erro ao fazer login', error)
+    }
   }
 
   async function signOut() {
     removeUserFromStorage()
+    removeTokenFromStorage()
+
     setData({} as AuthState)
     if (api.defaults?.headers && api.defaults.headers.common) {
       // eslint-disable-next-line prettier/prettier, dot-notation
@@ -91,11 +85,6 @@ function AuthProvider({ children }: AuthProviderProps) {
 
         if (user) {
           setData(item)
-        }
-
-        if (token) {
-          // eslint-disable-next-line dot-notation
-          api.defaults.headers.common['Authorization'] = `Bearer ${token}`
         }
       } catch (e) {
         console.log(e)

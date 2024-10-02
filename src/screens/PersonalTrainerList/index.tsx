@@ -68,7 +68,7 @@ export function PersonalTrainerList() {
 
   function isStudentInList(item: IPersonalList) {
     const studentInList = item.student.find(
-      (student) => student.id === user.user.id,
+      (student) => student.id === user?.user?.id,
     )
 
     if (studentInList) {

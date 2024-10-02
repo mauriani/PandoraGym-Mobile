@@ -1,7 +1,7 @@
 export type IComment = {
   id: string
-  image: string
+  avatarUrl: string
   name: string
-  date_created: string
+  createdAt: string
   comment: string
 }
