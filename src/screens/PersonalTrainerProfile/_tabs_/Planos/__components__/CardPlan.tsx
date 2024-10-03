@@ -80,6 +80,25 @@ export function CardPlan({ item, planId }: IProps) {
     }
   }
 
+  function handleHeIsSure() {
+    Alert.alert(
+      'Cancelar',
+      'Você realmente tem certeza que deseja cancelar seu plano ?',
+      [
+        {
+          text: 'Sim',
+          onPress: () => onCancelPlan(),
+        },
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    )
+  }
+
   return (
     <View className="gap-10 border border-input rounded-lg py-4 px-4">
       <View className="items-center gap-2 py-10">
@@ -126,7 +145,7 @@ export function CardPlan({ item, planId }: IProps) {
           <Button
             variant={'destructive'}
             label={'Cancelar Plano'}
-            onPress={() => onCancelPlan()}
+            onPress={() => handleHeIsSure()}
           />
         )}
       </View>

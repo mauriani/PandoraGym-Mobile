@@ -27,7 +27,7 @@ export function History() {
     queryKey: ['get-history-training', selected],
     queryFn: async () => {
       const { data } = await api.post('/workout/history', {
-        date: selected,
+        date: dayjs(selected).toISOString(),
       })
 
       return data

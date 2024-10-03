@@ -30,6 +30,13 @@ export function MyTrainingCard({ item, onAccessTraining }: IProps) {
         <Text className="text-white font-primary_bold text-base">
           {item.name}
         </Text>
+
+        {item.exclusive && item.personalId != null && (
+          <Text className="text-muted-foreground font-primary_regular text-sm">
+            Criado por <Text className="font-bold">{item.personalName}</Text>
+          </Text>
+        )}
+
         <Text
           numberOfLines={2}
           className="text-muted-foreground font-primary_regular text-sm">

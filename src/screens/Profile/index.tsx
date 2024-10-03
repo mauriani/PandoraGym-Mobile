@@ -25,7 +25,7 @@ export function Profile() {
   function handleLogout() {
     Alert.alert(
       'Sair',
-      'Você realmente deseja sair do Fall Alert ?',
+      'Você realmente deseja sair do Pandora Gym ?',
       [
         {
           text: 'Sair',

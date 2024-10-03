@@ -29,6 +29,7 @@ import { UpdateWeight } from './__components__/UpdateWeight'
 type IRouteParams = {
   id: string
   name: string
+  exclusive: boolean
 }
 
 export function StartTraining() {
@@ -45,7 +46,7 @@ export function StartTraining() {
   const [selectedItems, setSelectedItems] = useState([])
   // const [loading, setloading] = useState(false)
 
-  const { name, id } = route.params as IRouteParams
+  const { name, id, exclusive } = route.params as IRouteParams
 
   const { data, isLoading } = useQuery<StartExerciseDTO[]>({
     queryKey: ['get-training-for-workoutid', id],
@@ -141,6 +142,30 @@ export function StartTraining() {
     setExercises(updatedExercises)
   }
 
+  function onDeleteWorkout() {}
+
+  function handleLogout() {
+    console.log('exclusive', exclusive)
+    !exclusive
+      ? Alert.alert(
+          'Apagar Treino',
+          'Você realmente deseja apagar este treino ?',
+          [
+            {
+              text: 'Sim',
+              onPress: () => onDeleteWorkout(),
+            },
+            {
+              text: 'Cancelar',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false },
+        )
+      : toast.error('Somente o seu personal pode alterar este treino!')
+  }
+
   useEffect(() => {
     if (data) {
       const newItem = {
@@ -160,7 +185,7 @@ export function StartTraining() {
         <Loading />
       ) : (
         <Container>
-          <HeaderGoBack title={name} />
+          <HeaderGoBack title={name} isMenu onDeleteWorkout={handleLogout} />
           <Content>
             <View>
               {selectedVideo && (

@@ -34,8 +34,9 @@ export type RootStackParamList = {
     isButtonComment?: boolean
   }
   startTraining: {
-    id: String
+    id: string
     name: string
+    exclusive: boolean
   }
   detailsTemplate: {
     title: string

@@ -23,8 +23,11 @@ export type IExerciseConfig = {
 export type ITraining = {
   id: string
   name: string
-  thumbnail: string
   description: string
-  exerciseConfig: IExerciseConfig[]
+  thumbnail: string
+  personalId: string | null
+  personalName: string
   weekDays: Day[]
+  exclusive: boolean
+  exercicioConfig: IExerciseConfig
 }

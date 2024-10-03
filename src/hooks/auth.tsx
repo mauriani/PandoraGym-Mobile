@@ -14,6 +14,7 @@ import {
   saveTokenInStorage,
   saveUserInStorage,
 } from '@storage/index'
+import { toast } from '@utils/toast-methods'
 
 import { api } from '../services/api'
 
@@ -60,7 +61,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       saveUserInStorage(user)
       saveTokenInStorage(token)
     } catch (error) {
-      console.error('Erro ao fazer login', error)
+      toast.error(`${error.message}`)
     }
   }
 

@@ -37,10 +37,11 @@ export function Home() {
   // console.log('userStorage', userStorage)
   // console.log('user', user)
 
-  function handleAccessTraining(id: string, name: string) {
+  function handleAccessTraining(id: string, name: string, exclusive: boolean) {
     navigate('startTraining', {
       id,
       name,
+      exclusive,
     })
   }
 
@@ -105,7 +106,7 @@ export function Home() {
                     <MyTrainingCard
                       item={item}
                       onAccessTraining={() =>
-                        handleAccessTraining(item.id, item.name)
+                        handleAccessTraining(item.id, item.name, item.exclusive)
                       }
                     />
                   )}

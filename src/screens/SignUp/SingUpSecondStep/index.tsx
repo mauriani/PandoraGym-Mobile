@@ -39,15 +39,24 @@ const objectives = [
   { value: '9', label: 'Saúde geral e bem-estar' },
 ]
 
-const schema = zod.object({
-  weight: zod.string().min(1, { message: 'O campo de nome é obrigatório' }),
-  physicalActivityLevel: zod
-    .string()
-    .min(1, { message: 'O campo de nome é obrigatório' }),
-  objective: zod.string().min(1, { message: 'O campo de nome é obrigatório' }),
-  medicalCondition: zod.string(),
-  observations: zod.string(),
-})
+const schema = zod
+  .object({
+    weight: zod.string().min(1, { message: 'O campo de nome é obrigatório' }),
+    physicalActivityLevel: zod
+      .string()
+      .min(1, { message: 'O campo de nome é obrigatório' }),
+    objective: zod
+      .string()
+      .min(1, { message: 'O campo de nome é obrigatório' }),
+    medicalCondition: zod.string(),
+    observations: zod.string(),
+    password: zod.string().min(6),
+    confirmPassword: zod.string().min(6),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'O campo de senha e confirma senha precisam ser iguais',
+    path: ['confirmPassword'],
+  })
 
 export type zodSchema = zod.infer<typeof schema>
 
@@ -117,6 +126,24 @@ export function SingUpSecondStep() {
             name="observations"
             label="Observações"
             error={errors.observations}
+          />
+
+          <InputFormControl
+            control={control}
+            name="password"
+            label="Senha"
+            inputClasses="bg-neutral-900 text-white mt-4"
+            error={errors.password}
+            typePassword={true}
+          />
+
+          <InputFormControl
+            control={control}
+            name="confirmPassword"
+            label="Confirma Senha"
+            inputClasses="bg-neutral-900 text-white mt-4"
+            error={errors.confirmPassword}
+            typePassword={true}
           />
         </View>
 
