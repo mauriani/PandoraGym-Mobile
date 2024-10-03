@@ -23,7 +23,7 @@ type IRouteParams = {
   isButtonComment: boolean
 }
 
-export function PersonalTrainerProfile() {
+export function PersonalId() {
   const route = useRoute()
   const richText = useRef<RichEditor>(null)
 

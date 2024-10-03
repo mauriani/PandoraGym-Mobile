@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FlatList, Text, View } from 'react-native'
 import { IDetailsTemplate } from '@_dtos_/detailsTemplateDTO'
+import { ButtonWithIcon } from '@components/ButtonWithIcon'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { Footer } from '@components/Footer'
@@ -22,8 +23,6 @@ import { toast } from '@utils/toast-methods'
 import { daysOfWeek } from '@utils/weekDay'
 import zod from 'zod'
 
-import { ButtonWithIcon } from '../../components/ButtonWithIcon'
-
 import { CardDetails } from './__components__/CardDetails'
 
 type IRouteParams = {
@@ -38,7 +37,7 @@ const schema = zod.object({
 
 export type zodSchema = zod.infer<typeof schema>
 
-export function DetailsTemplate() {
+export function WorkoutId() {
   const route = useRoute()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const queryClient = useQueryClient()

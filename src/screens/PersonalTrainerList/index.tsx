@@ -113,7 +113,7 @@ export function PersonalTrainerList() {
                       key={item.id}
                       item={item}
                       onPress={() =>
-                        navigate('personalTrainerProfile', {
+                        navigate('personalId', {
                           id: item.id,
                           planId: isStudentInList(item),
                         })

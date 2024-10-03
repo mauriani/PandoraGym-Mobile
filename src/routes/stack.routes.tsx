@@ -4,13 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
 import { CreateTrainingThirdStep } from '@screens/CreateTraining/CreateTrainingThirdStep'
-import { DetailsTemplate } from '@screens/DetailsTemplates'
 import { EditProfile } from '@screens/EditProfile'
 import { HelpMe } from '@screens/HelpMe'
 import { Notifications } from '@screens/Notifications'
-import { PersonalTrainerProfile } from '@screens/PersonalTrainerProfile'
+import { PersonalId } from '@screens/PersonalTrainerList/pages/PersonalId'
 import { Profile } from '@screens/Profile'
 import { StartTraining } from '@screens/StartTraining'
+import { WorkoutId } from '@screens/WorkoutsTemplates/pages/WorkoutId'
 
 import TabNavigator from './tab.routes'
 
@@ -28,7 +28,7 @@ export type RootStackParamList = {
     selectedItems: IExercise[] | null
   }
   profile: undefined
-  personalTrainerProfile: {
+  personalId: {
     id: string
     planId?: string
     isButtonComment?: boolean
@@ -38,7 +38,7 @@ export type RootStackParamList = {
     name: string
     exclusive: boolean
   }
-  detailsTemplate: {
+  workoutId: {
     title: string
     id: string
     tumbnail: string
@@ -83,8 +83,8 @@ export default function RootStack() {
         />
 
         <Screen
-          name="personalTrainerProfile"
-          component={PersonalTrainerProfile}
+          name="personalId"
+          component={PersonalId}
           options={{ headerShown: false }}
         />
 
@@ -95,8 +95,8 @@ export default function RootStack() {
         />
 
         <Screen
-          name="detailsTemplate"
-          component={DetailsTemplate}
+          name="workoutId"
+          component={WorkoutId}
           options={{ headerShown: false }}
         />
 

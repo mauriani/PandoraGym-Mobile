@@ -4,13 +4,14 @@ import { Plan } from '@_dtos_/personalDTO'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/ui/Button'
 import { useNavigation } from '@react-navigation/native'
-import { TitleSection } from '@screens/PersonalTrainerProfile/__components__/TitleSection'
 import { api } from '@services/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
 import { AppError } from '@utils/AppError'
 import { CheckCheck } from 'lucide-react-native'
+
+import { TitleSection } from '../../../__components__/TitleSection'
 
 type IProps = {
   item: Plan

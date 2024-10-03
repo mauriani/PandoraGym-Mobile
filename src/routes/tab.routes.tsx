@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/bottom-tabs'
 import { History } from '@screens/History'
 import { PersonalTrainerList } from '@screens/PersonalTrainerList'
-import { ReadyGymWorkouts } from '@screens/ReadyGymWorkouts'
+import { WorkoutsTemplates } from '@screens/WorkoutsTemplates'
 import {
   BicepsFlexed,
   History as Time,
@@ -19,7 +19,7 @@ type AppRoutes = {
   home: undefined
   history: undefined
   personalTrainerList: undefined
-  readyGymWorkouts: undefined
+  workoutsTemplates: undefined
   evolution: undefined
 }
 
@@ -59,8 +59,8 @@ export default function TabNavigator() {
       />
 
       <Screen
-        name="readyGymWorkouts"
-        component={ReadyGymWorkouts}
+        name="workoutsTemplates"
+        component={WorkoutsTemplates}
         options={{
           tabBarIcon: ({ color, size }) => (
             <BicepsFlexed color={color} size={size} />

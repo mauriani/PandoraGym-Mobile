@@ -7,8 +7,6 @@ import { Heading } from '@components/Heading'
 import { Loading } from '@components/Loading'
 import { NoContent } from '@components/NoContent'
 import { useAuth } from '@hooks/auth'
-import { Comment } from '@screens/PersonalTrainerProfile/__components__/Comment'
-import { TitleSection } from '@screens/PersonalTrainerProfile/__components__/TitleSection'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
 import { ThemeContext } from '@theme/theme-provider'
@@ -16,6 +14,9 @@ import { themes } from '@theme/themes'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 import { CircleDollarSign, Star, Users } from 'lucide-react-native'
+
+import { Comment } from '../../__components__/Comment'
+import { TitleSection } from '../../__components__/TitleSection'
 
 type IProps = {
   data: IPersonalDTO

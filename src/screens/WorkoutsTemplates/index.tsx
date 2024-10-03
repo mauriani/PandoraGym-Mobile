@@ -15,7 +15,7 @@ import { ButtonCategories } from './__components__/ButtonCategories'
 import { CardTop } from './__components__/CardTop'
 import { CardWorkouts } from './__components__/CardWorkouts'
 
-export function ReadyGymWorkouts() {
+export function WorkoutsTemplates() {
   const { navigate } = useNavigation()
 
   const categories = [
@@ -27,7 +27,7 @@ export function ReadyGymWorkouts() {
   ]
 
   function handleNavigaDetails(title: string, id: string, tumbnail: string) {
-    navigate('detailsTemplate', {
+    navigate('workoutId', {
       title,
       id,
       tumbnail,

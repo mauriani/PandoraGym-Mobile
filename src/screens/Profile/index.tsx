@@ -107,7 +107,7 @@ export function Profile() {
                   title={'Meu Personal'}
                   iconName="ChevronRight"
                   onPress={() =>
-                    navigate('personalTrainerProfile', {
+                    navigate('personalId', {
                       id: data?.personalId,
                       planId: data?.planId,
                     })
