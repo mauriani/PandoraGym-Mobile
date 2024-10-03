@@ -23,7 +23,7 @@ interface IProps {
   change?: (value: string) => void
 }
 
-export function SelectDropdownControl({
+export function SelecFormControlt({
   name,
   error,
   label,
@@ -43,7 +43,7 @@ export function SelectDropdownControl({
           defaultValue={defaultValue ?? ''}
           render={({ field: { value, onChange } }) => {
             return (
-              <View className="my-4">
+              <View>
                 <SelectDropdown
                   data={options}
                   onSelect={(selectedItem) => {
@@ -54,12 +54,6 @@ export function SelectDropdownControl({
                     return (
                       <View
                         className={`w-full h-12 border border-input rounded-lg flex-row justify-center items-center px-3`}>
-                        {selectedItem && (
-                          <IconComponent
-                            iconName={isOpen ? 'ChevronUp' : 'ChevronDown'}
-                            color={themes[colorScheme].mutedForeground}
-                          />
-                        )}
                         <Text className={`flex-1 text-white`}>
                           {(selectedItem?.value === value &&
                             selectedItem.label) ||
@@ -76,10 +70,6 @@ export function SelectDropdownControl({
                     return (
                       <View
                         className={`w-full border border-input flex-row px-3 py-4 ${isSelected ? 'bg-secondary' : 'bg-background'}`}>
-                        <IconComponent
-                          iconName={'CheckCheck'}
-                          color={themes[colorScheme].mutedForeground}
-                        />
                         <Text className={`flex-1 text-foreground`}>
                           {item.label}
                         </Text>

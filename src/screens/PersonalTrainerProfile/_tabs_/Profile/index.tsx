@@ -37,7 +37,7 @@ export function Profile({ data, personalId }: IProps) {
         personalId,
       })
 
-      return data.formattedData
+      return data
     },
   })
 
@@ -46,7 +46,7 @@ export function Profile({ data, personalId }: IProps) {
       const isAppError = error instanceof AppError
       const title = isAppError
         ? error.message
-        : 'Ocorreu um erro ao buscar os treinos. Tente novamente mais tarde'
+        : 'Ocorreu um erro ao buscar comentários. Tente novamente mais tarde'
 
       toast.error(title)
     }

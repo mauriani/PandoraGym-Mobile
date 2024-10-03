@@ -1,11 +1,15 @@
 import React, { useContext } from 'react'
-import { Text, View } from 'react-native'
+import { Alert, Text, View } from 'react-native'
 import { Plan } from '@_dtos_/personalDTO'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/ui/Button'
+import { useNavigation } from '@react-navigation/native'
 import { TitleSection } from '@screens/PersonalTrainerProfile/__components__/TitleSection'
+import { api } from '@services/api'
+import { useQueryClient } from '@tanstack/react-query'
 import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
+import { AppError } from '@utils/AppError'
 import { CheckCheck } from 'lucide-react-native'
 
 type IProps = {
@@ -15,8 +19,66 @@ type IProps = {
 
 export function CardPlan({ item, planId }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
+  const queryClient = useQueryClient()
+  const { navigate } = useNavigation()
 
-  const benefits = item.description.split(',').map((benefit) => benefit.trim())
+  async function onSubmit(id: string) {
+    try {
+      await api
+        .post('/subscribe-to-plan', {
+          personalId: item.personalId,
+          planId: id,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            Alert.alert(response.data.message)
+
+            queryClient.invalidateQueries({
+              queryKey: ['get-list-personal'],
+            })
+
+            navigate('tabNavigator')
+          }
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      Alert.alert(title)
+    }
+  }
+
+  async function onCancelPlan() {
+    try {
+      await api
+        .post('/cancel-plan', {
+          personalId: item.personalId,
+          planId,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            Alert.alert(response.data.message)
+
+            queryClient.invalidateQueries({
+              queryKey: ['get-list-personal'],
+            })
+
+            navigate('tabNavigator')
+          }
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      Alert.alert(title)
+    }
+  }
 
   return (
     <View className="gap-10 border border-input rounded-lg py-4 px-4">
@@ -35,20 +97,21 @@ export function CardPlan({ item, planId }: IProps) {
 
       <View className="gap-4 justify-center">
         <Heading title="Recursos Básicos" />
-        {benefits.map((b, index) => (
+        {item.description.map((benefit, index) => (
           <View key={index} className="flex-row items-center gap-2">
             <CheckCheck
               size={16}
               color={themes[colorScheme].primary}
               fill={themes[colorScheme].primary}
             />
-            <TitleSection title={b} />
+            <TitleSection title={benefit} />
           </View>
         ))}
       </View>
 
       <View className="gap-3">
         <Button
+          onPress={() => onSubmit(item.id)}
           variant={
             planId != null && planId == item.id ? 'secondary' : 'default'
           }
@@ -60,7 +123,11 @@ export function CardPlan({ item, planId }: IProps) {
         />
 
         {planId != null && planId == item.id && (
-          <Button variant={'destructive'} label={'Cancelar Plano'} />
+          <Button
+            variant={'destructive'}
+            label={'Cancelar Plano'}
+            onPress={() => onCancelPlan()}
+          />
         )}
       </View>
     </View>

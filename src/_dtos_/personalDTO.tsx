@@ -1,7 +1,7 @@
 export type Plan = {
   id: string
   name: string
-  description: string
+  description: []
   price: number
   personalId: string
 }

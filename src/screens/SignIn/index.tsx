@@ -33,7 +33,10 @@ const schema = zod.object({
 
 export type zodSchema = zod.infer<typeof schema>
 
-type NavigationProps = NativeStackNavigationProp<RootSAuthParamList, 'signUp'>
+type NavigationProps = NativeStackNavigationProp<
+  RootSAuthParamList,
+  'singUpFirstStep'
+>
 
 export function SignIn() {
   const { navigate } = useNavigation<NavigationProps>()
@@ -128,7 +131,7 @@ export function SignIn() {
                 <Button
                   label="Criar conta"
                   variant="outline"
-                  onPress={() => navigate('signUp')}
+                  onPress={() => navigate('singUpFirstStep')}
                 />
               </View>
             </View>
