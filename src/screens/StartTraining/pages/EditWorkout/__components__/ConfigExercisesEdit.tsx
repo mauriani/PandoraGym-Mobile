@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import zod from 'zod'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { InputMaskControl } from '@components/InputMaskControl'
+import { convertSecondsToMinutes } from '@utils/formatTime'
 
 export type IData = {
   reps?: number
@@ -102,7 +103,7 @@ export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
             placeholder="Descanço em mm:ss"
             label={'Descanço em mm:ss'}
             error={errors.restTimeBetweenSets}
-            defaultValue={`${item?.restTimeBetweenSets}`}
+            defaultValue={`${convertSecondsToMinutes(item.restTimeBetweenSets)}`}
             keyboardType="numeric"
             type='minutes'
           />
@@ -115,6 +116,7 @@ export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
           error={errors.load}
           className="w-40"
           keyboardType="numeric"
+          defaultValue={`${item?.load}`}
         />
       </View>
 

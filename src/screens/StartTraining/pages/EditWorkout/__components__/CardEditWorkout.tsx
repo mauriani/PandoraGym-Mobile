@@ -34,7 +34,7 @@ export function CardEditWorkout({ item, openModal }: IProps) {
           </Text>
 
           <Text className="text-muted-foreground text-sm">
-            Tempo de Descanço •{' '}
+            Tempo de Descanço mm:ss •{' '}
             {convertSecondsToMinutes(item.restTimeBetweenSets)}
           </Text>
         </View>

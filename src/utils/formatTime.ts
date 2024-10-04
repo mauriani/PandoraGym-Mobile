@@ -11,7 +11,7 @@ export function convertSecondsToMinutes(seconds) {
   const formattedMinutes = minutes.toString().padStart(2, '0')
   const formattedSeconds = segundosRestantes.toString().padStart(2, '0')
 
-  return `${formattedMinutes}m:${formattedSeconds}s`
+  return `${formattedMinutes}:${formattedSeconds}`
 }
 
 export function secondsToHourMinute(segundos) {
