@@ -26,3 +26,11 @@ export function secondsToHourMinute(segundos) {
 
   return `${horaFormatada}h:${minutoFormatado}min`
 }
+
+export function timeStringToSeconds(timeString: string) {
+  const [minutes, seconds] = timeString.split(':').map(Number);
+
+  const newValue = minutes * 60 + seconds;
+  return newValue
+};
+ 

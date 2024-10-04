@@ -22,6 +22,7 @@ export default function App() {
     success: (props) => (
       <BaseToast
         {...props}
+        style={{ borderLeftColor: '#059669' }}
         contentContainerStyle={{ paddingHorizontal: 15 }}
         text1Style={{
           fontSize: 12,
@@ -33,6 +34,7 @@ export default function App() {
     info: (props) => (
       <InfoToast
         {...props}
+        style={{ borderLeftColor: '#22d3ee' }}
         contentContainerStyle={{ paddingHorizontal: 15 }}
         text1Style={{
           fontSize: 12,

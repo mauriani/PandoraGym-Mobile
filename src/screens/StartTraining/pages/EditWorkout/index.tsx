@@ -15,6 +15,7 @@ import { toast } from '@utils/toast-methods'
 
 import { CardEditWorkout } from './__components__/CardEditWorkout'
 import { ConfigExercisesEdit } from './__components__/ConfigExercisesEdit'
+import { timeStringToSeconds } from '@utils/formatTime'
 
 type IRouteParams = {
   // title: string
@@ -49,7 +50,7 @@ export function EditWorkout() {
         if (item.id === id) {
           item.load = data.load
           item.reps = data.reps
-          item.restTimeBetweenSets = data.restTimeBetweenSets
+          item.restTimeBetweenSets = timeStringToSeconds(data.restTimeBetweenSets)
           item.sets = data.sets
         }
       })
@@ -59,7 +60,7 @@ export function EditWorkout() {
       newItem.forEach((item) => {
         item.load = data.load
         item.reps = data.reps
-        item.restTimeBetweenSets = data.restTimeBetweenSets
+        item.restTimeBetweenSets = timeStringToSeconds(data.restTimeBetweenSets)
         item.sets = data.sets
       })
 

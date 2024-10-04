@@ -8,11 +8,12 @@ import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
 import zod from 'zod'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
+import { InputMaskControl } from '@components/InputMaskControl'
 
 export type IData = {
   reps?: number
   sets?: number
-  restTimeBetweenSets?: number
+  restTimeBetweenSets?: string
   load?: number
 }
 
@@ -36,12 +37,11 @@ const schema = zod.object({
     })
     .transform((value) => (value ? parseInt(value) : null))
     .nullable(),
-  restTimeBetweenSets: zod
+    restTimeBetweenSets: zod
     .string({ required_error: 'Campo obrigatório!' })
     .min(1, {
       message: 'Campo obrigatório!',
     })
-    .transform((value) => (value ? parseInt(value) : null))
     .nullable(),
   load: zod
     .string({ required_error: 'Campo obrigatório!' })
@@ -96,15 +96,16 @@ export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
       </View>
 
       <View className="flex-row justify-between">
-        <InputFormControl
-          control={control}
-          name="restTimeBetweenSets"
-          placeholder="Tempo de descanço"
-          label={'Descanço'}
-          error={errors.restTimeBetweenSets}
-          defaultValue={`${item?.restTimeBetweenSets}`}
-          keyboardType="numeric"
-        />
+      <InputMaskControl
+            control={control}
+            name="restTimeBetweenSets"
+            placeholder="Descanço em mm:ss"
+            label={'Descanço em mm:ss'}
+            error={errors.restTimeBetweenSets}
+            defaultValue={`${item?.restTimeBetweenSets}`}
+            keyboardType="numeric"
+            type='minutes'
+          />
 
         <InputFormControl
           control={control}

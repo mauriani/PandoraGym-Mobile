@@ -12,7 +12,7 @@ import { ModalWithContent } from '@components/ModalWithContent'
 import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { MultiSelect } from '@screens/CreateTraining/__components__/MultiSelect'
 import { api } from '@services/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -39,6 +39,7 @@ export type zodSchema = zod.infer<typeof schema>
 
 export function WorkoutId() {
   const route = useRoute()
+  const { navigate } = useNavigation()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const queryClient = useQueryClient()
 
@@ -92,6 +93,7 @@ export function WorkoutId() {
 
             reset({ week: null })
             setIsModalOpen(!isModalOpen)
+            navigate('tabNavigator')
           }
         })
     } catch (error) {

@@ -71,12 +71,14 @@ export function StartTraining() {
 
   const toggleSelectItem = (selectedItem: StartExerciseDTO) => {
     setSelectedItems((prevSelectedItems) => {
+
       const isAlreadySelected = prevSelectedItems.some(
-        (item) => item.id === selectedItem.id,
-      )
-  
+        (item) => item.exerciseId === selectedItem.id,
+      );
+
       if (isAlreadySelected) {
-        return prevSelectedItems.filter((item) => item.id !== selectedItem.id)
+        // Remove o item se já estiver selecionado
+        return prevSelectedItems.filter((item) => item.exerciseId !== selectedItem.id);
       } else {
         const newItem = {
           workoutId: selectedItem.workoutId,
@@ -87,9 +89,10 @@ export function StartTraining() {
           restTime: selectedItem.restTimeBetweenSets,
           thumbnail: selectedItem.exerciseThumb,
           exerciseTitle: selectedItem.exerciseTitle,
-          id: selectedItem.id,
+          exerciseId: selectedItem.id,
         }
-  
+
+        // Adiciona o novo item ao array
         return [...prevSelectedItems, newItem]
       }
     })
@@ -280,7 +283,7 @@ export function StartTraining() {
                   index={index}
                   onSectedVideo={handleSelectedVideo}
                   isSelected={selectedItems.some(
-                    (selectedItem) => selectedItem.id === item.id, 
+                    (selectedItem) => selectedItem.exerciseId === item.id,
                   )}
                   toggleSelectItem={() => {
                     toggleSelectItem(item)
