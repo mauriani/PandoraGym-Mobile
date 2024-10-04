@@ -74,9 +74,8 @@ export function StartTraining() {
       const isAlreadySelected = prevSelectedItems.some(
         (item) => item.id === selectedItem.id,
       )
-
+  
       if (isAlreadySelected) {
-        // Remove o item se já estiver selecionado
         return prevSelectedItems.filter((item) => item.id !== selectedItem.id)
       } else {
         const newItem = {
@@ -88,10 +87,9 @@ export function StartTraining() {
           restTime: selectedItem.restTimeBetweenSets,
           thumbnail: selectedItem.exerciseThumb,
           exerciseTitle: selectedItem.exerciseTitle,
-          exerciseId: selectedItem.id,
+          id: selectedItem.id,
         }
-
-        // Adiciona o novo item ao array
+  
         return [...prevSelectedItems, newItem]
       }
     })
@@ -202,6 +200,8 @@ export function StartTraining() {
     }
   }, [data])
 
+
+
   return (
     <>
       {isLoading ? (
@@ -280,7 +280,7 @@ export function StartTraining() {
                   index={index}
                   onSectedVideo={handleSelectedVideo}
                   isSelected={selectedItems.some(
-                    (selectedItem) => selectedItem.exerciseId === item.id,
+                    (selectedItem) => selectedItem.id === item.id, 
                   )}
                   toggleSelectItem={() => {
                     toggleSelectItem(item)
