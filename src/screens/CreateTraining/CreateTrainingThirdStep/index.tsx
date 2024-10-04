@@ -93,8 +93,8 @@ export function CreateTrainingThirdStep() {
           <InputFormControl
             control={control}
             name="name"
-            placeholder="Nome do treino/exercício"
-            label="Nome do treino/exercício"
+            placeholder="Nome do treino"
+            label="Nome do treino"
             error={errors.name}
             defaultValue={title}
           />

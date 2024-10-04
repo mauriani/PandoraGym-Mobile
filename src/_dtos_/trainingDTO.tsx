@@ -1,4 +1,4 @@
-enum Day {
+export enum Day {
   Dom = 'Dom',
   Seg = 'Seg',
   Ter = 'Ter',

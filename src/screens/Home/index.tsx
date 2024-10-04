@@ -5,7 +5,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
-import { ITraining } from '@_dtos_/trainingDTO'
+import { Day, ITraining } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { Header } from '@components/Header'
@@ -34,14 +34,13 @@ export function Home() {
   const { user } = useAuth()
   const { navigate } = useNavigation()
 
-  // console.log('userStorage', userStorage)
-  // console.log('user', user)
 
-  function handleAccessTraining(id: string, name: string, exclusive: boolean) {
+  function handleAccessTraining(id: string, name: string, exclusive: boolean, weekDays:  Day[]) {
     navigate('startTraining', {
       id,
       name,
       exclusive,
+      weekDays,
     })
   }
 
@@ -108,7 +107,7 @@ export function Home() {
                     <MyTrainingCard
                       item={item}
                       onAccessTraining={() =>
-                        handleAccessTraining(item.id, item.name, item.exclusive)
+                        handleAccessTraining(item.id, item.name, item.exclusive, item.weekDays)
                       }
                     />
                   )}

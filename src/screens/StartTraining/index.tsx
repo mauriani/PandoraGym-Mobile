@@ -25,11 +25,13 @@ import { CardExercise } from './__components__/CardExercise'
 import { Row } from './__components__/Row'
 import TimerWithSound from './__components__/Timer'
 import { UpdateWeight } from './__components__/UpdateWeight'
+import { Day } from '@_dtos_/trainingDTO'
 
 type IRouteParams = {
   id: string
   name: string
   exclusive: boolean
+  weekDays: Day[]
 }
 
 export function StartTraining() {
@@ -44,9 +46,9 @@ export function StartTraining() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [exercises, setExercises] = useState<StartExerciseDTO[]>([])
   const [selectedItems, setSelectedItems] = useState([])
-  // const [loading, setloading] = useState(false)
 
-  const { name, id, exclusive } = route.params as IRouteParams
+
+  const { name, id, exclusive, weekDays } = route.params as IRouteParams
 
   const { data, isLoading } = useQuery<StartExerciseDTO[]>({
     queryKey: ['get-training-for-workoutid', id],
@@ -177,6 +179,9 @@ export function StartTraining() {
               onPress: () =>
                 navigate('editWorkout', {
                   selectedItems: exercises,
+                  title: name,
+                  idWorkout: id,
+                  weekDays: weekDays
                 }),
             },
             {
@@ -202,8 +207,6 @@ export function StartTraining() {
       }
     }
   }, [data])
-
-
 
   return (
     <>

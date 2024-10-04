@@ -15,6 +15,7 @@ import TabNavigator from './tab.routes'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { EditWorkout } from '@screens/StartTraining/pages/EditWorkout'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
+import { Day } from '@_dtos_/trainingDTO'
 
 export type RootStackParamList = {
   tabNavigator: undefined
@@ -38,6 +39,7 @@ export type RootStackParamList = {
     id: string
     name: string
     exclusive: boolean
+    weekDays: Day[]
   }
   workoutId: {
     title: string
@@ -49,6 +51,9 @@ export type RootStackParamList = {
   helpMe: undefined
   editWorkout: {
     selectedItems: StartExerciseDTO[] | null
+    title: string
+    idWorkout: string
+    weekDays: Day[]
   }
 }
 
