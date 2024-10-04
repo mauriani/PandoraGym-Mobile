@@ -7,17 +7,17 @@ import { Checkbox } from '@components/ui/Checkbox'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
 import zod from 'zod'
-import { InputMaskControl } from '@components/InputMaskControl'
+import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 
 export type IData = {
   reps?: number
   sets?: number
-  restTimeBetweenSets?: string
+  restTimeBetweenSets?: number
   load?: number
 }
 
 type IProps = {
-  item: IExercise
+  item: StartExerciseDTO
   onUpdateExercises: (id: string, data: IData, changeAll: boolean) => void
 }
 
@@ -41,6 +41,7 @@ const schema = zod.object({
     .min(1, {
       message: 'Campo obrigatório!',
     })
+    .transform((value) => (value ? parseInt(value) : null))
     .nullable(),
   load: zod
     .string({ required_error: 'Campo obrigatório!' })
@@ -53,7 +54,7 @@ const schema = zod.object({
 
 export type zodSchema = zod.infer<typeof schema>
 
-export function ConfigExercises({ item, onUpdateExercises }: IProps) {
+export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
   const [isSelected, setIsSelected] = useState(false)
 
   const methods = useForm<zodSchema>({
@@ -95,17 +96,15 @@ export function ConfigExercises({ item, onUpdateExercises }: IProps) {
       </View>
 
       <View className="flex-row justify-between">
-    
-          <InputMaskControl
-            control={control}
-            name="restTimeBetweenSets"
-            placeholder="Descanço em mm:ss"
-            label={'Descanço em mm:ss'}
-            error={errors.restTimeBetweenSets}
-            defaultValue={`${item?.restTimeBetweenSets}`}
-            keyboardType="numeric"
-            type='minutes'
-          />
+        <InputFormControl
+          control={control}
+          name="restTimeBetweenSets"
+          placeholder="Tempo de descanço"
+          label={'Descanço'}
+          error={errors.restTimeBetweenSets}
+          defaultValue={`${item?.restTimeBetweenSets}`}
+          keyboardType="numeric"
+        />
 
         <InputFormControl
           control={control}

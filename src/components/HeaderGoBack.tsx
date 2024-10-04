@@ -18,12 +18,14 @@ type IProps = {
   title: string
   isMenu?: boolean
   onDeleteWorkout?: () => void
+  onEditWorkout?: () => void
 }
 
 export function HeaderGoBack({
   title,
   isMenu = false,
   onDeleteWorkout,
+  onEditWorkout,
 }: IProps) {
   const { goBack } = useNavigation()
   const { colorScheme } = useContext(ThemeContext)
@@ -32,7 +34,7 @@ export function HeaderGoBack({
     {
       iconName: 'Pencil',
       label: 'Editar Treino',
-      onPress: () => console.log('Editar Treino'),
+      onPress: () => onEditWorkout(),
     },
     {
       iconName: 'Trash2',

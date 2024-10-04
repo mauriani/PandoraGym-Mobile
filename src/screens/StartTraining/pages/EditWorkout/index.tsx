@@ -1,56 +1,45 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FlatList, Text } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
-import { IExercise } from '@_dtos_/SelectExerciseDTO'
+import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Container } from '@components/Container'
-import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { ModalWithContent } from '@components/ModalWithContent'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native'
+import { Form } from '@screens/CreateTraining/__components__/Form'
+import {
+  ConfigExercises,
+  IData,
+} from '@screens/CreateTraining/CreateTrainingSecondStep/__components__/ConfigExercises'
 import { toast } from '@utils/toast-methods'
 
-import { Form } from '../__components__/Form'
-import { StepHeader } from '../__components__/StepHeader'
-
-import { Card } from './__components__/Card'
-import { ConfigExercises, IData } from './__components__/ConfigExercises'
+import { CardEditWorkout } from './__components__/CardEditWorkout'
+import { ConfigExercisesEdit } from './__components__/ConfigExercisesEdit'
 
 type IRouteParams = {
-  title: string
-  selectedItems: IExercise[] | null
+  // title: string
+  selectedItems: StartExerciseDTO[] | null
 }
 
-const timeStringToSeconds = (timeString: string) => {
-  const [minutes, seconds] = timeString.split(':').map(Number);
-
-  const newValue = minutes * 60 + seconds;
-  return newValue
-};
- 
-
-export function CreateTrainingSecondStep() {
+export function EditWorkout() {
   const route = useRoute()
-  const { navigate } = useNavigation()
+  const { selectedItems } = route.params as IRouteParams
+
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const { title, selectedItems } = route.params as IRouteParams
-
-  const [exercises, setExercises] = useState<IExercise[] | []>(selectedItems)
-  const [exerciseConfig, setexerciseConfig] = useState<IExercise>(
-    {} as IExercise,
+  const [exercises, setExercises] = useState<StartExerciseDTO[] | []>(
+    selectedItems,
+  )
+  const [exerciseConfig, setexerciseConfig] = useState<StartExerciseDTO>(
+    {} as StartExerciseDTO,
   )
 
-  const allWeightsFilled =
-    exercises &&
-    exercises.every((exercise) => exercise?.load && exercise?.load > 0)
-
-  function handleOpenModal(item: IExercise) {
+  function handleOpenModal(item: StartExerciseDTO) {
     setIsModalOpen(!isModalOpen)
     setexerciseConfig(item)
   }
 
   function onUpdateExercises(id: string, data: IData, changeAll: boolean) {
-    const newItem: IExercise[] = [...exercises]
+    const newItem: StartExerciseDTO[] = [...exercises]
 
     if (changeAll == false) {
       let name = ''
@@ -60,7 +49,7 @@ export function CreateTrainingSecondStep() {
         if (item.id === id) {
           item.load = data.load
           item.reps = data.reps
-          item.restTimeBetweenSets = timeStringToSeconds(data.restTimeBetweenSets)
+          item.restTimeBetweenSets = data.restTimeBetweenSets
           item.sets = data.sets
         }
       })
@@ -70,7 +59,7 @@ export function CreateTrainingSecondStep() {
       newItem.forEach((item) => {
         item.load = data.load
         item.reps = data.reps
-        item.restTimeBetweenSets = timeStringToSeconds(data.restTimeBetweenSets)
+        item.restTimeBetweenSets = data.restTimeBetweenSets
         item.sets = data.sets
       })
 
@@ -83,10 +72,8 @@ export function CreateTrainingSecondStep() {
 
   return (
     <Container>
-      <HeaderGoBack title={'Criar Treino'} />
+      <HeaderGoBack title="Editar Treino" />
       <Form>
-        <StepHeader title={title} current={2} />
-
         <Text className="text-muted-foreground font-primary_regular tex-[16]">
           Clique no exercício para configura-lo.
         </Text>
@@ -99,7 +86,7 @@ export function CreateTrainingSecondStep() {
             gap: 12,
           }}
           renderItem={({ item }) => (
-            <Card
+            <CardEditWorkout
               item={item}
               key={item.id}
               openModal={() => handleOpenModal(item)}
@@ -108,26 +95,12 @@ export function CreateTrainingSecondStep() {
         />
       </Form>
 
-      <Footer
-        label="Próxima Etapa"
-        onSubmit={() => {
-          if (allWeightsFilled) {
-            navigate('createTrainingThirdStep', {
-              title,
-              selectedItems: exercises,
-            })
-          } else {
-            toast.error('Existem exercícios com o peso não preenchido.')
-          }
-        }}
-      />
-
       <ModalWithContent
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(!isModalOpen)}
         title="Configuração do exercício"
         content={
-          <ConfigExercises
+          <ConfigExercisesEdit
             item={exerciseConfig}
             onUpdateExercises={onUpdateExercises}
           />

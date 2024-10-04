@@ -7,5 +7,4 @@ export type IExercise = {
   sets: number
   reps: number
   restTimeBetweenSets: number
-  isConfigured: boolean
 }

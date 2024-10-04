@@ -19,6 +19,7 @@ import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
 import { Card } from './__components__/Card'
+import { getUserFromStorage } from '@storage/index'
 
 export function PersonalTrainerList() {
   const { navigate } = useNavigation()
@@ -67,8 +68,10 @@ export function PersonalTrainerList() {
   }
 
   function isStudentInList(item: IPersonalList) {
+    const user = getUserFromStorage()
+
     const studentInList = item.student.find(
-      (student) => student.id === user?.user?.id,
+      (student) => student.id === user?.id,
     )
 
     if (studentInList) {

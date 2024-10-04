@@ -48,6 +48,8 @@ export function Home() {
   const { data, error, isLoading } = useQuery<ITraining[]>({
     queryKey: ['get-training-for-user', user?.user?.id],
     queryFn: async () => {
+
+    
       const { data } = await api.get('/workouts')
 
       return data

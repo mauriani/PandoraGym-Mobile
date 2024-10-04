@@ -1,5 +1,4 @@
 import React from 'react'
-import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
@@ -13,6 +12,9 @@ import { StartTraining } from '@screens/StartTraining'
 import { WorkoutId } from '@screens/WorkoutsTemplates/pages/WorkoutId'
 
 import TabNavigator from './tab.routes'
+import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
+import { EditWorkout } from '@screens/StartTraining/pages/EditWorkout'
+import { IExercise } from '@_dtos_/SelectExerciseDTO'
 
 export type RootStackParamList = {
   tabNavigator: undefined
@@ -46,6 +48,9 @@ export type RootStackParamList = {
   editProfile: undefined
   notifications: undefined
   helpMe: undefined
+  editWorkout: {
+    selectedItems: StartExerciseDTO[] | null
+  }
 }
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>()
@@ -103,6 +108,12 @@ export default function RootStack() {
         <Screen
           name="editProfile"
           component={EditProfile}
+          options={{ headerShown: false }}
+        />
+
+<Screen
+          name="editWorkout"
+          component={EditWorkout}
           options={{ headerShown: false }}
         />
 

@@ -35,7 +35,7 @@ type IRouteParams = {
 export function StartTraining() {
   const route = useRoute()
   const startTime = new Date()
-  const { goBack } = useNavigation()
+  const { goBack, navigate} = useNavigation()
 
   const [playing, setPlaying] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState<StartExerciseDTO | null>(
@@ -144,8 +144,7 @@ export function StartTraining() {
 
   function onDeleteWorkout() {}
 
-  function handleLogout() {
-    console.log('exclusive', exclusive)
+  function handleDeleteWorkout() {
     !exclusive
       ? Alert.alert(
           'Apagar Treino',
@@ -154,6 +153,30 @@ export function StartTraining() {
             {
               text: 'Sim',
               onPress: () => onDeleteWorkout(),
+            },
+            {
+              text: 'Cancelar',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false },
+        )
+      : toast.error('Somente o seu personal pode alterar este treino!')
+  }
+
+  function handleEditWorkout() {
+    !exclusive
+      ? Alert.alert(
+          'Editar Treino',
+          'Você realmente deseja editar este treino ?',
+          [
+            {
+              text: 'Sim',
+              onPress: () =>
+                navigate('editWorkout', {
+                  selectedItems: exercises,
+                }),
             },
             {
               text: 'Cancelar',
@@ -185,7 +208,8 @@ export function StartTraining() {
         <Loading />
       ) : (
         <Container>
-          <HeaderGoBack title={name} isMenu onDeleteWorkout={handleLogout} />
+          <HeaderGoBack title={name} isMenu onDeleteWorkout={handleDeleteWorkout}
+            onEditWorkout={handleEditWorkout} />
           <Content>
             <View>
               {selectedVideo && (
