@@ -32,7 +32,6 @@ export type RootStackParamList = {
   profile: undefined
   personalId: {
     id: string
-    planId?: string
     isButtonComment?: boolean
   }
   startTraining: {

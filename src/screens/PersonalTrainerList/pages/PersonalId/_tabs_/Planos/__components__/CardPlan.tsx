@@ -12,13 +12,16 @@ import { AppError } from '@utils/AppError'
 import { CheckCheck } from 'lucide-react-native'
 
 import { TitleSection } from '../../../__components__/TitleSection'
+import { toast } from '@utils/toast-methods'
+import { savePlanInStorage } from '@storage/index'
 
 type IProps = {
   item: Plan
   planId: string
+  refetch: () => void
 }
 
-export function CardPlan({ item, planId }: IProps) {
+export function CardPlan({ item, planId, refetch }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
   const queryClient = useQueryClient()
   const { navigate } = useNavigation()
@@ -32,13 +35,9 @@ export function CardPlan({ item, planId }: IProps) {
         })
         .then((response) => {
           if (response.status == 200) {
-            Alert.alert(response.data.message)
-
-            queryClient.invalidateQueries({
-              queryKey: ['get-list-personal'],
-            })
-
-            navigate('tabNavigator')
+            toast.success(response.data.message)
+            savePlanInStorage(id)
+            refetch()
           }
         })
     } catch (error) {
@@ -61,13 +60,11 @@ export function CardPlan({ item, planId }: IProps) {
         })
         .then((response) => {
           if (response.status == 200) {
-            Alert.alert(response.data.message)
-
-            queryClient.invalidateQueries({
-              queryKey: ['get-list-personal'],
-            })
-
-            navigate('tabNavigator')
+            toast.success(response.data.message)
+            savePlanInStorage(null)
+            
+            
+            refetch()
           }
         })
     } catch (error) {

@@ -5,6 +5,7 @@ export const storage = new MMKV()
 
 export const USER_STORAGE_KEY = '@pandora:user'
 export const USER_STORAGE_TOKEN = '@pandora:token'
+export const USER_STORAGE_PLAN = '@pandora:plan'
 
 export function saveUserInStorage(user: IUser) {
   storage.set(USER_STORAGE_KEY, JSON.stringify(user))
@@ -12,6 +13,10 @@ export function saveUserInStorage(user: IUser) {
 
 export function saveTokenInStorage(token: string) {
   storage.set(USER_STORAGE_TOKEN, JSON.stringify(token))
+}
+
+export function savePlanInStorage(plan: string) {
+  storage.set(USER_STORAGE_PLAN, JSON.stringify(plan))
 }
 
 export function getUserFromStorage() {
@@ -26,6 +31,13 @@ export function getTokenFromStorage() {
   const token = jsonUser ? JSON.parse(jsonUser) : null
 
   return token
+}
+
+export function getTokenPlanStorage() {
+  const jsonPlan = storage.getString(USER_STORAGE_PLAN)
+  const plan = jsonPlan ? JSON.parse(jsonPlan) : null
+
+  return plan
 }
 
 export function removeUserFromStorage() {

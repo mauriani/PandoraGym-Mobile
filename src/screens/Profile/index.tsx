@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar'
 import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
-import { getUserFromStorage } from '@storage/index'
+import { getUserFromStorage, savePlanInStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
@@ -49,6 +49,10 @@ export function Profile() {
     queryKey: ['get-profile-user-id', user.token, id],
     queryFn: async () => {
       const { data } = await api.get('/profile')
+
+      const planId = data?.userData?.planId ? data?.userData?.planId : null
+
+      savePlanInStorage(planId)
 
       return data.userData
     },
@@ -108,8 +112,7 @@ export function Profile() {
                   iconName="ChevronRight"
                   onPress={() =>
                     navigate('personalId', {
-                      id: data?.personalId,
-                      planId: data?.planId,
+                      id: data?.personalId
                     })
                   }
                 />

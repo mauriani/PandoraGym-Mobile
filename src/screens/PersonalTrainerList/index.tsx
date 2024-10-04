@@ -19,7 +19,7 @@ import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
 import { Card } from './__components__/Card'
-import { getUserFromStorage } from '@storage/index'
+import { getUserFromStorage, savePlanInStorage } from '@storage/index'
 
 export function PersonalTrainerList() {
   const { navigate } = useNavigation()
@@ -75,6 +75,8 @@ export function PersonalTrainerList() {
     )
 
     if (studentInList) {
+      savePlanInStorage(studentInList?.plan?.id)
+
       return studentInList.plan?.id
     }
 
@@ -115,11 +117,12 @@ export function PersonalTrainerList() {
                     <Card
                       key={item.id}
                       item={item}
-                      onPress={() =>
+                      onPress={() =>{
+                        isStudentInList(item);
                         navigate('personalId', {
-                          id: item.id,
-                          planId: isStudentInList(item),
+                          id: item.id
                         })
+                      }
                       }
                     />
                   )}

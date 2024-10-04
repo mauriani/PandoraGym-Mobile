@@ -11,6 +11,7 @@ import {
   getUserFromStorage,
   removeTokenFromStorage,
   removeUserFromStorage,
+  savePlanInStorage,
   saveTokenInStorage,
   saveUserInStorage,
 } from '@storage/index'
@@ -56,10 +57,13 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       const { token, user } = response.data
 
+      const {id} = user?.student?.plan
+
       setData({ ...user, token })
 
       saveUserInStorage(user)
       saveTokenInStorage(token)
+      savePlanInStorage(id)
     } catch (error) {
       toast.error(`${error.message}`)
     }

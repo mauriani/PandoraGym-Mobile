@@ -7,9 +7,10 @@ import { CardPlan } from './__components__/CardPlan'
 type IProps = {
   data: Plan[]
   planId?: string
+  refetch: () => void
 }
 
-export function Planos({ data, planId }: IProps) {
+export function Planos({ data, planId, refetch}: IProps) {
   return (
     <FlatList
       data={data}
@@ -32,7 +33,7 @@ export function Planos({ data, planId }: IProps) {
         <NoContent message="Nenhum plano cadastrado até o momento !" />
       }
       renderItem={({ item }) => (
-        <CardPlan key={item.id} item={item} planId={planId} />
+        <CardPlan key={item.id} item={item} planId={planId} refetch={refetch}/>
       )}
     />
   )

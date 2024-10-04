@@ -16,10 +16,10 @@ import { ButtonFab } from './__components__/ButtonFab'
 import { EditorText } from './__components__/EditorText'
 import { Planos } from './_tabs_/Planos'
 import { Profile } from './_tabs_/Profile'
+import { getTokenPlanStorage } from '@storage/index'
 
 type IRouteParams = {
   id: string
-  planId?: string
   isButtonComment: boolean
 }
 
@@ -27,11 +27,13 @@ export function PersonalId() {
   const route = useRoute()
   const richText = useRef<RichEditor>(null)
 
-  const { id, planId } = route.params as IRouteParams
+  const { id } = route.params as IRouteParams
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [comment, setComment] = useState('')
 
-  const { data, error } = useQuery<IPersonalDTO>({
+  const planId = getTokenPlanStorage()
+
+  const { data, error, refetch } = useQuery<IPersonalDTO>({
     queryKey: ['get-personal-id', id],
     queryFn: async () => {
       const { data } = await api.get(`/list-personal/${id}`)
@@ -102,7 +104,7 @@ export function PersonalId() {
             <Profile data={data} personalId={id} />
           </TabsContent>
           <TabsContent value="planos">
-            <Planos data={data?.plan} planId={planId} />
+            <Planos data={data?.plan} planId={planId} refetch={refetch}/>
           </TabsContent>
         </Tabs>
       </View>
