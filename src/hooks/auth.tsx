@@ -57,13 +57,17 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       const { token, user } = response.data
 
-      const {id} = user?.student?.plan
+
 
       setData({ ...user, token })
 
       saveUserInStorage(user)
       saveTokenInStorage(token)
-      savePlanInStorage(id)
+
+      if(user?.student?.plan != null) {
+        savePlanInStorage(user?.student?.plan?.id)
+      }
+  
     } catch (error) {
       toast.error(`${error.message}`)
     }

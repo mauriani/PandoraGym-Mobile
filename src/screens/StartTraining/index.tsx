@@ -14,7 +14,7 @@ import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { extractVideoId } from '@utils/extractVideoId'
 import { toast } from '@utils/toast-methods'
@@ -38,6 +38,7 @@ export function StartTraining() {
   const route = useRoute()
   const startTime = new Date()
   const { goBack, navigate} = useNavigation()
+  const queryClient = useQueryClient()
 
   const [playing, setPlaying] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState<StartExerciseDTO | null>(
@@ -145,7 +146,31 @@ export function StartTraining() {
     setExercises(updatedExercises)
   }
 
-  function onDeleteWorkout() {}
+  async function onDeleteWorkout() {
+    try {
+      await api
+        .delete(`/delete-workout/${id}`)
+        .then((response) => {
+          if (response.status == 200) {
+            toast.success(response.data.message)
+
+            queryClient.invalidateQueries({
+              queryKey: ['get-training-for-user'],
+            })
+
+            navigate('tabNavigator')
+          }
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      toast.error(title)
+    }
+  }
 
   function handleDeleteWorkout() {
     !exclusive
