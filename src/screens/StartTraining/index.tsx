@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Alert, FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
+import { Day } from '@_dtos_/trainingDTO'
 import { ButtonWithIcon } from '@components/ButtonWithIcon'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
@@ -25,7 +26,6 @@ import { CardExercise } from './__components__/CardExercise'
 import { Row } from './__components__/Row'
 import TimerWithSound from './__components__/Timer'
 import { UpdateWeight } from './__components__/UpdateWeight'
-import { Day } from '@_dtos_/trainingDTO'
 
 type IRouteParams = {
   id: string
@@ -37,7 +37,7 @@ type IRouteParams = {
 export function StartTraining() {
   const route = useRoute()
   const startTime = new Date()
-  const { goBack, navigate} = useNavigation()
+  const { goBack, navigate } = useNavigation()
   const queryClient = useQueryClient()
 
   const [playing, setPlaying] = useState(false)
@@ -47,7 +47,6 @@ export function StartTraining() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [exercises, setExercises] = useState<StartExerciseDTO[]>([])
   const [selectedItems, setSelectedItems] = useState([])
-
 
   const { name, id, exclusive, weekDays } = route.params as IRouteParams
 
@@ -74,14 +73,15 @@ export function StartTraining() {
 
   const toggleSelectItem = (selectedItem: StartExerciseDTO) => {
     setSelectedItems((prevSelectedItems) => {
-
       const isAlreadySelected = prevSelectedItems.some(
         (item) => item.exerciseId === selectedItem.id,
-      );
+      )
 
       if (isAlreadySelected) {
         // Remove o item se já estiver selecionado
-        return prevSelectedItems.filter((item) => item.exerciseId !== selectedItem.id);
+        return prevSelectedItems.filter(
+          (item) => item.exerciseId !== selectedItem.id,
+        )
       } else {
         const newItem = {
           workoutId: selectedItem.workoutId,
@@ -148,19 +148,17 @@ export function StartTraining() {
 
   async function onDeleteWorkout() {
     try {
-      await api
-        .delete(`/delete-workout/${id}`)
-        .then((response) => {
-          if (response.status == 200) {
-            toast.success(response.data.message)
+      await api.delete(`/delete-workout/${id}`).then((response) => {
+        if (response.status == 200) {
+          toast.success(response.data.message)
 
-            queryClient.invalidateQueries({
-              queryKey: ['get-training-for-user'],
-            })
+          queryClient.invalidateQueries({
+            queryKey: ['get-training-for-user'],
+          })
 
-            navigate('tabNavigator')
-          }
-        })
+          navigate('tabNavigator')
+        }
+      })
     } catch (error) {
       const isAppError = error instanceof AppError
 
@@ -206,7 +204,7 @@ export function StartTraining() {
                   selectedItems: exercises,
                   title: name,
                   idWorkout: id,
-                  weekDays: weekDays
+                  weekDays,
                 }),
             },
             {
@@ -239,8 +237,12 @@ export function StartTraining() {
         <Loading />
       ) : (
         <Container>
-          <HeaderGoBack title={name} isMenu onDeleteWorkout={handleDeleteWorkout}
-            onEditWorkout={handleEditWorkout} />
+          <HeaderGoBack
+            title={name}
+            isMenu
+            onDeleteWorkout={handleDeleteWorkout}
+            onEditWorkout={handleEditWorkout}
+          />
           <Content>
             <View>
               {selectedVideo && (

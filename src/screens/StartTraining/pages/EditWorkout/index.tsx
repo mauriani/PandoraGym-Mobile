@@ -1,34 +1,29 @@
 import { useState } from 'react'
-import {  FlatList, Text, View } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
+import { Day } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
+import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { ModalWithContent } from '@components/ModalWithContent'
+import { InputFormControl } from '@components/ui/InputFormControl'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Form } from '@screens/CreateTraining/__components__/Form'
-import {
-  ConfigExercises,
-  IData,
-} from '@screens/CreateTraining/CreateTrainingSecondStep/__components__/ConfigExercises'
+import { MultiSelect } from '@screens/CreateTraining/__components__/MultiSelect'
+import { IData } from '@screens/CreateTraining/CreateTrainingSecondStep/__components__/ConfigExercises'
+import { api } from '@services/api'
+import { useQueryClient } from '@tanstack/react-query'
+import { AppError } from '@utils/AppError'
+import { timeStringToSeconds } from '@utils/formatTime'
 import { toast } from '@utils/toast-methods'
-
+import { daysOfWeek } from '@utils/weekDay'
 import zod from 'zod'
 
 import { CardEditWorkout } from './__components__/CardEditWorkout'
 import { ConfigExercisesEdit } from './__components__/ConfigExercisesEdit'
-import { timeStringToSeconds } from '@utils/formatTime'
-import { Button } from '@components/ui/Button'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { MultiSelect } from '@screens/CreateTraining/__components__/MultiSelect'
-import { daysOfWeek } from '@utils/weekDay'
-import { InputFormControl } from '@components/ui/InputFormControl'
-import { Day } from '@_dtos_/trainingDTO'
-import { Footer } from '@components/Footer'
-import { api } from '@services/api'
-import { AppError } from '@utils/AppError'
-import { useQueryClient } from '@tanstack/react-query'
 
 type IRouteParams = {
   selectedItems: StartExerciseDTO[] | null
@@ -48,7 +43,8 @@ export function EditWorkout() {
   const route = useRoute()
   const { navigate } = useNavigation()
   const queryClient = useQueryClient()
-  const { selectedItems, title, weekDays, idWorkout } = route.params as IRouteParams
+  const { selectedItems, title, weekDays, idWorkout } =
+    route.params as IRouteParams
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [exercises, setExercises] = useState<StartExerciseDTO[] | []>(
@@ -68,7 +64,6 @@ export function EditWorkout() {
     formState: { errors },
   } = methods
 
-
   function handleOpenModal(item: StartExerciseDTO) {
     setIsModalOpen(!isModalOpen)
     setexerciseConfig(item)
@@ -85,7 +80,9 @@ export function EditWorkout() {
         if (item.id === id) {
           item.load = data.load
           item.reps = data.reps
-          item.restTimeBetweenSets = timeStringToSeconds(data.restTimeBetweenSets)
+          item.restTimeBetweenSets = timeStringToSeconds(
+            data.restTimeBetweenSets,
+          )
           item.sets = data.sets
         }
       })
@@ -106,15 +103,16 @@ export function EditWorkout() {
     setIsModalOpen(!isModalOpen)
   }
 
-
   async function submit(data: zodSchema) {
     const { name, week } = data
+
+    console.log('exercises', exercises[0])
 
     try {
       await api
         .put(`/update-workout/${idWorkout}`, {
           name,
-          exercises: selectedItems,
+          exercises,
           weekDays: week,
         })
         .then((response) => {
@@ -166,7 +164,6 @@ export function EditWorkout() {
           Clique no exercício para configura-lo.
         </Text>
 
-
         <FlatList
           data={exercises}
           keyExtractor={(item) => item.id}
@@ -195,8 +192,8 @@ export function EditWorkout() {
           />
         }
       />
-      
-      <Footer label='Salvar Alterações' onSubmit={handleSubmit(submit)}/>
+
+      <Footer label="Salvar Alterações" onSubmit={handleSubmit(submit)} />
     </Container>
   )
 }

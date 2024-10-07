@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { View } from 'react-native'
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
@@ -84,62 +84,66 @@ export function SingUpFirstStep() {
 
   return (
     <Container>
-      <HeaderGoBack title="Criar conta" />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={{ flex: 1 }}>
+          <HeaderGoBack title="Criar conta" />
 
-      <Content>
-        <View className="flex-row items-center">
-          <Bullet active />
-          <Bullet />
+          <Content>
+            <View className="flex-row items-center">
+              <Bullet active />
+              <Bullet />
+            </View>
+
+            <View className="flex-1 flex-col mt-3 gap-4">
+              <Heading title="1. Dados Pessoais" />
+
+              <InputFormControl
+                control={control}
+                name="name"
+                label="Nome"
+                error={errors.name}
+                autoCorrect={false}
+              />
+
+              <InputFormControl
+                control={control}
+                name="email"
+                label="E-mail"
+                error={errors.email}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+
+              <InputMaskControl
+                control={control}
+                name="phone"
+                label="Telefone"
+                error={errors.phone}
+                type="phone"
+              />
+
+              <InputFormControl
+                control={control}
+                name="age"
+                label="Idade"
+                error={errors.age}
+                keyboardType="numeric"
+              />
+
+              <InputMaskControl
+                control={control}
+                name="bornDate"
+                label="Data de nascimento"
+                error={errors.bornDate}
+                type="date"
+              />
+            </View>
+
+            <Footer label="Próximo" onSubmit={handleSubmit(submit)} />
+          </Content>
         </View>
-
-        <View className="flex-1 flex-col mt-3 gap-4">
-          <Heading title="1. Dados Pessoais" />
-
-          <InputFormControl
-            control={control}
-            name="name"
-            label="Nome"
-            error={errors.name}
-            autoCorrect={false}
-          />
-
-          <InputFormControl
-            control={control}
-            name="email"
-            label="E-mail"
-            error={errors.email}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-
-          <InputMaskControl
-            control={control}
-            name="phone"
-            label="Telefone"
-            error={errors.phone}
-            type="phone"
-          />
-
-          <InputFormControl
-            control={control}
-            name="age"
-            label="Idade"
-            error={errors.age}
-            keyboardType="numeric"
-          />
-
-          <InputMaskControl
-            control={control}
-            name="bornDate"
-            label="Data de Nascimento"
-            error={errors.bornDate}
-            type="date"
-          />
-        </View>
-
-        <Footer label="Próximo" onSubmit={handleSubmit(submit)} />
-      </Content>
+      </TouchableWithoutFeedback>
     </Container>
   )
 }
