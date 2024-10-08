@@ -10,7 +10,7 @@ type IProps = {
   refetch: () => void
 }
 
-export function Planos({ data, planId, refetch}: IProps) {
+export function Planos({ data, planId, refetch }: IProps) {
   return (
     <FlatList
       data={data}
@@ -33,7 +33,7 @@ export function Planos({ data, planId, refetch}: IProps) {
         <NoContent message="Nenhum plano cadastrado até o momento !" />
       }
       renderItem={({ item }) => (
-        <CardPlan key={item.id} item={item} planId={planId} refetch={refetch}/>
+        <CardPlan key={item.id} item={item} planId={planId} refetch={refetch} />
       )}
     />
   )

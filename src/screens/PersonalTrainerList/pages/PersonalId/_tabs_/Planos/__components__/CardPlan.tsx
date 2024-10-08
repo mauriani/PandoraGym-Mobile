@@ -1,19 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Alert, Text, View } from 'react-native'
 import { Plan } from '@_dtos_/personalDTO'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/ui/Button'
-import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
-import { useQueryClient } from '@tanstack/react-query'
+import { savePlanInStorage } from '@storage/index'
 import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
 import { AppError } from '@utils/AppError'
+import { toast } from '@utils/toast-methods'
 import { CheckCheck } from 'lucide-react-native'
 
 import { TitleSection } from '../../../__components__/TitleSection'
-import { toast } from '@utils/toast-methods'
-import { savePlanInStorage } from '@storage/index'
 
 type IProps = {
   item: Plan
@@ -23,11 +21,11 @@ type IProps = {
 
 export function CardPlan({ item, planId, refetch }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
-  const queryClient = useQueryClient()
-  const { navigate } = useNavigation()
+  const [loading, setLoading] = useState(false)
 
   async function onSubmit(id: string) {
     try {
+      setLoading(true)
       await api
         .post('/subscribe-to-plan', {
           personalId: item.personalId,
@@ -48,6 +46,8 @@ export function CardPlan({ item, planId, refetch }: IProps) {
         : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
 
       Alert.alert(title)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -62,8 +62,7 @@ export function CardPlan({ item, planId, refetch }: IProps) {
           if (response.status == 200) {
             toast.success(response.data.message)
             savePlanInStorage(null)
-            
-            
+
             refetch()
           }
         })
@@ -137,6 +136,7 @@ export function CardPlan({ item, planId, refetch }: IProps) {
               ? 'Plano Contratado'
               : 'Contratar'
           }
+          loading={loading}
         />
 
         {planId != null && planId == item.id && (

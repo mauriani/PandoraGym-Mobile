@@ -2,14 +2,12 @@ import React, { useEffect } from 'react'
 import {
   FlatList,
   Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
 import { Day, ITraining } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
+import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { InputWithIcon } from '@components/InputWithIcon'
@@ -76,58 +74,54 @@ export function Home() {
         <Loading />
       ) : (
         <Container>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : null}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}>
-            <TouchableWithoutFeedback
-              onPress={Keyboard.dismiss}
-              accessible={false}>
-              <View style={{ flex: 1 }}>
-                <Header title={'Meus Treinos'} />
-                <ScrollView>
-                  <Heading title="Criar Treino" />
+          <TouchableWithoutFeedback
+            onPress={Keyboard.dismiss}
+            accessible={false}>
+            <View style={{ flex: 1 }}>
+              <Header title={'Meus Treinos'} />
+              <Content>
+                <Heading title="Criar Treino" />
 
-                  <InputWithIcon
-                    label="Nome do treino/exercício"
-                    iconName="Plus"
-                    size={20}
-                  />
+                <InputWithIcon
+                  label="Nome do treino/exercício"
+                  iconName="Plus"
+                  size={20}
+                />
 
-                  <Heading title="Meus Treinos" />
+                <Heading title="Meus Treinos" />
 
-                  <FlatList
-                    data={data}
-                    keyExtractor={(item) => item.id}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={
-                      data?.length == 0
-                        ? {
-                            flexGrow: 1,
-                            padding: 10,
-                          }
-                        : { paddingBottom: 80, gap: 10 }
-                    }
-                    ListEmptyComponent={
-                      <NoContent message="Opss ... você não tem nenhum treino cadastrado até o momento!" />
-                    }
-                    renderItem={({ item }) => (
-                      <MyTrainingCard
-                        item={item}
-                        onAccessTraining={() =>
-                          handleAccessTraining(
-                            item.id,
-                            item.name,
-                            item.exclusive,
-                            item.weekDays,
-                          )
+                <FlatList
+                  data={data}
+                  keyExtractor={(item) => item.id}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={
+                    data?.length == 0
+                      ? {
+                          flexGrow: 1,
+                          padding: 10,
                         }
-                      />
-                    )}
-                  />
-                </ScrollView>
-              </View>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
+                      : { paddingBottom: 80, gap: 10 }
+                  }
+                  ListEmptyComponent={
+                    <NoContent message="Opss ... você não tem nenhum treino cadastrado até o momento!" />
+                  }
+                  renderItem={({ item }) => (
+                    <MyTrainingCard
+                      item={item}
+                      onAccessTraining={() =>
+                        handleAccessTraining(
+                          item.id,
+                          item.name,
+                          item.exclusive,
+                          item.weekDays,
+                        )
+                      }
+                    />
+                  )}
+                />
+              </Content>
+            </View>
+          </TouchableWithoutFeedback>
         </Container>
       )}
     </>
