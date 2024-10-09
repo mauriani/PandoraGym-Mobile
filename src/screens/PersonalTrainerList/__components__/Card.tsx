@@ -18,7 +18,7 @@ export function Card({ item, onPress }: IProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="h-56 flex-row bg-secondary rounded-[8px] p-3 relative">
+      className="min-h-60 flex-row bg-secondary rounded-[8px] p-3 relative">
       <Image
         className="h-full w-32 rounded-[6px]"
         source={{

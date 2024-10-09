@@ -13,7 +13,7 @@ export function NoContent({ message }: IProps) {
 
   return (
     <View className="flex-1 items-center justify-center">
-      <Icon height={200} width={200} color={themes[colorScheme].foreground} />
+      <Icon height={180} width={180} color={themes[colorScheme].foreground} />
 
       <Text
         numberOfLines={2}

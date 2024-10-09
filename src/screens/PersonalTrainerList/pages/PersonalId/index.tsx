@@ -8,6 +8,7 @@ import { ModalWithContent } from '@components/ModalWithContent'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/Tabs'
 import { useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
+import { getTokenPlanStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
@@ -16,7 +17,6 @@ import { ButtonFab } from './__components__/ButtonFab'
 import { EditorText } from './__components__/EditorText'
 import { Planos } from './_tabs_/Planos'
 import { Profile } from './_tabs_/Profile'
-import { getTokenPlanStorage } from '@storage/index'
 
 type IRouteParams = {
   id: string
@@ -79,6 +79,8 @@ export function PersonalId() {
     }
   }
 
+  const isPlanIdInData = data?.plan?.some((plan) => plan.id === planId)
+
   useEffect(() => {
     if (error) {
       const isAppError = error instanceof AppError
@@ -104,12 +106,12 @@ export function PersonalId() {
             <Profile data={data} personalId={id} />
           </TabsContent>
           <TabsContent value="planos">
-            <Planos data={data?.plan} planId={planId} refetch={refetch}/>
+            <Planos data={data?.plan} planId={planId} refetch={refetch} />
           </TabsContent>
         </Tabs>
       </View>
 
-      {planId && <ButtonFab onSubmit={() => setIsModalOpen(true)} />}
+      {isPlanIdInData && <ButtonFab onSubmit={() => setIsModalOpen(true)} />}
 
       <ModalWithContent
         title="Adicionar Comentário"

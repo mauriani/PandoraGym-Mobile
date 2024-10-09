@@ -1,5 +1,4 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
 import Toast, {
   BaseToast,
   ErrorToast,
@@ -60,11 +59,6 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
         <ThemeProvider>
           <AppProvider>
             <Routes />

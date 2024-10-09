@@ -11,19 +11,17 @@ import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Loading } from '@components/Loading'
 import { Input } from '@components/ui/Input'
-import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
+import { getUserFromStorage, savePlanInStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
 import { Card } from './__components__/Card'
-import { getUserFromStorage, savePlanInStorage } from '@storage/index'
 
 export function PersonalTrainerList() {
   const { navigate } = useNavigation()
-  const { user } = useAuth()
 
   const [personalTrainers, setPersonalTrainers] =
     useState<IPersonalList[]>(null)
@@ -117,13 +115,12 @@ export function PersonalTrainerList() {
                     <Card
                       key={item.id}
                       item={item}
-                      onPress={() =>{
-                        isStudentInList(item);
+                      onPress={() => {
+                        isStudentInList(item)
                         navigate('personalId', {
-                          id: item.id
+                          id: item.id,
                         })
-                      }
-                      }
+                      }}
                     />
                   )}
                 />

@@ -1,4 +1,7 @@
 import React from 'react'
+import { IExercise } from '@_dtos_/SelectExerciseDTO'
+import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
+import { Day } from '@_dtos_/trainingDTO'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
@@ -9,13 +12,11 @@ import { Notifications } from '@screens/Notifications'
 import { PersonalId } from '@screens/PersonalTrainerList/pages/PersonalId'
 import { Profile } from '@screens/Profile'
 import { StartTraining } from '@screens/StartTraining'
+import { EditWorkout } from '@screens/StartTraining/pages/EditWorkout'
 import { WorkoutId } from '@screens/WorkoutsTemplates/pages/WorkoutId'
 
+import { StackRoutesStatusBar } from './stack-routes-statusbar'
 import TabNavigator from './tab.routes'
-import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
-import { EditWorkout } from '@screens/StartTraining/pages/EditWorkout'
-import { IExercise } from '@_dtos_/SelectExerciseDTO'
-import { Day } from '@_dtos_/trainingDTO'
 
 export type RootStackParamList = {
   tabNavigator: undefined
@@ -62,6 +63,7 @@ const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>()
 export default function RootStack() {
   return (
     <>
+      <StackRoutesStatusBar />
       <Navigator
         initialRouteName="tabNavigator"
         screenOptions={{
@@ -115,7 +117,7 @@ export default function RootStack() {
           options={{ headerShown: false }}
         />
 
-<Screen
+        <Screen
           name="editWorkout"
           component={EditWorkout}
           options={{ headerShown: false }}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
@@ -36,6 +37,7 @@ export default function TabNavigator() {
         tabBarActiveTintColor: '#facc15',
         tabBarInactiveTintColor: '#7C7C8A',
         tabBarStyle: {
+          height: Platform.OS === 'android' ? 60 : 80,
           backgroundColor: '#202024',
           borderTopWidth: 0,
           paddingBottom: 40,
