@@ -263,12 +263,12 @@ export function StartTraining() {
 
                 <Row>
                   <IconComponent iconName="Repeat" />
-                  <SubTitle title={`${selectedVideo?.reps} séries`} />
+                  <SubTitle title={`${selectedVideo?.reps} repetições`} />
                 </Row>
 
                 <Row>
                   <IconComponent iconName="Weight" />
-                  <SubTitle title={`${selectedVideo?.load}`} />
+                  <SubTitle title={`${selectedVideo?.load}kg`} />
                 </Row>
               </View>
 

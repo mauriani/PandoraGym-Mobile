@@ -40,7 +40,7 @@ type NavigationProps = NativeStackNavigationProp<
 
 export function SignIn() {
   const { navigate } = useNavigation<NavigationProps>()
-  const { signIn, user } = useAuth()
+  const { signIn } = useAuth()
 
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
@@ -73,7 +73,7 @@ export function SignIn() {
 
   useEffect(() => {
     SplashScreen.hide()
-  }, [user])
+  }, [])
 
   return (
     <Container>

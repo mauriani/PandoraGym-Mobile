@@ -21,12 +21,11 @@ type IRouteParams = {
 }
 
 const timeStringToSeconds = (timeString: string) => {
-  const [minutes, seconds] = timeString.split(':').map(Number);
+  const [minutes, seconds] = timeString.split(':').map(Number)
 
-  const newValue = minutes * 60 + seconds;
+  const newValue = minutes * 60 + seconds
   return newValue
-};
- 
+}
 
 export function CreateTrainingSecondStep() {
   const route = useRoute()
@@ -42,7 +41,9 @@ export function CreateTrainingSecondStep() {
 
   const allWeightsFilled =
     exercises &&
-    exercises.every((exercise) => exercise?.load && exercise?.load > 0)
+    exercises.every(
+      (exercise) => exercise?.load !== undefined && exercise?.load > 0,
+    )
 
   function handleOpenModal(item: IExercise) {
     setIsModalOpen(!isModalOpen)
@@ -60,7 +61,9 @@ export function CreateTrainingSecondStep() {
         if (item.id === id) {
           item.load = data.load
           item.reps = data.reps
-          item.restTimeBetweenSets = timeStringToSeconds(data.restTimeBetweenSets)
+          item.restTimeBetweenSets = timeStringToSeconds(
+            data.restTimeBetweenSets,
+          )
           item.sets = data.sets
         }
       })

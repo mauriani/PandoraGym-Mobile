@@ -5,6 +5,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
 import { Day, ITraining } from '@_dtos_/trainingDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
@@ -67,6 +68,10 @@ export function Home() {
       toast.error(title)
     }
   }, [error])
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
 
   return (
     <>

@@ -160,7 +160,7 @@ export function EditWorkout() {
           />
         </View>
 
-        <Text className="text-muted-foreground font-primary_regular tex-[16]">
+        <Text className="text-muted-foreground font-primary_regular text-base">
           Clique no exercício para configura-lo.
         </Text>
 

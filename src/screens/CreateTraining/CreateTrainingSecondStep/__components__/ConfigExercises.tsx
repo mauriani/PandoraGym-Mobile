@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
+import { InputMaskControl } from '@components/InputMaskControl'
 import { Button } from '@components/ui/Button'
 import { Checkbox } from '@components/ui/Checkbox'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
 import zod from 'zod'
-import { InputMaskControl } from '@components/InputMaskControl'
 
 export type IData = {
   reps?: number
@@ -87,7 +87,7 @@ export function ConfigExercises({ item, onUpdateExercises }: IProps) {
           control={control}
           name="reps"
           placeholder="Número de repetições"
-          label={'Reps'}
+          label={'Repetições'}
           error={errors.reps}
           defaultValue={`${item?.reps}`}
           keyboardType="numeric"
@@ -95,17 +95,16 @@ export function ConfigExercises({ item, onUpdateExercises }: IProps) {
       </View>
 
       <View className="flex-row justify-between">
-    
-          <InputMaskControl
-            control={control}
-            name="restTimeBetweenSets"
-            placeholder="Descanço em mm:ss"
-            label={'Descanço em mm:ss'}
-            error={errors.restTimeBetweenSets}
-            defaultValue={`${item?.restTimeBetweenSets}`}
-            keyboardType="numeric"
-            type='minutes'
-          />
+        <InputMaskControl
+          control={control}
+          name="restTimeBetweenSets"
+          placeholder="Descanço em mm:ss"
+          label={'mm:ss'}
+          error={errors.restTimeBetweenSets}
+          defaultValue={`${item?.restTimeBetweenSets}`}
+          keyboardType="numeric"
+          type="minutes"
+        />
 
         <InputFormControl
           control={control}

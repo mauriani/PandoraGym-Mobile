@@ -30,10 +30,10 @@ export function CardExercise({
       />
 
       <View className="flex-col justify-center gap-[4px] ml-3">
-        <Text className="text-white font-bold tex-[18]">
+        <Text className="text-white font-bold text-[14px]">
           {item.exerciseTitle}
         </Text>
-        <Text className="text-muted-foreground tex-[14]">
+        <Text className="text-muted-foreground text-[14px]">
           {item.sets} séries x {item.reps} repetições
         </Text>
       </View>

@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
-import { IExercise } from '@_dtos_/SelectExerciseDTO'
+import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
+import { InputMaskControl } from '@components/InputMaskControl'
 import { Button } from '@components/ui/Button'
 import { Checkbox } from '@components/ui/Checkbox'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
-import zod from 'zod'
-import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
-import { InputMaskControl } from '@components/InputMaskControl'
 import { convertSecondsToMinutes } from '@utils/formatTime'
+import zod from 'zod'
 
 export type IData = {
   reps?: number
@@ -38,7 +37,7 @@ const schema = zod.object({
     })
     .transform((value) => (value ? parseInt(value) : null))
     .nullable(),
-    restTimeBetweenSets: zod
+  restTimeBetweenSets: zod
     .string({ required_error: 'Campo obrigatório!' })
     .min(1, {
       message: 'Campo obrigatório!',
@@ -97,16 +96,16 @@ export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
       </View>
 
       <View className="flex-row justify-between">
-      <InputMaskControl
-            control={control}
-            name="restTimeBetweenSets"
-            placeholder="Descanço em mm:ss"
-            label={'Descanço em mm:ss'}
-            error={errors.restTimeBetweenSets}
-            defaultValue={`${convertSecondsToMinutes(item.restTimeBetweenSets)}`}
-            keyboardType="numeric"
-            type='minutes'
-          />
+        <InputMaskControl
+          control={control}
+          name="restTimeBetweenSets"
+          placeholder="Descanço em mm:ss"
+          label={'Descanço em mm:ss'}
+          error={errors.restTimeBetweenSets}
+          defaultValue={`${convertSecondsToMinutes(item.restTimeBetweenSets)}`}
+          keyboardType="numeric"
+          type="minutes"
+        />
 
         <InputFormControl
           control={control}

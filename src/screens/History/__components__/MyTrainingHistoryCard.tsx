@@ -39,23 +39,6 @@ export function MyTrainingHistoryCard({ item }: IProps) {
             value={`${item.weight} kg`}
             label={'Carga Utilizada'}
           />
-
-          {/* <TouchableOpacity className="flex-row justify-center items-center gap-1 min-h-8 px-2 py-2 rounded-sm bg-primary-foreground">
-            <IconComponent iconName="Dumbbell" size={20} />
-            <View className="flex-col ">
-              <Text className="text-foreground font-bold text-[10px]">
-                Carga
-              </Text>
-              <Text className="text-sm text-foreground font-primary_bold">
-                {item.weight} kg
-              </Text>
-            </View>
-          </TouchableOpacity> */}
-          {/* <TouchableOpacity className="h-8 bg-zinc-500 px-1 py-1 rounded-sm">
-            <Text className="text-primary text-base font-primary_bold">
-              {item.weight} kg
-            </Text>
-          </TouchableOpacity> */}
         </View>
       </View>
     </View>

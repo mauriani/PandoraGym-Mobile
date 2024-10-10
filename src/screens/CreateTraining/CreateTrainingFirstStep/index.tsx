@@ -111,7 +111,7 @@ export function CreateTrainingFirstStep() {
               change={(text) => getTypeInfo(text)}
             />
 
-            <Text className="text-foreground font-primary_bold tex-[16]">
+            <Text className="text-foreground font-primary_bold text-base">
               Listagem de exercícios
             </Text>
 
