@@ -21,10 +21,10 @@ export function Card({ item, openModal }: IProps) {
         />
 
         <View className="flex-col justify-center gap-2 ml-3">
-          <Text className="text-white font-bold tex-[18]">
+          <Text className="text-white font-bold text-base">
             {item.exerciseTitle}
           </Text>
-          <Text className="text-muted-foreground tex-[14]">
+          <Text className="text-muted-foreground text-[14px]">
             {item.sets} séries x {item.reps} repetições
           </Text>
         </View>

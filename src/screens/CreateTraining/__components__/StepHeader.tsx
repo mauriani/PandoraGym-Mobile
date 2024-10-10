@@ -11,7 +11,7 @@ export function StepHeader({ title, current }: IProps) {
     <View className={'flex-row justify-between'}>
       <Heading title={title} />
 
-      <Text className="text-foreground font-primary_bold tex-[16]">
+      <Text className="text-foreground font-primary_bold text-base">
         Etapa {current} de 3
       </Text>
     </View>

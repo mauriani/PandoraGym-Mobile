@@ -99,8 +99,8 @@ export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
         <InputMaskControl
           control={control}
           name="restTimeBetweenSets"
-          placeholder="Descanço em mm:ss"
-          label={'Descanço em mm:ss'}
+          placeholder="Descanso em mm:ss"
+          label={'Descanso em mm:ss'}
           error={errors.restTimeBetweenSets}
           defaultValue={`${convertSecondsToMinutes(item.restTimeBetweenSets)}`}
           keyboardType="numeric"
@@ -125,7 +125,7 @@ export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
           onPress={() => setIsSelected(!isSelected)}
         />
 
-        <Text className="text-foreground font-primary_bold tex-[16]">
+        <Text className="text-foreground font-primary_bold text-base">
           Aplicar para todos os exercicios
         </Text>
       </View>

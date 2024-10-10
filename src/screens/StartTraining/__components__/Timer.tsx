@@ -56,7 +56,7 @@ export default function Timer({ initialSeconds }: IProps) {
         />
 
         <Text className="text-white text-lg font-bold ml-4">
-          {isRunning ? formatTime(time) : `Descanço`}
+          {isRunning ? formatTime(time) : `Descanso`}
         </Text>
       </TouchableOpacity>
     </View>

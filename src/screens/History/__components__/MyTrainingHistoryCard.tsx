@@ -33,7 +33,7 @@ export function MyTrainingHistoryCard({ item }: IProps) {
         <View className="flex-row gap-2">
           <ContentDetails
             value={`${formatTime(item.restTime)}min`}
-            label={'Tempo de Descanço'}
+            label={'Tempo de Descanso'}
           />
           <ContentDetails
             value={`${item.weight} kg`}

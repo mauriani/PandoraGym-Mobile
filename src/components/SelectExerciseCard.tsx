@@ -25,7 +25,7 @@ export function SelectExerciseCard({
       />
 
       <View className="flex-col justify-center gap-[2] ml-3">
-        <Text className="text-white font-primary_bold tex-[18PX]">
+        <Text className="text-white font-primary_bold text-bae">
           {item.exerciseTitle}
         </Text>
       </View>
