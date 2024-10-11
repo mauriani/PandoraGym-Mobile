@@ -17,7 +17,7 @@ import { MultiSelect } from '@screens/CreateTraining/__components__/MultiSelect'
 import { api } from '@services/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
-import { extractVideoId, getYoutubeThumbnail } from '@utils/extractVideoId'
+import { extractVideoId } from '@utils/extractVideoId'
 import { secondsToHourMinute } from '@utils/formatTime'
 import { toast } from '@utils/toast-methods'
 import { daysOfWeek } from '@utils/weekDay'
@@ -113,13 +113,10 @@ export function WorkoutId() {
       <Content>
         <View className="flex-row items-center py-5">
           <VideoPlayerWithThumbnail
-            thumbnailUrl={getYoutubeThumbnail(
-              data?.data?.personal?.presentationVideo,
-            )}
+            thumbnailUrl={data?.data?.thumbnail}
             videoId={
-              data?.data?.personal?.presentationVideo
-                ? extractVideoId(data?.data?.personal?.presentationVideo)
-                : ''
+              data?.data?.personal?.presentationVideo != undefined &&
+              extractVideoId(data?.data?.personal?.presentationVideo)
             }
           />
         </View>

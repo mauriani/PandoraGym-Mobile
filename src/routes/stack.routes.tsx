@@ -34,7 +34,6 @@ export type RootStackParamList = {
   profile: undefined
   personalId: {
     id: string
-    isButtonComment?: boolean
   }
   startTraining: {
     id: string

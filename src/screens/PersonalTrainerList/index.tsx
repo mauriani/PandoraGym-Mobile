@@ -73,7 +73,9 @@ export function PersonalTrainerList() {
     )
 
     if (studentInList) {
-      savePlanInStorage(studentInList?.plan?.id)
+      if (studentInList?.plan?.id != null) {
+        savePlanInStorage(studentInList?.plan?.id)
+      }
 
       return studentInList.plan?.id
     }
@@ -91,7 +93,7 @@ export function PersonalTrainerList() {
             onPress={Keyboard.dismiss}
             accessible={false}>
             <View style={{ flex: 1 }}>
-              <Header title={'Personal trainers'} />
+              <Header title={'Personal Trainers'} />
 
               <Content>
                 <Input

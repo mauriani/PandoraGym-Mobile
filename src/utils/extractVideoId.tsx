@@ -10,6 +10,7 @@ export function getYoutubeThumbnail(videoUrl) {
   }
 
   const videoIdMatch = videoUrl.match(
+    // eslint-disable-next-line no-useless-escape
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
   )
   const videoId = videoIdMatch ? videoIdMatch[1] : null

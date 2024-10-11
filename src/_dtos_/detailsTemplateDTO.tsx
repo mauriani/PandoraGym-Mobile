@@ -25,6 +25,7 @@ export type Data = {
   averageDuration: number
   averageCalories: string
   description: string
+  thumbnail: string
 }
 
 export type IDetailsTemplate = {

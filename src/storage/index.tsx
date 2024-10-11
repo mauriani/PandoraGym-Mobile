@@ -15,7 +15,7 @@ export function saveTokenInStorage(token: string) {
   storage.set(USER_STORAGE_TOKEN, JSON.stringify(token))
 }
 
-export function savePlanInStorage(plan: string) {
+export function savePlanInStorage(plan: string | null) {
   storage.set(USER_STORAGE_PLAN, JSON.stringify(plan))
 }
 

@@ -11,20 +11,11 @@ import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
-import { ButtonCategories } from './__components__/ButtonCategories'
 import { CardTop } from './__components__/CardTop'
 import { CardWorkouts } from './__components__/CardWorkouts'
 
 export function WorkoutsTemplates() {
   const { navigate } = useNavigation()
-
-  const categories = [
-    'Musculação',
-    'Calistenia',
-    'Crossfit',
-    'Street workout',
-    'Yoga',
-  ]
 
   function handleNavigaDetails(title: string, id: string, tumbnail: string) {
     navigate('workoutId', {
@@ -66,15 +57,6 @@ export function WorkoutsTemplates() {
               contentContainerStyle={{
                 gap: 12,
               }}>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ gap: 12 }}>
-                {categories.map((item, index) => (
-                  <ButtonCategories key={index} label={item} active={false} />
-                ))}
-              </ScrollView>
-
               <CardTop image={''} personalName={'Treinos Recomendados'} />
               <FlatList
                 data={data.workoutAdm}

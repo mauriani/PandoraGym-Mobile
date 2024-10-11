@@ -20,7 +20,7 @@ import { Profile } from './_tabs_/Profile'
 
 type IRouteParams = {
   id: string
-  isButtonComment: boolean
+  name: string
 }
 
 export function PersonalId() {
