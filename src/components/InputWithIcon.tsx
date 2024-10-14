@@ -48,11 +48,12 @@ export function InputWithIcon({ iconName, color, size, label }: IProps) {
         name="name"
         label={label}
         error={errors.name}
-        className="w-[85%] h-15"
+        className="w-[85%]"
+        inputClasses="h-16"
       />
 
       <TouchableOpacity
-        className="rounded-[6px] bg-purple-800 w-16 max-h-14 justify-center items-center ml-2 z-10"
+        className="rounded-[6px] bg-purple-800 w-16 h-16 justify-center items-center ml-2"
         onPress={handleSubmit(submit)}>
         <IconComponent iconName={iconName} color={color} size={size} />
       </TouchableOpacity>

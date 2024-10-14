@@ -4,6 +4,8 @@ import { SignIn } from '@screens/SignIn'
 import { SingUpFirstStep } from '@screens/SignUp/SingUpFirstStep'
 import { SingUpSecondStep } from '@screens/SignUp/SingUpSecondStep'
 
+import { AuthRoutesStatusBar } from './auth-routes-statusbar'
+
 export type RootSAuthParamList = {
   login: undefined
   singUpFirstStep: undefined
@@ -23,6 +25,7 @@ const { Navigator, Screen } = createNativeStackNavigator<RootSAuthParamList>()
 export default function AuthRoutes() {
   return (
     <>
+      <AuthRoutesStatusBar />
       <Navigator
         initialRouteName="login"
         screenOptions={{

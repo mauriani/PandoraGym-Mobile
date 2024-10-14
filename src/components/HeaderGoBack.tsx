@@ -55,7 +55,9 @@ export function HeaderGoBack({
         <ArrowLeft size={24} color={themes[colorScheme].primary} />
       </TouchableOpacity>
 
-      <Text className="text-white text-center font-primary_bold text-lg">
+      <Text
+        numberOfLines={1}
+        className="text-white text-center font-primary_bold text-lg flex-1">
         {title}
       </Text>
 

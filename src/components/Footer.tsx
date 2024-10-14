@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { Button } from '@components/ui/Button'
 
@@ -13,7 +13,8 @@ export function Footer({ label, onSubmit }: IProps) {
       style={{
         marginTop: 'auto',
         paddingHorizontal: 20,
-        paddingBottom: getBottomSpace() + 60,
+        paddingBottom:
+          Platform.OS == 'ios' ? getBottomSpace() + 60 : getBottomSpace() + 10,
       }}>
       <Button label={label} onPress={onSubmit} />
     </View>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, Platform, Text, View } from 'react-native'
+import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { IDetailsTemplate } from '@_dtos_/detailsTemplateDTO'
 import { ButtonWithIcon } from '@components/ButtonWithIcon'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
-import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
 import { ModalWithContent } from '@components/ModalWithContent'
@@ -132,7 +132,17 @@ export function WorkoutId() {
             iconName="Flame"
           />
 
-          <ButtonWithIcon title={'Perfil'} iconName="User" />
+          {data?.data?.personal?.id && (
+            <ButtonWithIcon
+              title={'Perfil'}
+              iconName="User"
+              onPress={() =>
+                navigate('personalId', {
+                  id: data?.data?.personal?.id,
+                })
+              }
+            />
+          )}
         </View>
 
         <View className="gap-2">
@@ -158,10 +168,18 @@ export function WorkoutId() {
           renderItem={({ item }) => <CardDetails key={item.id} item={item} />}
         />
 
-        <Footer
-          label="Usar Treino"
-          onSubmit={() => setIsModalOpen(!isModalOpen)}
-        />
+        <View
+          style={{
+            paddingBottom:
+              Platform.OS == 'ios'
+                ? getBottomSpace() + 60
+                : getBottomSpace() + 10,
+          }}>
+          <Button
+            label="Usar Treino"
+            onPress={() => setIsModalOpen(!isModalOpen)}
+          />
+        </View>
       </Content>
 
       <ModalWithContent

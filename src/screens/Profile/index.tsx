@@ -112,7 +112,7 @@ export function Profile() {
                   iconName="ChevronRight"
                   onPress={() =>
                     navigate('personalId', {
-                      id: data?.personalId
+                      id: data?.personalId,
                     })
                   }
                 />
