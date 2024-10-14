@@ -43,6 +43,10 @@ export default function TabNavigator() {
           paddingBottom: 40,
           paddingTop: 24,
         },
+        tabBarItemStyle: {
+          paddingTop: 8,
+          paddingBottom: 8,
+        },
       }}
       initialRouteName="home">
       <Screen

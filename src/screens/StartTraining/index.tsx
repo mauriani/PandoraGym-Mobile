@@ -10,6 +10,7 @@ import { HeaderGoBack } from '@components/HeaderGoBack'
 import { IconComponent } from '@components/IconComponent'
 import { Loading } from '@components/Loading'
 import { ModalWithContent } from '@components/ModalWithContent'
+import { NoContent } from '@components/NoContent'
 import { SubTitle } from '@components/SubTitle'
 import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
@@ -244,95 +245,101 @@ export function StartTraining() {
             onEditWorkout={handleEditWorkout}
           />
           <Content>
-            <View>
-              {selectedVideo && (
-                <VideoPlayerWithThumbnail
-                  thumbnailUrl={selectedVideo?.exerciseThumb}
-                  videoId={
-                    selectedVideo?.exerciseVideo != undefined &&
-                    extractVideoId(selectedVideo?.exerciseVideo)
-                  }
-                />
-              )}
-
-              <View className="flex-row justify-between bg-accent py-5 px-3 mt-[10px] rounded-b-[6px]">
-                <Row>
-                  <IconComponent iconName="Dumbbell" />
-                  <SubTitle title={`${selectedVideo?.sets} séries`} />
-                </Row>
-
-                <Row>
-                  <IconComponent iconName="Repeat" />
-                  <SubTitle title={`${selectedVideo?.reps} repetições`} />
-                </Row>
-
-                <Row>
-                  <IconComponent iconName="Weight" />
-                  <SubTitle title={`${selectedVideo?.load}kg`} />
-                </Row>
-              </View>
-
-              <View className="flex-row items-center py-2 gap-4">
-                <TimerWithSound
-                  initialSeconds={
-                    selectedVideo?.restTimeBetweenSets != undefined &&
-                    selectedVideo?.restTimeBetweenSets
-                  }
-                />
-                <ButtonWithIcon
-                  title={'Editar Carga ?'}
-                  iconName="Weight"
-                  onPress={() => setIsModalOpen(!isModalOpen)}
-                />
-              </View>
-            </View>
-
-            <View className="flex-row justify-between pb-2">
-              <Text className="text-foreground text-[14px]">
-                {selectedVideo?.exerciseTitle}
-              </Text>
-
-              <Text className="text-muted-foreground text-[14px]">
-                Exercício {selectedVideo?.number} de {data?.length}
-              </Text>
-            </View>
-
-            <FlatList
-              data={exercises}
-              keyExtractor={(item) => item.id}
-              horizontal={false}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={
-                exercises?.length == 0
-                  ? { flexGrow: 1 }
-                  : { paddingBottom: 30, gap: 12 }
-              }
-              renderItem={({ item, index }) => (
-                <CardExercise
-                  item={item}
-                  index={index}
-                  onSectedVideo={handleSelectedVideo}
-                  isSelected={selectedItems.some(
-                    (selectedItem) => selectedItem.exerciseId === item.id,
+            {exercises.length > 0 ? (
+              <>
+                <View>
+                  {selectedVideo && (
+                    <VideoPlayerWithThumbnail
+                      thumbnailUrl={selectedVideo?.exerciseThumb}
+                      videoId={
+                        selectedVideo?.exerciseVideo != undefined &&
+                        extractVideoId(selectedVideo?.exerciseVideo)
+                      }
+                    />
                   )}
-                  toggleSelectItem={() => {
-                    toggleSelectItem(item)
-                  }}
-                />
-              )}
-            />
 
-            {selectedItems.length == data?.length && (
-              <View
-                style={{
-                  marginTop: 'auto',
-                  paddingBottom: getBottomSpace() + 25,
-                }}>
-                <Button
-                  label="Concluir Treino"
-                  onPress={() => handleFinishTraining()}
+                  <View className="flex-row justify-between bg-accent py-5 px-3 mt-[10px] rounded-b-[6px]">
+                    <Row>
+                      <IconComponent iconName="Dumbbell" />
+                      <SubTitle title={`${selectedVideo?.sets} séries`} />
+                    </Row>
+
+                    <Row>
+                      <IconComponent iconName="Repeat" />
+                      <SubTitle title={`${selectedVideo?.reps} repetições`} />
+                    </Row>
+
+                    <Row>
+                      <IconComponent iconName="Weight" />
+                      <SubTitle title={`${selectedVideo?.load}kg`} />
+                    </Row>
+                  </View>
+
+                  <View className="flex-row items-center py-2 gap-4">
+                    <TimerWithSound
+                      initialSeconds={
+                        selectedVideo?.restTimeBetweenSets != undefined &&
+                        selectedVideo?.restTimeBetweenSets
+                      }
+                    />
+                    <ButtonWithIcon
+                      title={'Editar Carga ?'}
+                      iconName="Weight"
+                      onPress={() => setIsModalOpen(!isModalOpen)}
+                    />
+                  </View>
+                </View>
+
+                <View className="flex-row justify-between pb-2">
+                  <Text className="text-foreground text-[14px]">
+                    {selectedVideo?.exerciseTitle}
+                  </Text>
+
+                  <Text className="text-muted-foreground text-[14px]">
+                    Exercício {selectedVideo?.number} de {data?.length}
+                  </Text>
+                </View>
+
+                <FlatList
+                  data={exercises}
+                  keyExtractor={(item) => item.id}
+                  horizontal={false}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={
+                    exercises?.length == 0
+                      ? { flexGrow: 1 }
+                      : { paddingBottom: 30, gap: 12 }
+                  }
+                  renderItem={({ item, index }) => (
+                    <CardExercise
+                      item={item}
+                      index={index}
+                      onSectedVideo={handleSelectedVideo}
+                      isSelected={selectedItems.some(
+                        (selectedItem) => selectedItem.exerciseId === item.id,
+                      )}
+                      toggleSelectItem={() => {
+                        toggleSelectItem(item)
+                      }}
+                    />
+                  )}
                 />
-              </View>
+
+                {selectedItems.length == data?.length && (
+                  <View
+                    style={{
+                      marginTop: 'auto',
+                      paddingBottom: getBottomSpace() + 25,
+                    }}>
+                    <Button
+                      label="Concluir Treino"
+                      onPress={() => handleFinishTraining()}
+                    />
+                  </View>
+                )}
+              </>
+            ) : (
+              <NoContent message="Nenhum exercício cadastrado no momento. Aguarde seu personal !" />
             )}
           </Content>
 

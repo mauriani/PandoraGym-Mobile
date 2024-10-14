@@ -6,6 +6,8 @@ type IProps = {
 
 export function Heading({ title }: IProps) {
   return (
-    <Text className="text-white font-primary_bold text-base mb-2">{title}</Text>
+    <Text className="text-foreground font-primary_bold text-base mb-2">
+      {title}
+    </Text>
   )
 }

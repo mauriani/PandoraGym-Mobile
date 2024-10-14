@@ -32,7 +32,7 @@ export function CardWorkouts({ training, onNavigate }: IProps) {
           }}
         />
         <View className="h-44 justify-between p-4">
-          <TouchableOpacity className="bg-black rounded-[6px] w-28 h-10 justify-center items-center">
+          <TouchableOpacity className="bg-black rounded-[6px] px-5 py-2 max-w-40">
             <Text className="text-foreground font-primary_bold text-sm">
               {training.level}
             </Text>

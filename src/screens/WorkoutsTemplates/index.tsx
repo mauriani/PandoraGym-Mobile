@@ -51,7 +51,7 @@ export function WorkoutsTemplates() {
         <Loading />
       ) : (
         <Container>
-          <Header title={'Programas de treino'} />
+          <Header title={'Programas De Treino'} />
           <Content>
             <ScrollView
               contentContainerStyle={{
