@@ -8,6 +8,7 @@ import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
+import { Loading } from '@components/Loading'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
@@ -51,7 +52,7 @@ export function WorkoutId() {
 
   const { handleSubmit, control, reset } = methods
 
-  const { data, error } = useQuery<IDetailsTemplate>({
+  const { data, error, isLoading } = useQuery<IDetailsTemplate>({
     queryKey: ['get-training-workout-free', id],
     queryFn: async () => {
       const { data } = await api.get(`/training-programs/${id}`)
@@ -108,97 +109,109 @@ export function WorkoutId() {
   }
 
   return (
-    <Container>
-      <HeaderGoBack title={title} />
-      <Content>
-        <View className="flex-row items-center py-5">
-          <VideoPlayerWithThumbnail
-            thumbnailUrl={data?.data?.thumbnail}
-            videoId={
-              data?.data?.personal?.presentationVideo != undefined &&
-              extractVideoId(data?.data?.personal?.presentationVideo)
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <HeaderGoBack title={title} />
+          <Content>
+            {data?.data?.personal?.id && (
+              <View className="flex-row items-center py-5">
+                <VideoPlayerWithThumbnail
+                  thumbnailUrl={data?.data?.thumbnail}
+                  videoId={
+                    data?.data?.personal?.presentationVideo != undefined &&
+                    extractVideoId(data?.data?.personal?.presentationVideo)
+                  }
+                />
+              </View>
+            )}
+
+            <View className="flex-row mb-4 gap-3">
+              <ButtonWithIcon
+                title={`${secondsToHourMinute(data?.data?.totalDuration)}`}
+                iconName="Clock1"
+              />
+
+              <ButtonWithIcon
+                title={`${data?.data?.totalCalories}Cal`}
+                iconName="Flame"
+              />
+
+              {data?.data?.personal?.id && (
+                <ButtonWithIcon
+                  title={'Perfil'}
+                  iconName="User"
+                  onPress={() =>
+                    navigate('personalId', {
+                      id: data?.data?.personal?.id,
+                    })
+                  }
+                />
+              )}
+            </View>
+
+            <View className="gap-2">
+              <Text
+                numberOfLines={2}
+                className="text-white font-primary_regular text-sm">
+                {data?.data?.description}
+              </Text>
+
+              <Heading title={'Exercícios'} />
+            </View>
+
+            <FlatList
+              data={data?.data?.exerciseConfig}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={
+                data?.data?.exerciseConfig?.length == 0
+                  ? {
+                      flexGrow: 1,
+                      padding: 10,
+                    }
+                  : { paddingBottom: 60, gap: 12 }
+              }
+              renderItem={({ item }) => (
+                <CardDetails key={item.id} item={item} />
+              )}
+            />
+
+            <View
+              style={{
+                paddingBottom:
+                  Platform.OS == 'ios'
+                    ? getBottomSpace() + 60
+                    : getBottomSpace() + 10,
+              }}>
+              <Button
+                label="Usar Treino"
+                onPress={() => setIsModalOpen(!isModalOpen)}
+              />
+            </View>
+          </Content>
+
+          <ModalWithContent
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(!isModalOpen)}
+            title="Em qual dia você realizará esse treino ?"
+            content={
+              <View className="gap-5 py-3">
+                <MultiSelect
+                  options={daysOfWeek}
+                  name={'week'}
+                  control={control}
+                  label="Selecione o dia"
+                />
+
+                <Button label="Salvar" onPress={handleSubmit(submit)} />
+              </View>
             }
           />
-        </View>
-
-        <View className="flex-row mb-4 gap-3">
-          <ButtonWithIcon
-            title={`${secondsToHourMinute(data?.data?.totalDuration)}`}
-            iconName="Clock1"
-          />
-
-          <ButtonWithIcon
-            title={`${data?.data?.totalCalories}Cal`}
-            iconName="Flame"
-          />
-
-          {data?.data?.personal?.id && (
-            <ButtonWithIcon
-              title={'Perfil'}
-              iconName="User"
-              onPress={() =>
-                navigate('personalId', {
-                  id: data?.data?.personal?.id,
-                })
-              }
-            />
-          )}
-        </View>
-
-        <View className="gap-2">
-          <Text className="text-white font-primary_regular text-sm">
-            {data?.data?.description}
-          </Text>
-
-          <Heading title={'Exercícios'} />
-        </View>
-
-        <FlatList
-          data={data?.data?.exerciseConfig}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={
-            data?.data?.exerciseConfig?.length == 0
-              ? {
-                  flexGrow: 1,
-                  padding: 10,
-                }
-              : { paddingBottom: 60, gap: 12 }
-          }
-          renderItem={({ item }) => <CardDetails key={item.id} item={item} />}
-        />
-
-        <View
-          style={{
-            paddingBottom:
-              Platform.OS == 'ios'
-                ? getBottomSpace() + 60
-                : getBottomSpace() + 10,
-          }}>
-          <Button
-            label="Usar Treino"
-            onPress={() => setIsModalOpen(!isModalOpen)}
-          />
-        </View>
-      </Content>
-
-      <ModalWithContent
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(!isModalOpen)}
-        title="Em qual dia você realizará esse treino ?"
-        content={
-          <View className="gap-5 py-3">
-            <MultiSelect
-              options={daysOfWeek}
-              name={'week'}
-              control={control}
-              label="Selecione o dia"
-            />
-
-            <Button label="Salvar" onPress={handleSubmit(submit)} />
-          </View>
-        }
-      />
-    </Container>
+        </Container>
+      )}
+    </>
   )
 }

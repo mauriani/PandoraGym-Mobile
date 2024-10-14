@@ -8,6 +8,7 @@
     "lint": "eslint --fix --ext .js,.jsx,.tsx,.ts .",
     "start": "react-native start",
     "eslintify": "yarn eslint --fix src --ext .js",
+    "build-android":"cd android && ./gradlew clean assembleRelease",
     "test": "jest"
   },
   "dependencies": {

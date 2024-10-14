@@ -9,19 +9,21 @@ import { Workout } from '@_dtos_/templateDTO'
 
 type IProps = {
   training: Workout
-  onNavigate: (title: string, id: string, thumbnail: string) => void
+  isFullWidth?: boolean
+  onNavigate?: (title: string, id: string, thumbnail: string) => void
 }
 
-export function CardWorkouts({ training, onNavigate }: IProps) {
+export function CardWorkouts({ training, onNavigate, isFullWidth }: IProps) {
   return (
     <TouchableOpacity
-      className="h-44 w-72 rounded-[8px]"
+      className={`rounded-[8px] ${isFullWidth ? 'w-full' : 'w-72'} ${isFullWidth ? 'h-60' : 'h-44'}`}
       onPress={() =>
         onNavigate(training.name, training.id, training.thumbnail)
       }>
       <ImageBackground
         width={288}
         borderRadius={8}
+        resizeMode="cover"
         source={{
           uri: training.thumbnail,
         }}>
@@ -31,7 +33,8 @@ export function CardWorkouts({ training, onNavigate }: IProps) {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
           }}
         />
-        <View className="h-44 justify-between p-4">
+        <View
+          className={`${isFullWidth ? 'h-60' : 'h-44'} justify-between p-4`}>
           <View className="bg-black rounded-[6px] py-2 px-2 self-start">
             <Text className="text-foreground font-primary_bold text-sm">
               {training.level}

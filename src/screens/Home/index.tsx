@@ -11,7 +11,7 @@ import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
-import { InputWithIcon } from '@components/InputWithIcon'
+import { InputWithButton } from '@components/InputWithButton'
 import { Loading } from '@components/Loading'
 import { MyTrainingCard } from '@components/MyTrainingCard'
 import { NoContent } from '@components/NoContent'
@@ -21,15 +21,6 @@ import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
-import { z } from 'zod'
-
-export const formValidationSchema = z.object({
-  tituloTreino: z.string({ required_error: 'Campo obrigatório!' }).min(1, {
-    message: 'Campo obrigatório!',
-  }),
-})
-
-export type zodSchema = z.infer<typeof formValidationSchema>
 
 export function Home() {
   const { user } = useAuth()
@@ -46,6 +37,12 @@ export function Home() {
       name,
       exclusive,
       weekDays,
+    })
+  }
+
+  function onNavigateCreateTraining(name) {
+    navigate('createTrainingFirstStep', {
+      title: name,
     })
   }
 
@@ -87,10 +84,11 @@ export function Home() {
               <Content>
                 <Heading title="Criar Treino" />
 
-                <InputWithIcon
+                <InputWithButton
                   label="Nome do treino/exercício"
                   iconName="Plus"
                   size={20}
+                  onNavigate={onNavigateCreateTraining}
                 />
 
                 <Heading title="Meus Treinos" />

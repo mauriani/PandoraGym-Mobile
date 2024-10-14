@@ -2,7 +2,7 @@ import { Text } from 'react-native'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
-import { InputWithIcon } from '@components/InputWithIcon'
+import { InputWithButton } from '@components/InputWithButton'
 
 export function HelpMe() {
   return (
@@ -14,7 +14,7 @@ export function HelpMe() {
           Como podemos te <Text className="text-primary">ajudar</Text> hoje,
           Othavio ?
         </Text>
-        <InputWithIcon
+        <InputWithButton
           label="Qual é a sua duvida ?"
           iconName="Send"
           size={20}

@@ -19,15 +19,18 @@ export function CardDetails({ item }: IProps) {
         alt=""
       />
 
-      <View className="flex-col justify-center gap-1 ml-3">
-        <Text className="text-white font-bold text-base">
+      <View className="flex-col justify-center gap-1 ml-3 flex-1">
+        <Text
+          numberOfLines={1}
+          className="text-white font-bold text-base"
+          style={{ flexShrink: 1, maxWidth: '85%' }}>
           {item.exerciseTitle}
         </Text>
         <Text className="text-muted-foreground text-sm">
           {item.sets} séries x {item.reps} repetições
         </Text>
 
-        <View className="flex-row justify-between items-center gap-2">
+        <View className="flex-row items-center gap-2">
           <View className="flex-row items-center gap-2 bg-accent px-2 py-2 rounded-[6px]">
             <IconComponent iconName="Timer" size={20} />
             <SubTitle

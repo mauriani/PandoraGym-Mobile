@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { TouchableOpacity, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigation } from '@react-navigation/native'
 import zod from 'zod'
 
 import { InputFormControl } from './ui/InputFormControl'
@@ -9,7 +8,7 @@ import { IconComponent, IconNames } from './IconComponent'
 
 type IProps = {
   onChangeText?: (text: string) => void
-  onNavigate?: () => void
+  onNavigate?: (title: string) => void
   iconName: IconNames
   color?: string
   size?: number
@@ -22,9 +21,14 @@ const schema = zod.object({
 
 export type zodSchema = zod.infer<typeof schema>
 
-export function InputWithIcon({ iconName, color, size, label }: IProps) {
-  const { navigate } = useNavigation()
-
+export function InputWithButton({
+  iconName,
+  color,
+  size,
+  label,
+  onNavigate,
+  onChangeText,
+}: IProps) {
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
   })
@@ -36,9 +40,7 @@ export function InputWithIcon({ iconName, color, size, label }: IProps) {
   } = methods
 
   function submit(data: zodSchema) {
-    navigate('createTrainingFirstStep', {
-      title: data.name,
-    })
+    onNavigate(data.name)
   }
 
   return (
@@ -50,6 +52,9 @@ export function InputWithIcon({ iconName, color, size, label }: IProps) {
         error={errors.name}
         className="w-[85%]"
         inputClasses="h-16"
+        change={(text) => {
+          onChangeText(text)
+        }}
       />
 
       <TouchableOpacity

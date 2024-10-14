@@ -57,7 +57,16 @@ export function WorkoutsTemplates() {
               contentContainerStyle={{
                 gap: 12,
               }}>
-              <CardTop image={''} personalName={'Treinos Recomendados'} />
+              <CardTop
+                image={''}
+                personalName={'Treinos Recomendados'}
+                onNavigate={() =>
+                  navigate('workoutAll', {
+                    title: 'Treinos Recomendados',
+                    id: null,
+                  })
+                }
+              />
               <FlatList
                 data={data.workoutAdm}
                 keyExtractor={(item) => item.id}
@@ -80,6 +89,12 @@ export function WorkoutsTemplates() {
                           <CardTop
                             image={workouts[0]?.personal?.user?.avatarUrl}
                             personalName={workouts[0]?.personal?.user?.name}
+                            onNavigate={() =>
+                              navigate('workoutAll', {
+                                title: workouts[0]?.personal?.user?.name,
+                                id: workouts[0]?.personalId,
+                              })
+                            }
                           />
 
                           <FlatList

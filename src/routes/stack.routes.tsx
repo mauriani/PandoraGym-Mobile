@@ -13,6 +13,7 @@ import { PersonalId } from '@screens/PersonalTrainerList/pages/PersonalId'
 import { Profile } from '@screens/Profile'
 import { StartTraining } from '@screens/StartTraining'
 import { EditWorkout } from '@screens/StartTraining/pages/EditWorkout'
+import { WorkoutAll } from '@screens/WorkoutsTemplates/pages/WorkoutAll'
 import { WorkoutId } from '@screens/WorkoutsTemplates/pages/WorkoutId'
 
 import { StackRoutesStatusBar } from './stack-routes-statusbar'
@@ -45,6 +46,10 @@ export type RootStackParamList = {
     title: string
     id: string
     tumbnail: string
+  }
+  workoutAll: {
+    title: string
+    id: string
   }
   editProfile: undefined
   notifications: undefined
@@ -107,6 +112,11 @@ export default function RootStack() {
         <Screen
           name="workoutId"
           component={WorkoutId}
+          options={{ headerShown: false }}
+        />
+        <Screen
+          name="workoutAll"
+          component={WorkoutAll}
           options={{ headerShown: false }}
         />
 
