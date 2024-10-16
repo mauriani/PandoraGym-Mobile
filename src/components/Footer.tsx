@@ -5,14 +5,15 @@ import { Button } from '@components/ui/Button'
 type IProps = {
   label: string
   onSubmit: () => void
+  paddingHorizontal?: number
 }
 
-export function Footer({ label, onSubmit }: IProps) {
+export function Footer({ label, onSubmit, paddingHorizontal = 20 }: IProps) {
   return (
     <View
       style={{
         marginTop: 'auto',
-        paddingHorizontal: 20,
+        paddingHorizontal,
         paddingBottom:
           Platform.OS == 'ios' ? getBottomSpace() + 60 : getBottomSpace() + 10,
       }}>

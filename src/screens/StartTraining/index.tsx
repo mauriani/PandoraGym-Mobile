@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, FlatList, Text, View } from 'react-native'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Day } from '@_dtos_/trainingDTO'
 import { ButtonWithIcon } from '@components/ButtonWithIcon'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
+import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { IconComponent } from '@components/IconComponent'
 import { Loading } from '@components/Loading'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { NoContent } from '@components/NoContent'
 import { SubTitle } from '@components/SubTitle'
-import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { extractVideoId } from '@utils/extractVideoId'
+import { onFinallyWorkoutTime } from '@utils/formatDate'
 import { toast } from '@utils/toast-methods'
-import { differenceInMilliseconds } from 'date-fns'
 import dayjs from 'dayjs'
+
+import { useWorkout } from '../../context/WorkoutContext'
 
 import { CardExercise } from './__components__/CardExercise'
 import { Row } from './__components__/Row'
@@ -37,8 +38,9 @@ type IRouteParams = {
 
 export function StartTraining() {
   const route = useRoute()
-  const startTime = new Date()
+
   const { goBack, navigate } = useNavigation()
+  const { onSetCurrentWorkout, onSetCurrentWorkoutUpdate } = useWorkout()
   const queryClient = useQueryClient()
 
   const [playing, setPlaying] = useState(false)
@@ -68,8 +70,15 @@ export function StartTraining() {
       ...item,
       number,
     }
+
     setSelectedVideo(newItem)
     setPlaying(!playing)
+
+    onSetCurrentWorkoutUpdate({
+      name,
+      image: newItem.exerciseThumb,
+      exerciseTitle: newItem.exerciseTitle,
+    })
   }
 
   const toggleSelectItem = (selectedItem: StartExerciseDTO) => {
@@ -103,12 +112,9 @@ export function StartTraining() {
   }
 
   async function handleFinishTraining() {
+    const seconds = onFinallyWorkoutTime()
+
     try {
-      const endTime = new Date()
-      const diffInMilliseconds = differenceInMilliseconds(endTime, startTime)
-
-      const seconds = diffInMilliseconds / 1000
-
       await api
         .post('workout/finish', {
           timeTotalWorkout: seconds,
@@ -117,17 +123,14 @@ export function StartTraining() {
         .then((response) => {
           if (response.status == 200) {
             Alert.alert(response.data.message)
-
             goBack()
           }
         })
     } catch (error) {
       const isAppError = error instanceof AppError
-
       const title = isAppError
         ? error.message
         : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
-
       toast.error(title)
     }
   }
@@ -325,17 +328,24 @@ export function StartTraining() {
                   )}
                 />
 
-                {selectedItems.length == data?.length && (
-                  <View
-                    style={{
-                      marginTop: 'auto',
-                      paddingBottom: getBottomSpace() + 25,
-                    }}>
-                    <Button
-                      label="Concluir Treino"
-                      onPress={() => handleFinishTraining()}
-                    />
-                  </View>
+                {selectedItems.length == data?.length ? (
+                  <Footer
+                    label="Concluir Treino"
+                    paddingHorizontal={0}
+                    onSubmit={() => handleFinishTraining()}
+                  />
+                ) : (
+                  <Footer
+                    label="Iniciar Treino"
+                    paddingHorizontal={0}
+                    onSubmit={() => {
+                      onSetCurrentWorkout({
+                        name,
+                        image: selectedVideo.exerciseThumb,
+                        exerciseTitle: selectedVideo.exerciseTitle,
+                      })
+                    }}
+                  />
                 )}
               </>
             ) : (

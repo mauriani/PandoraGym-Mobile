@@ -16,8 +16,10 @@ import { Loading } from '@components/Loading'
 import { MyTrainingCard } from '@components/MyTrainingCard'
 import { NoContent } from '@components/NoContent'
 import { useAuth } from '@hooks/auth'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
+import { saveBottomBarStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
@@ -25,6 +27,7 @@ import { toast } from '@utils/toast-methods'
 export function Home() {
   const { user } = useAuth()
   const { navigate } = useNavigation()
+  const tabBarHeight = useBottomTabBarHeight()
 
   function handleAccessTraining(
     id: string,
@@ -67,6 +70,7 @@ export function Home() {
   }, [error])
 
   useEffect(() => {
+    saveBottomBarStorage(tabBarHeight)
     SplashScreen.hide()
   }, [])
 
