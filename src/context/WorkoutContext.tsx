@@ -1,18 +1,32 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import { saveStartWorkoutStorage } from '@storage/index'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
+import {
+  getStartWorkoutStorage,
+  removeCurrentWorkoutFromStorage,
+  removeStartWorkoutromStorage,
+  saveCurrentWorkoutStorage,
+  saveStartWorkoutStorage,
+} from '@storage/index'
+import { differenceInMilliseconds } from 'date-fns'
 
-type IPropsCurrentWorkout = {
+export type IPropsCurrentWorkout = {
   name: string
-  image: string
-  exerciseTitle: string
-  // duration: number
+  exercise: StartExerciseDTO
+  id: string
 }
 
 interface WorkoutContextProps {
-  currentWorkout: IPropsCurrentWorkout
   onSetCurrentWorkout: (item: IPropsCurrentWorkout) => void
   elapsedTime: number
   onSetCurrentWorkoutUpdate: (item: IPropsCurrentWorkout) => void
+  onFinishWorkout: () => void
 }
 
 const WorkoutContext = createContext<WorkoutContextProps>(
@@ -22,37 +36,83 @@ const WorkoutContext = createContext<WorkoutContextProps>(
 export const useWorkout = () => useContext(WorkoutContext)
 
 export const WorkoutProvider = ({ children }) => {
-  const startTime = new Date()
-  const [currentWorkout, setCurrentWorkout] = useState(null)
+  const startTimeRef = useRef<Date | null>(null)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
   const [elapsedTime, setElapsedTime] = useState(0)
-  const [timer, setTimer] = useState(null)
 
-  function onSetCurrentWorkout(item: IPropsCurrentWorkout) {
-    saveStartWorkoutStorage(startTime)
-    setCurrentWorkout(item)
-    setElapsedTime(0)
-
-    const interval = setInterval(() => {
-      setElapsedTime((prev) => prev + 1)
+  const startTimer = useCallback(() => {
+    timerRef.current = setInterval(() => {
+      if (startTimeRef.current) {
+        const now = new Date()
+        const diffInMilliseconds = differenceInMilliseconds(
+          now,
+          startTimeRef.current,
+        )
+        setElapsedTime(Math.floor(diffInMilliseconds / 1000))
+      }
     }, 1000)
-    setTimer(interval)
-  }
+  }, [])
 
-  function onSetCurrentWorkoutUpdate(item: IPropsCurrentWorkout) {
-    setCurrentWorkout(item)
-  }
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+      timerRef.current = null
+    }
+  }, [])
+
+  const onSetCurrentWorkout = useCallback(
+    (item: IPropsCurrentWorkout) => {
+      const now = new Date()
+      startTimeRef.current = now
+
+      saveStartWorkoutStorage(now.toISOString())
+      saveCurrentWorkoutStorage(item)
+
+      setElapsedTime(0)
+      stopTimer()
+      startTimer()
+    },
+    [startTimer, stopTimer],
+  )
+
+  const onSetCurrentWorkoutUpdate = useCallback(
+    (item: IPropsCurrentWorkout) => {
+      saveCurrentWorkoutStorage(item)
+    },
+    [],
+  )
 
   useEffect(() => {
-    return () => clearInterval(timer)
-  }, [timer])
+    const loadWorkoutData = async () => {
+      const savedStartTime = await getStartWorkoutStorage()
+
+      if (savedStartTime && !isNaN(Date.parse(savedStartTime))) {
+        startTimeRef.current = new Date(savedStartTime)
+        startTimer()
+      }
+    }
+
+    loadWorkoutData()
+
+    return () => stopTimer()
+  }, [startTimer, stopTimer])
+
+  const onFinishWorkout = useCallback(async () => {
+    stopTimer()
+    setElapsedTime(0)
+
+    // Limpa o storage
+    await removeStartWorkoutromStorage()
+    await removeCurrentWorkoutFromStorage()
+  }, [stopTimer])
 
   return (
     <WorkoutContext.Provider
       value={{
-        currentWorkout,
         onSetCurrentWorkout,
         elapsedTime,
         onSetCurrentWorkoutUpdate,
+        onFinishWorkout,
       }}>
       {children}
     </WorkoutContext.Provider>

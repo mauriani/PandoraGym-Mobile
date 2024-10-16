@@ -40,7 +40,8 @@ export function StartTraining() {
   const route = useRoute()
 
   const { goBack, navigate } = useNavigation()
-  const { onSetCurrentWorkout, onSetCurrentWorkoutUpdate } = useWorkout()
+  const { onSetCurrentWorkout, onSetCurrentWorkoutUpdate, onFinishWorkout } =
+    useWorkout()
   const queryClient = useQueryClient()
 
   const [playing, setPlaying] = useState(false)
@@ -75,9 +76,9 @@ export function StartTraining() {
     setPlaying(!playing)
 
     onSetCurrentWorkoutUpdate({
+      id,
       name,
-      image: newItem.exerciseThumb,
-      exerciseTitle: newItem.exerciseTitle,
+      exercise: newItem,
     })
   }
 
@@ -124,6 +125,7 @@ export function StartTraining() {
           if (response.status == 200) {
             Alert.alert(response.data.message)
             goBack()
+            onFinishWorkout()
           }
         })
     } catch (error) {
@@ -340,9 +342,9 @@ export function StartTraining() {
                     paddingHorizontal={0}
                     onSubmit={() => {
                       onSetCurrentWorkout({
+                        id,
                         name,
-                        image: selectedVideo.exerciseThumb,
-                        exerciseTitle: selectedVideo.exerciseTitle,
+                        exercise: selectedVideo,
                       })
                     }}
                   />

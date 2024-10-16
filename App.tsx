@@ -5,6 +5,7 @@ import Toast, {
   InfoToast,
 } from 'react-native-toast-message'
 import WorkoutBar from '@components/WorkoutBar'
+import { NavigationContainer } from '@react-navigation/native'
 import { Routes } from '@routes/index'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from '@theme/theme-provider'
@@ -62,8 +63,12 @@ export default function App() {
       <>
         <ThemeProvider>
           <AppProvider>
-            <Routes />
-            <WorkoutBar />
+            <NavigationContainer>
+              <>
+                <Routes />
+                <WorkoutBar />
+              </>
+            </NavigationContainer>
           </AppProvider>
 
           <Toast visibilityTime={5000} position="bottom" config={toastConfig} />

@@ -39,8 +39,8 @@ export type RootStackParamList = {
   startTraining: {
     id: string
     name: string
-    exclusive: boolean
-    weekDays: Day[]
+    exclusive?: boolean
+    weekDays?: Day[]
   }
   workoutId: {
     title: string
