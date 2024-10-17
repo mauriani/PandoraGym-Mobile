@@ -58,7 +58,7 @@ export default function TimerWithSound({ initialSeconds }: IProps) {
           size={50}
           onComplete={() => {
             handleTimerFinish()
-            setIsRunning(false) // Para o timer ao finalizar
+            setIsRunning(false)
           }}>
           {({ remainingTime }) => (
             <Text className="text-white text-[12px] font-bold">
