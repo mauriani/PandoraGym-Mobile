@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import SoundPlayer from 'react-native-sound-player'
 import { IconComponent } from '@components/IconComponent'
@@ -19,11 +19,13 @@ export default function Timer({ initialSeconds }: IProps) {
     }
   }
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
-  }
+  const formatTime = useMemo(() => {
+    return (seconds: number) => {
+      const mins = Math.floor(seconds / 60)
+      const secs = seconds % 60
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+    }
+  }, [])
 
   const startTimer = () => {
     setTime(initialSeconds)
@@ -49,6 +51,8 @@ export default function Timer({ initialSeconds }: IProps) {
     setTime(initialSeconds)
     setIsRunning(false)
   }, [initialSeconds])
+
+  console.log('teste')
 
   return (
     <View className="flex items-center justify-center mt-3 mb-3 relative">
