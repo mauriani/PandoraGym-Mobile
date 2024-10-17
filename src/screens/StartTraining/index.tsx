@@ -242,11 +242,6 @@ export function StartTraining() {
     }
   }, [data])
 
-  // console.log(
-  //   'currentWorkout.id == route.params.id',
-  //   currentWorkout.id == route.params.id,
-  // )
-
   return (
     <>
       {isLoading ? (
@@ -296,6 +291,7 @@ export function StartTraining() {
                         selectedVideo?.restTimeBetweenSets != undefined &&
                         selectedVideo?.restTimeBetweenSets
                       }
+                      // totalSets={selectedVideo?.sets}
                     />
                     <ButtonWithIcon
                       title={'Editar Carga ?'}

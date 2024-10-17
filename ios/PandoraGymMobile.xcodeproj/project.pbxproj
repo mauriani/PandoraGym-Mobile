@@ -22,6 +22,7 @@
 		5E145219E5F70B43970A0117 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2D015837D9F56992F26D7B8 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */; };
 		6CAEDC8B89D840FF9F608583 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 303F58923FD44454A46CBDB2 /* Poppins-SemiBold.ttf */; };
 		72439FB837BD4F0297CAFB6F /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BDAB703F3374425B41415AE /* Montserrat-Bold.ttf */; };
+		764DD8AB2CC147E7007565D1 /* alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 764DD8AA2CC147E7007565D1 /* alarm.mp3 */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8584223706A5315C56A50C71 /* libPods-PandoraGymMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 178E419121B54E6DF9D45451 /* libPods-PandoraGymMobile.a */; };
 		872D69C08C7B4ED7A26D4C48 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA45CF22D7E148B3A936ED46 /* Poppins-Regular.ttf */; };
@@ -73,6 +74,7 @@
 		6E25B3709C894AC48FB15B0C /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../assets/fonts/Poppins/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		72CDEEB431FAA52A9A2B76E6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = PandoraGymMobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		73D8352F8AB2096A55F0E253 /* Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig"; path = "Target Support Files/Pods-PandoraGymMobile-PandoraGymMobileTests/Pods-PandoraGymMobile-PandoraGymMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		764DD8AA2CC147E7007565D1 /* alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm.mp3; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PandoraGymMobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A2D015837D9F56992F26D7B8 /* libPods-PandoraGymMobile-PandoraGymMobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PandoraGymMobile-PandoraGymMobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0E82E8AB834250A2CB3DDF /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../assets/fonts/Montserrat/Montserrat-Light.ttf"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				764DD8AA2CC147E7007565D1 /* alarm.mp3 */,
 				13B07FAE1A68108700A75B9A /* PandoraGymMobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PandoraGymMobileTests */,
@@ -311,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				764DD8AB2CC147E7007565D1 /* alarm.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				FEBB550E6D8DA06BEB19D5DF /* PrivacyInfo.xcprivacy in Resources */,
@@ -638,6 +642,7 @@
 				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -722,6 +727,7 @@
 				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
