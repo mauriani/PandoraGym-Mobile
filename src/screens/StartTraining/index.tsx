@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Alert, FlatList, Text, View } from 'react-native'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Day } from '@_dtos_/trainingDTO'
@@ -16,6 +16,7 @@ import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
 import {
+  getCurrentWorkoutStorage,
   removeCurrentWorkoutFromStorage,
   removeStartWorkoutromStorage,
 } from '@storage/index'
@@ -28,7 +29,7 @@ import dayjs from 'dayjs'
 
 import { useWorkout } from '../../context/WorkoutContext'
 
-import { CardExercise } from './__components__/CardExercise'
+import CardExercise from './__components__/CardExercise'
 import { Row } from './__components__/Row'
 import TimerWithSound from './__components__/Timer'
 import { UpdateWeight } from './__components__/UpdateWeight'
@@ -54,6 +55,7 @@ export function StartTraining() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [exercises, setExercises] = useState<StartExerciseDTO[]>([])
   const [selectedItems, setSelectedItems] = useState([])
+  const currentWorkout = getCurrentWorkoutStorage()
 
   const { name, id, exclusive, weekDays } = route.params as IRouteParams
 
@@ -117,6 +119,11 @@ export function StartTraining() {
 
   async function handleFinishTraining() {
     const seconds = onFinallyWorkoutTime()
+
+    if (selectedItems.length > 0) {
+      toast.error('Atenção, você precisa marcar os exercícios para continuar.')
+      return
+    }
 
     try {
       await api
@@ -229,6 +236,13 @@ export function StartTraining() {
       : toast.error('Somente o seu personal pode alterar este treino!')
   }
 
+  const handleToggleSelectItem = useCallback(
+    (item) => {
+      toggleSelectItem(item)
+    },
+    [toggleSelectItem],
+  )
+
   useEffect(() => {
     if (data) {
       const newItem = {
@@ -285,18 +299,18 @@ export function StartTraining() {
                     </Row>
                   </View>
 
-                  <View className="flex-row items-center py-2 gap-4">
+                  <View className="flex-row justify-between items-center py-2 gap-4">
+                    <ButtonWithIcon
+                      title={'Editar Carga ?'}
+                      iconName="Weight"
+                      onPress={() => setIsModalOpen(!isModalOpen)}
+                    />
+
                     <TimerWithSound
                       initialSeconds={
                         selectedVideo?.restTimeBetweenSets != undefined &&
                         selectedVideo?.restTimeBetweenSets
                       }
-                      // totalSets={selectedVideo?.sets}
-                    />
-                    <ButtonWithIcon
-                      title={'Editar Carga ?'}
-                      iconName="Weight"
-                      onPress={() => setIsModalOpen(!isModalOpen)}
                     />
                   </View>
                 </View>
@@ -316,6 +330,7 @@ export function StartTraining() {
                   keyExtractor={(item) => item.id}
                   horizontal={false}
                   showsVerticalScrollIndicator={false}
+                  initialNumToRender={5}
                   contentContainerStyle={
                     exercises?.length == 0
                       ? { flexGrow: 1 }
@@ -329,14 +344,12 @@ export function StartTraining() {
                       isSelected={selectedItems.some(
                         (selectedItem) => selectedItem.exerciseId === item.id,
                       )}
-                      toggleSelectItem={() => {
-                        toggleSelectItem(item)
-                      }}
+                      toggleSelectItem={handleToggleSelectItem}
                     />
                   )}
                 />
 
-                {selectedItems.length == data?.length ? (
+                {currentWorkout.id == id ? (
                   <Footer
                     label="Concluir Treino"
                     paddingHorizontal={0}

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Checkbox } from '@components/ui/Checkbox'
@@ -10,7 +11,7 @@ type IProps = {
   isSelected: boolean
 }
 
-export function CardExercise({
+function CardExercise({
   item,
   onSectedVideo,
   index,
@@ -46,3 +47,5 @@ export function CardExercise({
     </TouchableOpacity>
   )
 }
+
+export default React.memo(CardExercise)
