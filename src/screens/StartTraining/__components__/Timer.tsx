@@ -52,7 +52,7 @@ export default function TimerWithSound({ initialSeconds }: IProps) {
         <CountdownCircleTimer
           isPlaying={isRunning}
           duration={initialSeconds}
-          colors={['#F7B801', '#F7B801', '#A30000']}
+          colors={['#4d2609', '#F7B801', '#A30000']}
           colorsTime={[7, 5, 0]}
           strokeWidth={3}
           size={50}
