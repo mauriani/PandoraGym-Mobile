@@ -234,6 +234,8 @@ export function SingUpSecondStep() {
                   inputClasses="bg-neutral-900 text-white mt-4"
                   error={errors.password}
                   typePassword={true}
+                  blurOnSubmit={false}
+                  textContentType="oneTimeCode"
                 />
 
                 <InputFormControl
@@ -243,6 +245,8 @@ export function SingUpSecondStep() {
                   inputClasses="bg-neutral-900 text-white mt-4"
                   error={errors.confirmPassword}
                   typePassword={true}
+                  blurOnSubmit={false}
+                  textContentType="oneTimeCode"
                 />
               </View>
             </ScrollView>

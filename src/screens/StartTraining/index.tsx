@@ -15,6 +15,10 @@ import { SubTitle } from '@components/SubTitle'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
+import {
+  removeCurrentWorkoutFromStorage,
+  removeStartWorkoutromStorage,
+} from '@storage/index'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { extractVideoId } from '@utils/extractVideoId'
@@ -40,8 +44,7 @@ export function StartTraining() {
   const route = useRoute()
 
   const { goBack, navigate } = useNavigation()
-  const { onSetCurrentWorkout, onSetCurrentWorkoutUpdate, onFinishWorkout } =
-    useWorkout()
+  const { onSetCurrentWorkout, onSetCurrentWorkoutUpdate } = useWorkout()
   const queryClient = useQueryClient()
 
   const [playing, setPlaying] = useState(false)
@@ -125,7 +128,6 @@ export function StartTraining() {
           if (response.status == 200) {
             Alert.alert(response.data.message)
             goBack()
-            onFinishWorkout()
           }
         })
     } catch (error) {
@@ -134,6 +136,9 @@ export function StartTraining() {
         ? error.message
         : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
       toast.error(title)
+    } finally {
+      removeStartWorkoutromStorage()
+      removeCurrentWorkoutFromStorage()
     }
   }
 
@@ -236,6 +241,11 @@ export function StartTraining() {
       }
     }
   }, [data])
+
+  // console.log(
+  //   'currentWorkout.id == route.params.id',
+  //   currentWorkout.id == route.params.id,
+  // )
 
   return (
     <>

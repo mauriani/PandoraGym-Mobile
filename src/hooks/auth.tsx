@@ -9,6 +9,8 @@ import { IUser } from '@_dtos_/userDTO'
 import {
   getTokenFromStorage,
   getUserFromStorage,
+  removeCurrentWorkoutFromStorage,
+  removeStartWorkoutromStorage,
   removeTokenFromStorage,
   removeUserFromStorage,
   savePlanInStorage,
@@ -73,6 +75,9 @@ function AuthProvider({ children }: AuthProviderProps) {
   async function signOut() {
     removeUserFromStorage()
     removeTokenFromStorage()
+
+    removeStartWorkoutromStorage()
+    removeCurrentWorkoutFromStorage()
 
     setData({} as AuthState)
     if (api.defaults?.headers && api.defaults.headers.common) {

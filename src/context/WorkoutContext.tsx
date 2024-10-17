@@ -9,8 +9,6 @@ import React, {
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import {
   getStartWorkoutStorage,
-  removeCurrentWorkoutFromStorage,
-  removeStartWorkoutromStorage,
   saveCurrentWorkoutStorage,
   saveStartWorkoutStorage,
 } from '@storage/index'
@@ -26,7 +24,6 @@ interface WorkoutContextProps {
   onSetCurrentWorkout: (item: IPropsCurrentWorkout) => void
   elapsedTime: number
   onSetCurrentWorkoutUpdate: (item: IPropsCurrentWorkout) => void
-  onFinishWorkout: () => void
 }
 
 const WorkoutContext = createContext<WorkoutContextProps>(
@@ -97,22 +94,12 @@ export const WorkoutProvider = ({ children }) => {
     return () => stopTimer()
   }, [startTimer, stopTimer])
 
-  const onFinishWorkout = useCallback(async () => {
-    stopTimer()
-    setElapsedTime(0)
-
-    // Limpa o storage
-    await removeStartWorkoutromStorage()
-    await removeCurrentWorkoutFromStorage()
-  }, [stopTimer])
-
   return (
     <WorkoutContext.Provider
       value={{
         onSetCurrentWorkout,
         elapsedTime,
         onSetCurrentWorkoutUpdate,
-        onFinishWorkout,
       }}>
       {children}
     </WorkoutContext.Provider>

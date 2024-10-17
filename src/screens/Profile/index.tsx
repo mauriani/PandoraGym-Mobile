@@ -69,6 +69,11 @@ export function Profile() {
     }
   }, [error])
 
+  const nameFormatted = data?.name
+    .split(' ')
+    .map((part) => part.charAt(0).toUpperCase())
+    .join('')
+
   return (
     <>
       {isLoading ? (
@@ -81,10 +86,12 @@ export function Profile() {
               <Avatar>
                 <AvatarImage
                   source={{
-                    uri: data?.avatarUrl,
+                    uri: data?.avatarUrl ? data?.avatarUrl : '',
                   }}
                 />
-                <AvatarFallback>CG</AvatarFallback>
+                <AvatarFallback className="font-extrabold">
+                  {nameFormatted}
+                </AvatarFallback>
               </Avatar>
 
               <View className="items-center justify-center gap-1">

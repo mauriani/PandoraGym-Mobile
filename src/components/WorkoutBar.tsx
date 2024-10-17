@@ -7,19 +7,29 @@ import { secondsToHourMinute } from '@utils/formatTime'
 import { useWorkout } from '../context/WorkoutContext'
 
 const WorkoutBar = () => {
+  const navigation = useNavigation()
   const { navigate } = useNavigation()
   const { elapsedTime } = useWorkout()
 
   const bottom = getBottomBarStorage()
   const currentWorkout = getCurrentWorkoutStorage()
 
-  if (!currentWorkout) return null
+  const currentRouteWorkoutId =
+    navigation.getState()?.routes[navigation.getState().index].params?.id
+
+  const currentRouteWorkoutIdStart =
+    navigation.getState()?.routes[navigation.getState().index].name
+
+  const some = currentRouteWorkoutIdStart === 'startTraining' ? 38 : 3
+
+  if (!currentWorkout || currentRouteWorkoutId === currentWorkout.id)
+    return null
 
   return (
     <>
       <View
         style={{
-          bottom: bottom + 3,
+          bottom: bottom + some,
         }}
         className={'absolute left-0 right-0 bg-gray-900 p-4'}>
         <TouchableOpacity

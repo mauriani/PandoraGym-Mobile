@@ -1,6 +1,11 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Keyboard, TouchableWithoutFeedback, View } from 'react-native'
+import {
+  Keyboard,
+  ScrollView,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
@@ -97,47 +102,53 @@ export function SingUpFirstStep() {
             <View className="flex-1 flex-col mt-3 gap-4">
               <Heading title="1. Dados Pessoais" />
 
-              <InputFormControl
-                control={control}
-                name="name"
-                label="Nome"
-                error={errors.name}
-                autoCorrect={false}
-              />
+              <ScrollView
+                contentContainerStyle={{ flexGrow: 1, paddingBottom: 80 }}
+                keyboardShouldPersistTaps="handled">
+                <View className="flex-1 flex-col mt-3 gap-4">
+                  <InputFormControl
+                    control={control}
+                    name="name"
+                    label="Nome"
+                    error={errors.name}
+                    autoCorrect={false}
+                  />
 
-              <InputFormControl
-                control={control}
-                name="email"
-                label="E-mail"
-                error={errors.email}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
+                  <InputFormControl
+                    control={control}
+                    name="email"
+                    label="E-mail"
+                    error={errors.email}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                  />
 
-              <InputMaskControl
-                control={control}
-                name="phone"
-                label="Telefone"
-                error={errors.phone}
-                type="phone"
-              />
+                  <InputMaskControl
+                    control={control}
+                    name="phone"
+                    label="Telefone"
+                    error={errors.phone}
+                    type="phone"
+                  />
 
-              <InputFormControl
-                control={control}
-                name="age"
-                label="Idade"
-                error={errors.age}
-                keyboardType="numeric"
-              />
+                  <InputFormControl
+                    control={control}
+                    name="age"
+                    label="Idade"
+                    error={errors.age}
+                    keyboardType="numeric"
+                  />
 
-              <InputMaskControl
-                control={control}
-                name="bornDate"
-                label="Data de nascimento"
-                error={errors.bornDate}
-                type="date"
-              />
+                  <InputMaskControl
+                    control={control}
+                    name="bornDate"
+                    label="Data de nascimento"
+                    error={errors.bornDate}
+                    type="date"
+                  />
+                </View>
+              </ScrollView>
             </View>
 
             <Footer label="Próximo" onSubmit={handleSubmit(submit)} />
