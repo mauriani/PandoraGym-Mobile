@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import Sound from 'react-native-sound'
+import SoundPlayer from 'react-native-sound-player'
 import { IconComponent } from '@components/IconComponent'
 
 type IProps = {
@@ -11,11 +11,13 @@ export default function Timer({ initialSeconds }: IProps) {
   const [time, setTime] = useState(initialSeconds)
   const [isRunning, setIsRunning] = useState(false)
 
-  const alarmSound = new Sound('alarm.mp3', Sound.MAIN_BUNDLE, (error) => {
-    if (error) {
-      console.log('Erro ao carregar o som:', error)
+  const handleTimerFinish = () => {
+    try {
+      SoundPlayer.playSoundFile('alarm', 'mp3') // 'end_sound' é o nome do arquivo, 'mp3' é a extensão
+    } catch (e) {
+      console.log('Erro ao tocar o som', e)
     }
-  })
+  }
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -36,13 +38,7 @@ export default function Timer({ initialSeconds }: IProps) {
         setTime((prevTime) => prevTime - 1)
       }, 1000)
     } else if (time === 0 && isRunning) {
-      alarmSound.play((success) => {
-        if (success) {
-          console.log('successfully finished playing')
-        } else {
-          console.log('playback failed due to audio decoding errors')
-        }
-      })
+      handleTimerFinish()
       setIsRunning(false)
     }
 

@@ -3591,7 +3591,7 @@ __metadata:
     react-native-safe-area-context: "npm:^4.10.9"
     react-native-screens: "npm:^3.34.0"
     react-native-select-dropdown: "npm:^4.0.1"
-    react-native-sound: "npm:^0.11.2"
+    react-native-sound-player: "npm:^0.14.3"
     react-native-splash-screen: "npm:^3.3.0"
     react-native-svg: "npm:^15.6.0"
     react-native-svg-transformer: "npm:^1.5.0"
@@ -10160,12 +10160,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-sound@npm:^0.11.2":
-  version: 0.11.2
-  resolution: "react-native-sound@npm:0.11.2"
-  peerDependencies:
-    react-native: ">=0.8.0"
-  checksum: 10/56dbd286ba9b013647b21f40bd792c9c6abac9bac94e764377e8c7aa21ef1a71e3396731e287d16ea65d028ab56b48ccb9a1b56328acf29212d8f94444aa3f43
+"react-native-sound-player@npm:^0.14.3":
+  version: 0.14.3
+  resolution: "react-native-sound-player@npm:0.14.3"
+  checksum: 10/f6975b4b55fea0e5ed41e40f0d840859fd3421e505c230c445ecce985da645e07bf25758fd0273806d7dc71fd876f72ba79bcc29142a15387d4ff93e43b2e48c
   languageName: node
   linkType: hard
 

@@ -69,5 +69,9 @@
 		<string>Roboto.ttf</string>
 		<string>Roboto_medium.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+  	<string>audio</string>
+	</array>
 </dict>
 </plist>
