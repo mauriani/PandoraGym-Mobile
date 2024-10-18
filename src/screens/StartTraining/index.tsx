@@ -59,7 +59,7 @@ export function StartTraining() {
 
   const { name, id, exclusive, weekDays } = route.params as IRouteParams
 
-  const { data, isLoading } = useQuery<StartExerciseDTO[]>({
+  const { data, isFetching } = useQuery<StartExerciseDTO[]>({
     queryKey: ['get-training-for-workoutid', id],
     queryFn: async () => {
       const { data } = await api.get(`/workout/${id}`)
@@ -257,7 +257,7 @@ export function StartTraining() {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Loading />
       ) : (
         <Container>

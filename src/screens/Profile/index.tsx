@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react'
 import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import {
+  ImageLibraryOptions,
+  launchImageLibrary,
+} from 'react-native-image-picker'
 import { UserData } from '@_dtos_/profileDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Loading } from '@components/Loading'
-import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar'
+import {
+  Avatar,
+  AvatarEditButton,
+  AvatarFallback,
+  AvatarImage,
+} from '@components/ui/Avatar'
 import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
@@ -45,7 +54,7 @@ export function Profile() {
     await signOut()
   }
 
-  const { data, error, isLoading } = useQuery<UserData>({
+  const { data, error, isFetching, refetch } = useQuery<UserData>({
     queryKey: ['get-profile-user-id', user.token, id],
     queryFn: async () => {
       const { data } = await api.get('/profile')
@@ -57,6 +66,56 @@ export function Profile() {
       return data.userData
     },
   })
+
+  function handleSelectImage() {
+    const options: ImageLibraryOptions = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      mediaType: 'photo',
+    }
+
+    launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        return
+      }
+
+      if (response?.errorCode) {
+        Alert.alert('Atenção', response.errorMessage)
+      } else {
+        const asset = response.assets[0]
+
+        if (asset) {
+          const { type, uri } = asset
+          uploadImageAvatar(uri, type)
+        }
+      }
+    })
+  }
+
+  async function uploadImageAvatar(uri: string, type: string) {
+    const formData = new FormData()
+    const filename = uri.split('/').pop()
+
+    formData.append('avatar', {
+      uri,
+      name: filename,
+      type,
+    })
+
+    try {
+      await api.post('/profile/upload-avatar', formData).then((response) => {
+        if (response.status == 200) {
+          toast.success(response.data.message)
+          refetch()
+        } else {
+          toast.error(response.data.message)
+        }
+      })
+    } catch (err) {
+      Alert.alert(err)
+    }
+  }
 
   useEffect(() => {
     if (error) {
@@ -76,23 +135,26 @@ export function Profile() {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Loading />
       ) : (
         <Container>
           <HeaderGoBack title={'Perfil'} />
           <Content>
             <View className="items-center justify-center gap-4">
-              <Avatar>
-                <AvatarImage
-                  source={{
-                    uri: data?.avatarUrl ? data?.avatarUrl : '',
-                  }}
-                />
-                <AvatarFallback className="font-extrabold">
-                  {nameFormatted}
-                </AvatarFallback>
-              </Avatar>
+              <View>
+                <Avatar>
+                  <AvatarImage
+                    source={{
+                      uri: data?.avatarUrl ? data?.avatarUrl : '',
+                    }}
+                  />
+                  <AvatarFallback className="font-extrabold">
+                    {nameFormatted}
+                  </AvatarFallback>
+                </Avatar>
+                <AvatarEditButton onEditPress={() => handleSelectImage()} />
+              </View>
 
               <View className="items-center justify-center gap-1">
                 <Text className="text-base text-primary font-primary_bold">

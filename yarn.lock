@@ -3542,6 +3542,7 @@ __metadata:
     react-native-countdown-circle-timer: "npm:^3.2.1"
     react-native-gesture-handler: "npm:^2.16.0"
     react-native-gifted-charts: "npm:^1.4.33"
+    react-native-image-picker: "npm:^7.1.2"
     react-native-iphone-x-helper: "npm:^1.3.1"
     react-native-linear-gradient: "npm:^2.8.3"
     react-native-mask-text: "npm:^0.14.2"
@@ -10009,6 +10010,16 @@ __metadata:
     react-native-linear-gradient:
       optional: true
   checksum: 10/2da2586f2be9e54e25b74bfa565af93c48c4bbeea12f398a35a8fb7bbc05b12357ec598ba144c5e460ef1d3b121d51e804b6cdac3a206091330057a5f40371bf
+  languageName: node
+  linkType: hard
+
+"react-native-image-picker@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "react-native-image-picker@npm:7.1.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/8c3ab5b5fb7c1e55af20b7c98b1074c417136a3c8f30b80459a5ccadc7173a59e464fe2c38b21f624515b59f25e212602443a54f04c7facf6f626b3a220d9596
   languageName: node
   linkType: hard
 

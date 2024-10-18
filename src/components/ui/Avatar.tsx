@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { IconComponent } from '@components/IconComponent'
 import { cn } from '@utils/cn'
 
 const Avatar = forwardRef<
@@ -56,4 +57,25 @@ const AvatarFallback = forwardRef<
 ))
 AvatarFallback.displayName = 'AvatarFallback'
 
-export { Avatar, AvatarImage, AvatarFallback }
+const AvatarEditButton = ({ onEditPress }) => (
+  <TouchableOpacity
+    onPress={onEditPress}
+    className="h-11 w-11 absolute rounded-full items-center justify-center bottom-2 right-[-5px] bg-purple-800">
+    <IconComponent iconName="Camera" size={24} />
+  </TouchableOpacity>
+)
+
+const AvatarWithEdit = ({ imageUrl, onEditPress }) => {
+  return (
+    <Avatar>
+      {imageUrl ? (
+        <AvatarImage source={{ uri: imageUrl }} />
+      ) : (
+        <AvatarFallback>AB</AvatarFallback> // Fallback para caso não tenha imagem
+      )}
+      <AvatarEditButton onEditPress={onEditPress} />
+    </Avatar>
+  )
+}
+
+export { Avatar, AvatarImage, AvatarFallback, AvatarEditButton, AvatarWithEdit }
