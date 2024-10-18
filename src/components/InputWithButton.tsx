@@ -53,7 +53,7 @@ export function InputWithButton({
         className="w-[85%]"
         inputClasses="h-16"
         change={(text) => {
-          onChangeText(text)
+          onChangeText && onChangeText(text)
         }}
       />
 

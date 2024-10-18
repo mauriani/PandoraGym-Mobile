@@ -120,33 +120,32 @@ export function StartTraining() {
   async function handleFinishTraining() {
     const seconds = onFinallyWorkoutTime()
 
-    if (selectedItems.length > 0) {
-      toast.error('Atenção, você precisa marcar os exercícios para continuar.')
-      return
+    if (selectedItems.length == data.length) {
+      try {
+        await api
+          .post('workout/finish', {
+            timeTotalWorkout: seconds,
+            exercise: selectedItems,
+          })
+          .then((response) => {
+            if (response.status == 200) {
+              Alert.alert(response.data.message)
+              goBack()
+            }
+          })
+      } catch (error) {
+        const isAppError = error instanceof AppError
+        const title = isAppError
+          ? error.message
+          : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+        toast.error(title)
+      } finally {
+        removeStartWorkoutromStorage()
+        removeCurrentWorkoutFromStorage()
+      }
     }
 
-    try {
-      await api
-        .post('workout/finish', {
-          timeTotalWorkout: seconds,
-          exercise: selectedItems,
-        })
-        .then((response) => {
-          if (response.status == 200) {
-            Alert.alert(response.data.message)
-            goBack()
-          }
-        })
-    } catch (error) {
-      const isAppError = error instanceof AppError
-      const title = isAppError
-        ? error.message
-        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
-      toast.error(title)
-    } finally {
-      removeStartWorkoutromStorage()
-      removeCurrentWorkoutFromStorage()
-    }
+    toast.error('Atenção, Você precisa marcar os exercícios para continuar.')
   }
 
   function getUpdateWeight(weight: string) {
@@ -349,7 +348,7 @@ export function StartTraining() {
                   )}
                 />
 
-                {currentWorkout.id == id ? (
+                {currentWorkout?.id == id ? (
                   <Footer
                     label="Concluir Treino"
                     paddingHorizontal={0}
