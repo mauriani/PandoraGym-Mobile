@@ -7,5 +7,10 @@ export type UserData = {
   planPrice: number
   personalId: string
   personalName: string
-  planId: string
+  age: number
+  objective: string
+  weight: number
+  medicalCondition: string
+  observations: string
+  phone: string
 }

@@ -145,7 +145,9 @@ export function StartTraining() {
       }
     }
 
-    toast.error('Atenção, Você precisa marcar os exercícios para continuar.')
+    if (selectedItems.length != data.length) {
+      toast.error('Atenção, Você precisa marcar os exercícios para continuar.')
+    }
   }
 
   function getUpdateWeight(weight: string) {

@@ -1,4 +1,5 @@
 import React from 'react'
+import { UserData } from '@_dtos_/profileDTO'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Day } from '@_dtos_/trainingDTO'
@@ -51,7 +52,9 @@ export type RootStackParamList = {
     title: string
     id: string
   }
-  editProfile: undefined
+  editProfile: {
+    user: UserData
+  }
   notifications: undefined
   helpMe: undefined
   editWorkout: {

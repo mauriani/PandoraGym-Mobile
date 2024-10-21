@@ -190,7 +190,11 @@ export function Profile() {
               <ButtonProfile
                 title={'Editar dados do Perfil'}
                 iconName="ChevronRight"
-                onPress={() => navigate('editProfile')}
+                onPress={() =>
+                  navigate('editProfile', {
+                    user: data,
+                  })
+                }
               />
 
               <ButtonProfile
