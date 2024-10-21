@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
+import { Heading } from '@components/Heading'
 import { InputMaskControl } from '@components/InputMaskControl'
 import { Button } from '@components/ui/Button'
 import { Checkbox } from '@components/ui/Checkbox'
@@ -72,6 +73,7 @@ export function ConfigExercises({ item, onUpdateExercises }: IProps) {
 
   return (
     <View className="gap-3 py-3">
+      <Heading title={item.exerciseTitle} />
       <View className="flex-row justify-between">
         <InputFormControl
           control={control}

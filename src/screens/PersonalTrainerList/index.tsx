@@ -29,7 +29,7 @@ export function PersonalTrainerList() {
     IPersonalList[]
   >([])
 
-  const { error, isLoading } = useQuery<IPersonalList[]>({
+  const { error, isFetching } = useQuery<IPersonalList[]>({
     queryKey: ['get-list-personal'],
     queryFn: async () => {
       const { data } = await api.get('/list-personal')
@@ -85,7 +85,7 @@ export function PersonalTrainerList() {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Loading />
       ) : (
         <Container>

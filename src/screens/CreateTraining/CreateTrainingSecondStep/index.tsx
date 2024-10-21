@@ -20,7 +20,7 @@ type IRouteParams = {
   selectedItems: IExercise[] | null
 }
 
-const timeStringToSeconds = (timeString: string) => {
+export const timeStringToSeconds = (timeString: string) => {
   const [minutes, seconds] = timeString.split(':').map(Number)
 
   const newValue = minutes * 60 + seconds
@@ -61,9 +61,7 @@ export function CreateTrainingSecondStep() {
         if (item.id === id) {
           item.load = data.load
           item.reps = data.reps
-          item.restTimeBetweenSets = timeStringToSeconds(
-            data.restTimeBetweenSets,
-          )
+          item.restTimeBetweenSets = data.restTimeBetweenSets
           item.sets = data.sets
         }
       })
@@ -73,7 +71,7 @@ export function CreateTrainingSecondStep() {
       newItem.forEach((item) => {
         item.load = data.load
         item.reps = data.reps
-        item.restTimeBetweenSets = timeStringToSeconds(data.restTimeBetweenSets)
+        item.restTimeBetweenSets = data.restTimeBetweenSets
         item.sets = data.sets
       })
 

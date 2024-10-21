@@ -6,5 +6,5 @@ export type IExercise = {
   exerciseVideo: string
   sets: number
   reps: number
-  restTimeBetweenSets: number
+  restTimeBetweenSets: string
 }

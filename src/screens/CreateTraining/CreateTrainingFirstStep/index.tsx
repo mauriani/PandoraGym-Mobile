@@ -6,6 +6,7 @@ import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
+import { Loading } from '@components/Loading'
 import { SelectExerciseCard } from '@components/SelectExerciseCard'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -58,7 +59,7 @@ export function CreateTrainingFirstStep() {
     })
   }
 
-  const { error } = useQuery<IExercise[]>({
+  const { error, isFetching } = useQuery<IExercise[]>({
     queryKey: ['get-templates'],
     queryFn: async () => {
       const { data } = await api.get('/templates')
@@ -97,54 +98,58 @@ export function CreateTrainingFirstStep() {
 
   return (
     <Container>
-      <>
-        <View style={{ flex: 1 }}>
-          <HeaderGoBack title={'Criar Treino'} />
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <>
+          <View style={{ flex: 1 }}>
+            <HeaderGoBack title={'Criar Treino'} />
 
-          <Form>
-            <StepHeader title={title} current={1} />
+            <Form>
+              <StepHeader title={title} current={1} />
 
-            <InputFormControl
-              control={control}
-              name="search"
-              label="Buscar exercicio"
-              change={(text) => getTypeInfo(text)}
+              <InputFormControl
+                control={control}
+                name="search"
+                label="Buscar exercicio"
+                change={(text) => getTypeInfo(text)}
+              />
+
+              <Text className="text-foreground font-primary_bold text-base">
+                Listagem de exercícios
+              </Text>
+
+              <FlatList
+                data={exercise}
+                keyExtractor={(item) => item.id}
+                contentContainerStyle={{
+                  paddingBottom: getBottomSpace() + 80,
+                  gap: 12,
+                }}
+                renderItem={({ item }) => (
+                  <SelectExerciseCard
+                    item={item}
+                    isSelected={selectedItems.some(
+                      (selectedItem) => selectedItem.id === item.id,
+                    )}
+                    toggleSelectItem={() => toggleSelectItem(item)}
+                  />
+                )}
+              />
+            </Form>
+
+            <Footer
+              label="Próxima Etapa"
+              onSubmit={() =>
+                navigate('createTrainingSecondStep', {
+                  title,
+                  selectedItems,
+                })
+              }
             />
-
-            <Text className="text-foreground font-primary_bold text-base">
-              Listagem de exercícios
-            </Text>
-
-            <FlatList
-              data={exercise}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={{
-                paddingBottom: getBottomSpace() + 80,
-                gap: 12,
-              }}
-              renderItem={({ item }) => (
-                <SelectExerciseCard
-                  item={item}
-                  isSelected={selectedItems.some(
-                    (selectedItem) => selectedItem.id === item.id,
-                  )}
-                  toggleSelectItem={() => toggleSelectItem(item)}
-                />
-              )}
-            />
-          </Form>
-
-          <Footer
-            label="Próxima Etapa"
-            onSubmit={() =>
-              navigate('createTrainingSecondStep', {
-                title,
-                selectedItems,
-              })
-            }
-          />
-        </View>
-      </>
+          </View>
+        </>
+      )}
     </Container>
   )
 }

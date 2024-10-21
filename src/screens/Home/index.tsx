@@ -49,7 +49,7 @@ export function Home() {
     })
   }
 
-  const { data, error, isLoading } = useQuery<ITraining[]>({
+  const { data, error, isFetching } = useQuery<ITraining[]>({
     queryKey: ['get-training-for-user', user?.user?.id],
     queryFn: async () => {
       const { data } = await api.get('/workouts')
@@ -76,7 +76,7 @@ export function Home() {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Loading />
       ) : (
         <Container>

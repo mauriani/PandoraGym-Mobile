@@ -1,6 +1,5 @@
 import { Image, Text, View } from 'react-native'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
-import { formatTime } from '@utils/formatTime'
 
 type IProps = {
   item: IExercise
@@ -30,7 +29,7 @@ export function CardExercise({ item }: IProps) {
       </View>
 
       <Text className="text-primary text-base font-primary_bold">
-        {formatTime(item.restTimeBetweenSets)}
+        {item.restTimeBetweenSets}
       </Text>
 
       <Text className="text-primary text-base font-primary_bold">

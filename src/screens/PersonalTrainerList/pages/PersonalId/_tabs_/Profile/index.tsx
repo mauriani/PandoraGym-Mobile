@@ -30,7 +30,7 @@ export function Profile({ data, personalId }: IProps) {
   const {
     data: comments,
     error,
-    isLoading,
+    isFetching,
   } = useQuery<IComment[]>({
     queryKey: ['get-comments', user?.user?.id],
     queryFn: async () => {
@@ -55,7 +55,7 @@ export function Profile({ data, personalId }: IProps) {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Loading />
       ) : (
         <ContentScroll>

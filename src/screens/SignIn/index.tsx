@@ -105,6 +105,8 @@ export function SignIn() {
                   keyboardType="email-address"
                   inputClasses="bg-neutral-900 text-white"
                   error={errors.email}
+                  autoCapitalize="none"
+                  autoCorrect={false}
                 />
 
                 <InputFormControl

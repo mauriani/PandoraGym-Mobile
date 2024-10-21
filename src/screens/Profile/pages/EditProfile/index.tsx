@@ -1,9 +1,8 @@
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { SubTitle } from '@components/SubTitle'
-import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/Avatar'
 import { Button } from '@components/ui/Button'
 import { Input } from '@components/ui/Input'
 
@@ -14,21 +13,6 @@ export function EditProfile() {
 
       <Content>
         <ScrollView>
-          <View className="items-center justify-center gap-4">
-            <Avatar>
-              <AvatarImage
-                source={{
-                  uri: 'https://pbs.twimg.com/profile_images/1745949238519803904/ZHwM5B07_400x400.jpg',
-                }}
-              />
-              <AvatarFallback>CG</AvatarFallback>
-            </Avatar>
-
-            <Text className="text-base text-primary font-primary_bold">
-              Othávio Augusto Morais Rubim
-            </Text>
-          </View>
-
           <Input placeholder="Nome" label={'Rodrigo Gonçalves'} />
           <Input placeholder="E-mail" label={'rodrigo@email.com'} />
 
