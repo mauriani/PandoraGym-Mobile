@@ -9,7 +9,6 @@ import { IPersonalList } from '@_dtos_/personalListDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { Header } from '@components/Header'
-import { Loading } from '@components/Loading'
 import { Input } from '@components/ui/Input'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
@@ -19,6 +18,7 @@ import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
 import { Card } from './__components__/Card'
+import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function PersonalTrainerList() {
   const { navigate } = useNavigation()
@@ -84,53 +84,49 @@ export function PersonalTrainerList() {
   }
 
   return (
-    <>
-      {isFetching ? (
-        <Loading />
-      ) : (
-        <Container>
-          <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}
-            accessible={false}>
-            <View style={{ flex: 1 }}>
-              <Header title={'Personal Trainers'} />
+    <Container>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={{ flex: 1 }}>
+          <Header title={'Personal Trainers'} />
 
-              <Content>
-                <Input
-                  label="Buscar personal"
-                  className="mb-2"
-                  onChangeText={(text) => getSearchPersonal(text)}
-                />
-                <FlatList
-                  data={personalTrainers}
-                  keyExtractor={(item) => item.id}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={
-                    personalTrainers?.length == 0
-                      ? {
-                          flexGrow: 1,
-                          padding: 10,
-                        }
-                      : { paddingBottom: 30, gap: 12, paddingTop: 10 }
-                  }
-                  renderItem={({ item }) => (
-                    <Card
-                      key={item.id}
-                      item={item}
-                      onPress={() => {
-                        isStudentInList(item)
-                        navigate('personalId', {
-                          id: item.id,
-                        })
-                      }}
-                    />
-                  )}
-                />
-              </Content>
-            </View>
-          </TouchableWithoutFeedback>
-        </Container>
-      )}
-    </>
+          {isFetching ? (
+            <SkeletonAnimation />
+          ) : (
+            <Content>
+              <Input
+                label="Buscar personal"
+                className="mb-2"
+                onChangeText={(text) => getSearchPersonal(text)}
+              />
+              <FlatList
+                data={personalTrainers}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={
+                  personalTrainers?.length == 0
+                    ? {
+                        flexGrow: 1,
+                        padding: 10,
+                      }
+                    : { paddingBottom: 30, gap: 12, paddingTop: 10 }
+                }
+                renderItem={({ item }) => (
+                  <Card
+                    key={item.id}
+                    item={item}
+                    onPress={() => {
+                      isStudentInList(item)
+                      navigate('personalId', {
+                        id: item.id,
+                      })
+                    }}
+                  />
+                )}
+              />
+            </Content>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
+    </Container>
   )
 }
