@@ -12,7 +12,6 @@ import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Heading } from '@components/Heading'
 import { InputWithButton } from '@components/InputWithButton'
-import { Loading } from '@components/Loading'
 import { MyTrainingCard } from '@components/MyTrainingCard'
 import { NoContent } from '@components/NoContent'
 import { useAuth } from '@hooks/auth'
@@ -23,6 +22,8 @@ import { saveBottomBarStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
+
+import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function Home() {
   const { user } = useAuth()
@@ -75,62 +76,58 @@ export function Home() {
   }, [])
 
   return (
-    <>
-      {isFetching ? (
-        <Loading />
-      ) : (
-        <Container>
-          <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}
-            accessible={false}>
-            <View style={{ flex: 1 }}>
-              <Header title={'Meus Treinos'} />
-              <Content>
-                <Heading title="Criar Treino" />
+    <Container>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={{ flex: 1 }}>
+          <Header title={'Meus Treinos'} />
+          {isFetching ? (
+            <SkeletonAnimation />
+          ) : (
+            <Content>
+              <Heading title="Criar Treino" />
 
-                <InputWithButton
-                  label="Nome do treino/exercício"
-                  iconName="Plus"
-                  size={20}
-                  onNavigate={onNavigateCreateTraining}
-                />
+              <InputWithButton
+                label="Nome do treino/exercício"
+                iconName="Plus"
+                size={20}
+                onNavigate={onNavigateCreateTraining}
+              />
 
-                <Heading title="Meus Treinos" />
+              <Heading title="Meus Treinos" />
 
-                <FlatList
-                  data={data}
-                  keyExtractor={(item) => item.id}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={
-                    data?.length == 0
-                      ? {
-                          flexGrow: 1,
-                          padding: 10,
-                        }
-                      : { paddingBottom: 80, gap: 10 }
-                  }
-                  ListEmptyComponent={
-                    <NoContent message="Opss ... você não tem nenhum treino cadastrado até o momento!" />
-                  }
-                  renderItem={({ item }) => (
-                    <MyTrainingCard
-                      item={item}
-                      onAccessTraining={() =>
-                        handleAccessTraining(
-                          item.id,
-                          item.name,
-                          item.exclusive,
-                          item.weekDays,
-                        )
+              <FlatList
+                data={data}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={
+                  data?.length == 0
+                    ? {
+                        flexGrow: 1,
+                        padding: 10,
                       }
-                    />
-                  )}
-                />
-              </Content>
-            </View>
-          </TouchableWithoutFeedback>
-        </Container>
-      )}
-    </>
+                    : { paddingBottom: 80, gap: 10 }
+                }
+                ListEmptyComponent={
+                  <NoContent message="Opss ... você não tem nenhum treino cadastrado até o momento!" />
+                }
+                renderItem={({ item }) => (
+                  <MyTrainingCard
+                    item={item}
+                    onAccessTraining={() =>
+                      handleAccessTraining(
+                        item.id,
+                        item.name,
+                        item.exclusive,
+                        item.weekDays,
+                      )
+                    }
+                  />
+                )}
+              />
+            </Content>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
+    </Container>
   )
 }

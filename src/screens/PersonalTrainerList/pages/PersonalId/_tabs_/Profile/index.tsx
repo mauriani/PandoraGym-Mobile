@@ -15,8 +15,8 @@ import { toast } from '@utils/toast-methods'
 import { CircleDollarSign, Star, Users } from 'lucide-react-native'
 
 import { Comment } from '../../__components__/Comment'
+import { SkeletonAnimation } from '../../__components__/SkeletonAnimation'
 import { TitleSection } from '../../__components__/TitleSection'
-import { SkeletonAnimation } from '../__components__/SkeletonAnimation'
 
 type IProps = {
   data: IPersonalDTO
