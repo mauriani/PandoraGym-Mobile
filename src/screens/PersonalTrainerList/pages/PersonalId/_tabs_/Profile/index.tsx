@@ -4,7 +4,6 @@ import { IComment } from '@_dtos_/commentDTO'
 import { IPersonalDTO } from '@_dtos_/personalDTO'
 import { ContentScroll } from '@components/ContentScroll'
 import { Heading } from '@components/Heading'
-import { Loading } from '@components/Loading'
 import { NoContent } from '@components/NoContent'
 import { useAuth } from '@hooks/auth'
 import { api } from '@services/api'
@@ -17,13 +16,15 @@ import { CircleDollarSign, Star, Users } from 'lucide-react-native'
 
 import { Comment } from '../../__components__/Comment'
 import { TitleSection } from '../../__components__/TitleSection'
+import { SkeletonAnimation } from '../__components__/SkeletonAnimation'
 
 type IProps = {
   data: IPersonalDTO
   personalId: string
+  loading: boolean
 }
 
-export function Profile({ data, personalId }: IProps) {
+export function Profile({ data, personalId, loading }: IProps) {
   const { user } = useAuth()
   const { colorScheme } = useContext(ThemeContext)
 
@@ -54,11 +55,11 @@ export function Profile({ data, personalId }: IProps) {
   }, [error])
 
   return (
-    <>
-      {isFetching ? (
-        <Loading />
+    <ContentScroll>
+      {loading || isFetching ? (
+        <SkeletonAnimation />
       ) : (
-        <ContentScroll>
+        <>
           <View className="flex-row gap-4 items-center">
             <Image
               className="h-32 w-32 rounded-full"
@@ -122,8 +123,8 @@ export function Profile({ data, personalId }: IProps) {
           ) : (
             <NoContent message="Este Personal não possuí nenhuma avaliação até o momento!" />
           )}
-        </ContentScroll>
+        </>
       )}
-    </>
+    </ContentScroll>
   )
 }

@@ -33,9 +33,7 @@ export function PersonalId() {
 
   const planId = getTokenPlanStorage()
 
-  console.log('planId', planId)
-
-  const { data, error, refetch } = useQuery<IPersonalDTO>({
+  const { data, error, refetch, isFetching } = useQuery<IPersonalDTO>({
     queryKey: ['get-personal-id', id],
     queryFn: async () => {
       const { data } = await api.get(`/list-personal/${id}`)
@@ -105,7 +103,7 @@ export function PersonalId() {
             <TabsTrigger id="planos" title="Planos" value="planos" />
           </TabsList>
           <TabsContent value="perfil">
-            <Profile data={data} personalId={id} />
+            <Profile data={data} personalId={id} loading={isFetching} />
           </TabsContent>
           <TabsContent value="planos">
             <Planos data={data?.plan} planId={planId} refetch={refetch} />
