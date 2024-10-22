@@ -13,6 +13,7 @@ import { secondsToHourMinute } from '@utils/formatTime'
 import dayjs from 'dayjs'
 
 import { MyTrainingHistoryCard } from './__components__/MyTrainingHistoryCard'
+import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function History() {
   const [selected, setSelected] = useState(
@@ -23,7 +24,7 @@ export function History() {
     setSelected(props)
   }
 
-  const { data } = useQuery<ITrainingHistory[]>({
+  const { data, isFetching } = useQuery<ITrainingHistory[]>({
     queryKey: ['get-history-training', selected],
     queryFn: async () => {
       const { data } = await api.post('/workout/history', {
@@ -37,37 +38,42 @@ export function History() {
   return (
     <Container>
       <Header title={'Histórico'} />
-      <Content>
-        <HistoryCalendar onPress={handleSelectedDay} selected={selected} />
+      {isFetching ? (
+        <SkeletonAnimation />
+      ) : (
+        <Content>
+          <HistoryCalendar onPress={handleSelectedDay} selected={selected} />
 
-        <View className="flex-row items-center justify-between mt-8 mb-1 mr-2">
-          <Heading title={data && data[0]?.workout?.name} />
+          <View className="flex-row items-center justify-between mt-8 mb-1 mr-2">
+            <Heading title={data && data[0]?.workout?.name} />
 
-          <Text className="text-muted-foreground font-primary_regular text-base">
-            {data?.length > 0 && secondsToHourMinute(data[0]?.timeTotalWorkout)}
-          </Text>
-        </View>
+            <Text className="text-muted-foreground font-primary_regular text-base">
+              {data?.length > 0 &&
+                secondsToHourMinute(data[0]?.timeTotalWorkout)}
+            </Text>
+          </View>
 
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={
-            data?.length == 0
-              ? {
-                  flexGrow: 1,
-                  padding: 10,
-                }
-              : { paddingBottom: 60, gap: 12 }
-          }
-          renderItem={({ item }) => <MyTrainingHistoryCard item={item} />}
-          ListEmptyComponent={
-            <NoContent
-              message={'Você não realizou nenghum treino nessa data !'}
-            />
-          }
-        />
-      </Content>
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={
+              data?.length == 0
+                ? {
+                    flexGrow: 1,
+                    padding: 10,
+                  }
+                : { paddingBottom: 60, gap: 12 }
+            }
+            renderItem={({ item }) => <MyTrainingHistoryCard item={item} />}
+            ListEmptyComponent={
+              <NoContent
+                message={'Você não realizou nenghum treino nessa data !'}
+              />
+            }
+          />
+        </Content>
+      )}
     </Container>
   )
 }
