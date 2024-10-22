@@ -33,6 +33,8 @@ export function PersonalId() {
 
   const planId = getTokenPlanStorage()
 
+  console.log('planId', planId)
+
   const { data, error, refetch } = useQuery<IPersonalDTO>({
     queryKey: ['get-personal-id', id],
     queryFn: async () => {
