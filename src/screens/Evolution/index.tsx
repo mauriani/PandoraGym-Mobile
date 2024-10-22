@@ -4,7 +4,7 @@ import { ScrollView, Text, useWindowDimensions, View } from 'react-native'
 import { BarChart, LineChart } from 'react-native-gifted-charts'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
-import { Loading } from '@components/Loading'
+import { NoContent } from '@components/NoContent'
 import { SelecFormControlt } from '@components/SelecFormControlt'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@hooks/auth'
@@ -17,6 +17,7 @@ import { toast } from '@utils/toast-methods'
 import zod from 'zod'
 
 import { Legend } from './_components_/Legend'
+import { SkeletonAnimation } from './_components_/SkeletonAnimation'
 
 const schema = zod.object({
   exercise: zod.string(),
@@ -82,91 +83,113 @@ export function Evolution() {
     }
   }
 
+  const hasValueGreaterThanZero = data?.chartData.some((item) => item.value > 0)
+
+  return (
+    <Container>
+      <Header title="Evolução" />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        {isFetching ? (
+          <SkeletonAnimation />
+        ) : (
+          <View className="px-5 mt-10 gap-3 flex-1">
+            {hasValueGreaterThanZero || data?.options?.length > 0 ? (
+              <TrainingContent
+                currentMonth={currentMonth}
+                data={data}
+                colorScheme={colorScheme}
+                control={control}
+                errors={errors}
+                onGetEvolutionWeight={onGetEvolutionWeight}
+                lineData={lineData}
+                width={width}
+              />
+            ) : (
+              <NoContent message="Adicione seus treinos e acompanhe cada passo da sua evolução!" />
+            )}
+          </View>
+        )}
+      </ScrollView>
+    </Container>
+  )
+}
+
+function TrainingContent({
+  currentMonth,
+  data,
+  colorScheme,
+  control,
+  errors,
+  onGetEvolutionWeight,
+  lineData,
+  width,
+}) {
   return (
     <>
-      {isFetching ? (
-        <Loading />
-      ) : (
-        <Container>
-          <Header title={'Evolução'} />
-          <ScrollView>
-            <View className="px-5 mt-10 gap-3">
-              <Text className="text-foreground font-primary_regular text-base">
-                Frequência de Treino -{' '}
-                <Text className="capitalize font-bold">{currentMonth}</Text>
-              </Text>
+      <Text className="text-foreground font-primary_regular text-base">
+        Frequência de Treino -{' '}
+        <Text className="capitalize font-bold">{currentMonth}</Text>
+      </Text>
 
-              <BarChart
-                barWidth={40}
-                noOfSections={2}
-                barBorderRadius={4}
-                frontColor={themes[colorScheme].chart5}
-                data={data?.chartData}
-                yAxisThickness={0}
-                xAxisThickness={0}
-                xAxisLabelTextStyle={{
-                  color: 'lightgray',
-                  textAlign: 'center',
-                }}
-                yAxisTextStyle={{ color: 'lightgray' }}
-                maxValue={data?.maxDays}
-              />
+      <BarChart
+        barWidth={40}
+        noOfSections={2}
+        barBorderRadius={4}
+        frontColor={themes[colorScheme].chart5}
+        data={data?.chartData}
+        yAxisThickness={0}
+        xAxisThickness={0}
+        xAxisLabelTextStyle={{ color: 'lightgray', textAlign: 'center' }}
+        yAxisTextStyle={{ color: 'lightgray' }}
+        maxValue={data?.maxDays}
+      />
 
-              <View className="items-center gap-1">
-                <View className="bg-secondary w-44 py-2 px-2">
-                  <Legend data={data?.legend} />
-                </View>
+      <View className="items-center gap-1">
+        <View className="bg-secondary w-44 py-2 px-2">
+          <Legend data={data?.legend} />
+        </View>
 
-                <Text className="text-muted-foreground font-primary_regular text-sm">
-                  * S-1, S-2, etc., representam as semanas do mês de{' '}
-                  {currentMonth}.
-                </Text>
+        <Text className="text-muted-foreground font-primary_regular text-sm">
+          * S-1, S-2, etc., representam as semanas do mês de {currentMonth}.
+        </Text>
 
-                <Text className="text-muted-foreground font-primary_regular text-sm">
-                  Meta vária entre {data?.minDays} a {data?.maxDays} dias.
-                </Text>
-              </View>
+        <Text className="text-muted-foreground font-primary_regular text-sm">
+          Meta varia entre {data?.minDays} a {data?.maxDays} dias.
+        </Text>
+      </View>
 
-              <Text className="text-foreground font-primary_regular text-base font-bold">
-                Evolução de Carga
-              </Text>
+      <Text className="text-foreground font-primary_regular text-base font-bold">
+        Evolução de Carga
+      </Text>
 
-              <SelecFormControlt
-                control={control}
-                name="exercise"
-                label="Exercícios"
-                options={data?.options}
-                error={errors.exercise}
-                change={(value) => onGetEvolutionWeight(value)}
-              />
+      <SelecFormControlt
+        control={control}
+        name="exercise"
+        label="Exercícios"
+        options={data?.options}
+        error={errors.exercise}
+        change={onGetEvolutionWeight}
+      />
 
-              {lineData && (
-                <LineChart
-                  data={lineData}
-                  color={themes[colorScheme].chart2}
-                  thickness={5}
-                  dataPointsColor={themes[colorScheme].chart3}
-                  showValuesAsDataPointsText
-                  textColor={themes[colorScheme].foreground}
-                  dataPointsHeight={12}
-                  dataPointsWidth={12}
-                  textShiftY={-5}
-                  textShiftX={-5}
-                  textFontSize={14}
-                  width={width - 110}
-                  yAxisTextStyle={{
-                    color: themes[colorScheme].mutedForeground,
-                  }}
-                  spacing={80}
-                  curved
-                  xAxisLabelTextStyle={{
-                    color: themes[colorScheme].mutedForeground,
-                  }}
-                />
-              )}
-            </View>
-          </ScrollView>
-        </Container>
+      {lineData && (
+        <LineChart
+          data={lineData}
+          color={themes[colorScheme].chart2}
+          thickness={5}
+          dataPointsColor={themes[colorScheme].chart3}
+          showValuesAsDataPointsText
+          textColor={themes[colorScheme].foreground}
+          dataPointsHeight={12}
+          dataPointsWidth={12}
+          textShiftY={-5}
+          textShiftX={-5}
+          textFontSize={14}
+          width={width - 110}
+          yAxisTextStyle={{ color: themes[colorScheme].mutedForeground }}
+          spacing={80}
+          curved
+          xAxisLabelTextStyle={{ color: themes[colorScheme].mutedForeground }}
+        />
       )}
     </>
   )
