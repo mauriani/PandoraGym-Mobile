@@ -4,11 +4,13 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
+import { Evolution } from '@screens/Evolution'
 import { History } from '@screens/History'
 import { PersonalTrainerList } from '@screens/PersonalTrainerList'
 import { WorkoutsTemplates } from '@screens/WorkoutsTemplates'
 import {
   BicepsFlexed,
+  ChartNoAxesColumn,
   History as Time,
   House,
   SquareUser,
@@ -84,7 +86,7 @@ export default function TabNavigator() {
         }}
       />
 
-      {/* <Screen
+      <Screen
         name="evolution"
         component={Evolution}
         options={{
@@ -92,7 +94,7 @@ export default function TabNavigator() {
             <ChartNoAxesColumn color={color} size={size} />
           ),
         }}
-      /> */}
+      />
     </Navigator>
   )
 }

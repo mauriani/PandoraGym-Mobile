@@ -25,7 +25,7 @@ export function WorkoutsTemplates() {
     })
   }
 
-  const { data, error, isLoading } = useQuery<ItemplateDTO>({
+  const { data, error, isFetching } = useQuery<ItemplateDTO>({
     queryKey: ['get-training-templates'],
     queryFn: async () => {
       const { data } = await api.get('/training-programs')
@@ -47,7 +47,7 @@ export function WorkoutsTemplates() {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Loading />
       ) : (
         <Container>

@@ -1,44 +1,163 @@
-import React, { useContext } from 'react'
-import { View } from 'react-native'
-import { BarChart } from 'react-native-gifted-charts'
+import React, { useContext, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Text, useWindowDimensions, View } from 'react-native'
+import { BarChart, LineChart } from 'react-native-gifted-charts'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
-import { Heading } from '@components/Heading'
+import { Loading } from '@components/Loading'
+import { SelecFormControlt } from '@components/SelecFormControlt'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useAuth } from '@hooks/auth'
+import { api } from '@services/api'
+import { useQuery } from '@tanstack/react-query'
 import { ThemeContext } from '@theme/theme-provider'
 import { themes } from '@theme/themes'
+import { AppError } from '@utils/AppError'
+import { toast } from '@utils/toast-methods'
+import zod from 'zod'
+
+import { Legend } from './_components_/Legend'
+
+const schema = zod.object({
+  exercise: zod.string(),
+})
+
+export type zodSchema = zod.infer<typeof schema>
 
 export function Evolution() {
+  const { user } = useAuth()
+  const { width } = useWindowDimensions()
   const { colorScheme } = useContext(ThemeContext)
+  const currentMonth = new Date().toLocaleString('pt-Br', { month: 'long' })
 
-  const data = [
-    { value: 250, label: 'M' },
-    { value: 500, label: 'T' },
-    { value: 745, label: 'W' },
-    { value: 320, label: 'T' },
-    { value: 600, label: 'F' },
-    { value: 256, label: 'S' },
-    { value: 300, label: 'S' },
-  ]
+  const [lineData, setLineData] = useState()
+
+  const methods = useForm<zodSchema>({
+    resolver: zodResolver(schema),
+  })
+
+  const {
+    control,
+    formState: { errors },
+  } = methods
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['get-frequency-user', user?.user?.id],
+    queryFn: async () => {
+      const [response, data] = await Promise.all([
+        api.get('/workout-frequency'),
+        api.get('/workout-history-name-exercises'),
+      ])
+
+      const { chartData, maxDays, minDays, legend } = response.data
+      const { history } = data.data
+
+      return {
+        chartData,
+        options: history,
+        maxDays,
+        minDays,
+        legend,
+      }
+    },
+  })
+
+  async function onGetEvolutionWeight(id) {
+    try {
+      await api
+        .get(`/exercises-performance-comparison/${id}`)
+        .then((response) => {
+          if (response.status == 200) {
+            setLineData(response.data?.lineData)
+          }
+        })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+
+      const title = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+
+      toast.error(title)
+    }
+  }
 
   return (
-    <Container>
-      <Header title={'Evolução'} />
+    <>
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Header title={'Evolução'} />
 
-      <View className="px-5 mt-10 gap-8">
-        <Heading title="Como estou indo ?" />
+          <View className="px-5 mt-10 gap-3">
+            <Text className="text-foreground font-primary_regular text-base">
+              Frequência de Treino -{' '}
+              <Text className="capitalize font-bold">{currentMonth}</Text>
+            </Text>
 
-        <BarChart
-          barWidth={22}
-          noOfSections={3}
-          barBorderRadius={4}
-          frontColor={themes[colorScheme].chart5}
-          data={data}
-          yAxisThickness={0}
-          xAxisThickness={0}
-          xAxisLabelTextStyle={{ color: 'lightgray', textAlign: 'center' }} // adiciona cor no text no eixo x
-          yAxisTextStyle={{ color: 'lightgray' }}
-        />
-      </View>
-    </Container>
+            <BarChart
+              barWidth={40}
+              noOfSections={2}
+              barBorderRadius={4}
+              frontColor={themes[colorScheme].chart5}
+              data={data?.chartData}
+              yAxisThickness={0}
+              xAxisThickness={0}
+              xAxisLabelTextStyle={{ color: 'lightgray', textAlign: 'center' }}
+              yAxisTextStyle={{ color: 'lightgray' }}
+              maxValue={data?.maxDays}
+            />
+
+            <View className="items-center gap-1">
+              <View className="bg-secondary w-44 py-2 px-2">
+                <Legend data={data?.legend} />
+              </View>
+
+              <Text className="text-muted-foreground font-primary_regular text-sm">
+                * S-1, S-2, etc., representam as semanas do mês de{' '}
+                {currentMonth}.
+              </Text>
+
+              <Text className="text-muted-foreground font-primary_regular text-sm">
+                Meta vária entre {data?.minDays} a {data?.maxDays} dias.
+              </Text>
+            </View>
+
+            <SelecFormControlt
+              control={control}
+              name="exercise"
+              label="Exercícios"
+              options={data?.options}
+              error={errors.exercise}
+              change={(value) => onGetEvolutionWeight(value)}
+            />
+
+            {lineData && (
+              <LineChart
+                data={lineData}
+                color={themes[colorScheme].chart2}
+                thickness={5}
+                dataPointsColor={themes[colorScheme].chart3}
+                showValuesAsDataPointsText
+                textColor={themes[colorScheme].foreground}
+                dataPointsHeight={12}
+                dataPointsWidth={12}
+                textShiftY={-5}
+                textShiftX={-5}
+                textFontSize={14}
+                width={width - 110}
+                yAxisTextStyle={{ color: themes[colorScheme].mutedForeground }}
+                spacing={80}
+                curved
+                xAxisLabelTextStyle={{
+                  color: themes[colorScheme].mutedForeground,
+                }}
+              />
+            )}
+          </View>
+        </Container>
+      )}
+    </>
   )
 }
