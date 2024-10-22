@@ -32,7 +32,7 @@ export function Header({ title }: IProps) {
         <TouchableOpacity
           onPress={() => navigate('profile')}
           className="h-9 w-9 items-center justify-center">
-          <UserCircle color={'#FDC500'} size={25} />
+          <UserCircle color={'#7C7C8A'} size={25} />
         </TouchableOpacity>
       </View>
     </View>

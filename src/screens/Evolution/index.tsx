@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Text, useWindowDimensions, View } from 'react-native'
+import { ScrollView, Text, useWindowDimensions, View } from 'react-native'
 import { BarChart, LineChart } from 'react-native-gifted-charts'
 import { Container } from '@components/Container'
 import { Header } from '@components/Header'
@@ -89,73 +89,83 @@ export function Evolution() {
       ) : (
         <Container>
           <Header title={'Evolução'} />
+          <ScrollView>
+            <View className="px-5 mt-10 gap-3">
+              <Text className="text-foreground font-primary_regular text-base">
+                Frequência de Treino -{' '}
+                <Text className="capitalize font-bold">{currentMonth}</Text>
+              </Text>
 
-          <View className="px-5 mt-10 gap-3">
-            <Text className="text-foreground font-primary_regular text-base">
-              Frequência de Treino -{' '}
-              <Text className="capitalize font-bold">{currentMonth}</Text>
-            </Text>
+              <BarChart
+                barWidth={40}
+                noOfSections={2}
+                barBorderRadius={4}
+                frontColor={themes[colorScheme].chart5}
+                data={data?.chartData}
+                yAxisThickness={0}
+                xAxisThickness={0}
+                xAxisLabelTextStyle={{
+                  color: 'lightgray',
+                  textAlign: 'center',
+                }}
+                yAxisTextStyle={{ color: 'lightgray' }}
+                maxValue={data?.maxDays}
+              />
 
-            <BarChart
-              barWidth={40}
-              noOfSections={2}
-              barBorderRadius={4}
-              frontColor={themes[colorScheme].chart5}
-              data={data?.chartData}
-              yAxisThickness={0}
-              xAxisThickness={0}
-              xAxisLabelTextStyle={{ color: 'lightgray', textAlign: 'center' }}
-              yAxisTextStyle={{ color: 'lightgray' }}
-              maxValue={data?.maxDays}
-            />
+              <View className="items-center gap-1">
+                <View className="bg-secondary w-44 py-2 px-2">
+                  <Legend data={data?.legend} />
+                </View>
 
-            <View className="items-center gap-1">
-              <View className="bg-secondary w-44 py-2 px-2">
-                <Legend data={data?.legend} />
+                <Text className="text-muted-foreground font-primary_regular text-sm">
+                  * S-1, S-2, etc., representam as semanas do mês de{' '}
+                  {currentMonth}.
+                </Text>
+
+                <Text className="text-muted-foreground font-primary_regular text-sm">
+                  Meta vária entre {data?.minDays} a {data?.maxDays} dias.
+                </Text>
               </View>
 
-              <Text className="text-muted-foreground font-primary_regular text-sm">
-                * S-1, S-2, etc., representam as semanas do mês de{' '}
-                {currentMonth}.
+              <Text className="text-foreground font-primary_regular text-base font-bold">
+                Evolução de Carga
               </Text>
 
-              <Text className="text-muted-foreground font-primary_regular text-sm">
-                Meta vária entre {data?.minDays} a {data?.maxDays} dias.
-              </Text>
-            </View>
-
-            <SelecFormControlt
-              control={control}
-              name="exercise"
-              label="Exercícios"
-              options={data?.options}
-              error={errors.exercise}
-              change={(value) => onGetEvolutionWeight(value)}
-            />
-
-            {lineData && (
-              <LineChart
-                data={lineData}
-                color={themes[colorScheme].chart2}
-                thickness={5}
-                dataPointsColor={themes[colorScheme].chart3}
-                showValuesAsDataPointsText
-                textColor={themes[colorScheme].foreground}
-                dataPointsHeight={12}
-                dataPointsWidth={12}
-                textShiftY={-5}
-                textShiftX={-5}
-                textFontSize={14}
-                width={width - 110}
-                yAxisTextStyle={{ color: themes[colorScheme].mutedForeground }}
-                spacing={80}
-                curved
-                xAxisLabelTextStyle={{
-                  color: themes[colorScheme].mutedForeground,
-                }}
+              <SelecFormControlt
+                control={control}
+                name="exercise"
+                label="Exercícios"
+                options={data?.options}
+                error={errors.exercise}
+                change={(value) => onGetEvolutionWeight(value)}
               />
-            )}
-          </View>
+
+              {lineData && (
+                <LineChart
+                  data={lineData}
+                  color={themes[colorScheme].chart2}
+                  thickness={5}
+                  dataPointsColor={themes[colorScheme].chart3}
+                  showValuesAsDataPointsText
+                  textColor={themes[colorScheme].foreground}
+                  dataPointsHeight={12}
+                  dataPointsWidth={12}
+                  textShiftY={-5}
+                  textShiftX={-5}
+                  textFontSize={14}
+                  width={width - 110}
+                  yAxisTextStyle={{
+                    color: themes[colorScheme].mutedForeground,
+                  }}
+                  spacing={80}
+                  curved
+                  xAxisLabelTextStyle={{
+                    color: themes[colorScheme].mutedForeground,
+                  }}
+                />
+              )}
+            </View>
+          </ScrollView>
         </Container>
       )}
     </>

@@ -1,6 +1,9 @@
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { TouchableOpacity, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ThemeContext } from '@theme/theme-provider'
+import { themes } from '@theme/themes'
 import zod from 'zod'
 
 import { InputFormControl } from './ui/InputFormControl'
@@ -23,12 +26,12 @@ export type zodSchema = zod.infer<typeof schema>
 
 export function InputWithButton({
   iconName,
-  color,
   size,
   label,
   onNavigate,
   onChangeText,
 }: IProps) {
+  const { colorScheme } = useContext(ThemeContext)
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
   })
@@ -58,9 +61,13 @@ export function InputWithButton({
       />
 
       <TouchableOpacity
-        className="rounded-[6px] bg-purple-800 w-16 h-16 justify-center items-center ml-2"
+        className="rounded-[6px] bg-primary w-16 h-16 justify-center items-center ml-2"
         onPress={handleSubmit(submit)}>
-        <IconComponent iconName={iconName} color={color} size={size} />
+        <IconComponent
+          iconName={iconName}
+          color={themes[colorScheme].primaryForeground}
+          size={size}
+        />
       </TouchableOpacity>
     </View>
   )
