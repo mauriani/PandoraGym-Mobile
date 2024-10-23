@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { AuthProvider } from '../hooks/auth'
 
@@ -12,9 +13,11 @@ interface AuthProviderProps {
 function AppProvider({ children }: AuthProviderProps) {
   return (
     <AuthProvider>
-      <DialogAlertProvider>
-        <WorkoutProvider>{children}</WorkoutProvider>
-      </DialogAlertProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <DialogAlertProvider>
+          <WorkoutProvider>{children}</WorkoutProvider>
+        </DialogAlertProvider>
+      </GestureHandlerRootView>
     </AuthProvider>
   )
 }

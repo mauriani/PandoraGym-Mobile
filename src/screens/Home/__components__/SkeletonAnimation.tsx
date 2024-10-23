@@ -11,7 +11,7 @@ export function SkeletonAnimation() {
 
   return (
     <MotiView
-      style={{ gap: 8, padding: 16 }}
+      style={{ gap: 12 }}
       animate={{
         backgroundColor: colorScheme ? '#000000' : '#ffffff',
       }}>
@@ -20,50 +20,22 @@ export function SkeletonAnimation() {
 
       <Skeleton width={'50%'} height={20} />
 
-      <View className="flex-row gap-4 items-center">
-        <View className="h-28">
-          <Skeleton width={128} height={80} />
-        </View>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <View key={index} className="flex-row gap-4 items-center">
+          <View className="h-28">
+            <Skeleton width={128} height={80} />
+          </View>
 
-        <View className="flex-1 justify-center">
-          <Skeleton width={'50%'} height={20} />
-          <Spacer height={8} />
-          <Skeleton width={'45%'} height={16} />
-          <Spacer height={8} />
-          <Skeleton width={'100%'} height={16} />
-          <Spacer height={8} />
+          <View className="flex-1 justify-center">
+            <Skeleton width={'50%'} height={20} />
+            <Spacer height={8} />
+            <Skeleton width={'45%'} height={16} />
+            <Spacer height={8} />
+            <Skeleton width={'100%'} height={16} />
+            <Spacer height={8} />
+          </View>
         </View>
-      </View>
-
-      <View className="flex-row gap-4 items-center">
-        <View className="h-28">
-          <Skeleton width={128} height={80} />
-        </View>
-
-        <View className="flex-1 justify-center">
-          <Skeleton width={'50%'} height={20} />
-          <Spacer height={8} />
-          <Skeleton width={'45%'} height={16} />
-          <Spacer height={8} />
-          <Skeleton width={'100%'} height={16} />
-          <Spacer height={8} />
-        </View>
-      </View>
-
-      <View className="flex-row gap-4 items-center">
-        <View className="h-28">
-          <Skeleton width={128} height={80} />
-        </View>
-
-        <View className="flex-1 justify-center">
-          <Skeleton width={'50%'} height={20} />
-          <Spacer height={8} />
-          <Skeleton width={'45%'} height={16} />
-          <Spacer height={8} />
-          <Skeleton width={'100%'} height={16} />
-          <Spacer height={8} />
-        </View>
-      </View>
+      ))}
     </MotiView>
   )
 }

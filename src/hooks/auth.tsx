@@ -21,7 +21,6 @@ import { toast } from '@utils/toast-methods'
 
 import { api } from '../services/api'
 
-// aquilo que vou armazenar no meu estado
 export interface AuthState {
   token: string
   user: IUser
@@ -32,9 +31,9 @@ interface SignInCredentials {
   password: string
 }
 
-// aquilo que vou querer compartilhar
 interface AuthContextData {
-  user: AuthState
+  user: AuthState | null
+  loading: boolean
   signIn: (credentials: SignInCredentials) => Promise<void>
   signOut: () => Promise<void>
 }
@@ -46,21 +45,15 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 function AuthProvider({ children }: AuthProviderProps) {
-  // criar um estado para amarzenar os estados de autentificação
-
-  const [data, setData] = useState<AuthState>({} as AuthState)
+  const [data, setData] = useState<AuthState | null>(null)
+  const [loading, setLoading] = useState(true) // Estado de loading
 
   async function signIn({ email, password }: SignInCredentials) {
     try {
-      const response = await api.post('/session', {
-        email,
-        password,
-      })
-
+      const response = await api.post('/session', { email, password })
       const { token, user } = response.data
 
-      setData({ ...user, token })
-
+      setData({ token, user })
       saveUserInStorage(user)
       saveTokenInStorage(token)
 
@@ -75,30 +68,28 @@ function AuthProvider({ children }: AuthProviderProps) {
   async function signOut() {
     removeUserFromStorage()
     removeTokenFromStorage()
-
     removeStartWorkoutromStorage()
     removeCurrentWorkoutFromStorage()
+    setData(null)
 
-    setData({} as AuthState)
     if (api.defaults?.headers && api.defaults.headers.common) {
-      // eslint-disable-next-line prettier/prettier, dot-notation
-      delete  api.defaults.headers.common['Authorization']
+      delete api.defaults.headers.common.Authorization
     }
   }
 
   useEffect(() => {
     async function loadData() {
       try {
-        const user = getUserFromStorage()
-        const token = getTokenFromStorage()
+        const user = await getUserFromStorage()
+        const token = await getTokenFromStorage()
 
-        const item = { user, token }
-
-        if (user) {
-          setData(item)
+        if (user && token) {
+          setData({ user, token })
         }
       } catch (e) {
         console.log(e)
+      } finally {
+        setLoading(false) // Finaliza o estado de loading
       }
     }
 
@@ -106,22 +97,14 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   return (
-    <AuthContext.Provider
-      value={{
-        user: data,
-        signIn,
-        signOut,
-      }}>
+    <AuthContext.Provider value={{ user: data, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
-// esse vai ser o hook em si
-
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext)
-
   return context
 }
 

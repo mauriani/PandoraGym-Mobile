@@ -80,52 +80,55 @@ export function Home() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={{ flex: 1 }}>
           <Header title={'Meus Treinos'} />
-          {isFetching ? (
-            <SkeletonAnimation />
-          ) : (
-            <Content>
-              <Heading title="Criar Treino" />
 
-              <InputWithButton
-                label="Nome do treino/exercício"
-                iconName="Plus"
-                size={20}
-                onNavigate={onNavigateCreateTraining}
-              />
+          <Content>
+            {isFetching ? (
+              <SkeletonAnimation />
+            ) : (
+              <>
+                <Heading title="Criar Treino" />
 
-              <Heading title="Meus Treinos" />
+                <InputWithButton
+                  label="Nome do treino/exercício"
+                  iconName="Plus"
+                  size={20}
+                  onNavigate={onNavigateCreateTraining}
+                />
 
-              <FlatList
-                data={data}
-                keyExtractor={(item) => item.id}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={
-                  data?.length == 0
-                    ? {
-                        flexGrow: 1,
-                        padding: 10,
+                <Heading title="Meus Treinos" />
+
+                <FlatList
+                  data={data}
+                  keyExtractor={(item) => item.id}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={
+                    data?.length == 0
+                      ? {
+                          flexGrow: 1,
+                          padding: 10,
+                        }
+                      : { paddingBottom: 80, gap: 10 }
+                  }
+                  ListEmptyComponent={
+                    <NoContent message="Opss ... você não tem nenhum treino cadastrado até o momento!" />
+                  }
+                  renderItem={({ item }) => (
+                    <MyTrainingCard
+                      item={item}
+                      onAccessTraining={() =>
+                        handleAccessTraining(
+                          item.id,
+                          item.name,
+                          item.exclusive,
+                          item.weekDays,
+                        )
                       }
-                    : { paddingBottom: 80, gap: 10 }
-                }
-                ListEmptyComponent={
-                  <NoContent message="Opss ... você não tem nenhum treino cadastrado até o momento!" />
-                }
-                renderItem={({ item }) => (
-                  <MyTrainingCard
-                    item={item}
-                    onAccessTraining={() =>
-                      handleAccessTraining(
-                        item.id,
-                        item.name,
-                        item.exclusive,
-                        item.weekDays,
-                      )
-                    }
-                  />
-                )}
-              />
-            </Content>
-          )}
+                    />
+                  )}
+                />
+              </>
+            )}
+          </Content>
         </View>
       </TouchableWithoutFeedback>
     </Container>

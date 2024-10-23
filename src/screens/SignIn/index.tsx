@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   Dimensions,
@@ -41,6 +41,7 @@ type NavigationProps = NativeStackNavigationProp<
 export function SignIn() {
   const { navigate } = useNavigation<NavigationProps>()
   const { signIn } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
 
   const methods = useForm<zodSchema>({
     resolver: zodResolver(schema),
@@ -59,6 +60,8 @@ export function SignIn() {
   async function submit(data: zodSchema) {
     const { email, password } = data
     try {
+      setIsLoading(true)
+
       await signIn({ email, password })
     } catch (error) {
       const isAppError = error instanceof AppError
@@ -68,6 +71,8 @@ export function SignIn() {
         : 'Ocorreu um erro ao realizar login. Tente novamente mais tarde'
 
       toast.error(title)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -122,6 +127,7 @@ export function SignIn() {
                   label="Acessar"
                   className="mt-6"
                   onPress={handleSubmit(submit)}
+                  loading={isLoading}
                 />
               </View>
 

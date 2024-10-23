@@ -60,20 +60,22 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <>
-        <ThemeProvider>
+      <ThemeProvider>
+        <>
           <AppProvider>
             <NavigationContainer>
-              <>
-                <Routes />
-                <WorkoutBar />
-              </>
+              <Routes />
+              <WorkoutBar />
+
+              <Toast
+                visibilityTime={5000}
+                position="bottom"
+                config={toastConfig}
+              />
             </NavigationContainer>
           </AppProvider>
-
-          <Toast visibilityTime={5000} position="bottom" config={toastConfig} />
-        </ThemeProvider>
-      </>
+        </>
+      </ThemeProvider>
     </QueryClientProvider>
   )
 }
