@@ -183,28 +183,6 @@ export function EditProfile() {
               error={errors.observations}
               defaultValue={`${user?.observations}`}
             />
-
-            {/* <InputFormControl
-              control={control}
-              name="password"
-              label="Senha"
-              inputClasses="bg-neutral-900 text-white mt-4"
-              error={errors.password}
-              typePassword={true}
-              blurOnSubmit={false}
-              textContentType="oneTimeCode"
-            />
-
-            <InputFormControl
-              control={control}
-              name="confirmPassword"
-              label="Confirma Senha"
-              inputClasses="bg-neutral-900 text-white mt-4"
-              error={errors.confirmPassword}
-              typePassword={true}
-              blurOnSubmit={false}
-              textContentType="oneTimeCode"
-            /> */}
           </View>
         </ScrollView>
 

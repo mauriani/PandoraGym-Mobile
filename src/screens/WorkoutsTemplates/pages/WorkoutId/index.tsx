@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { FlatList, Platform, Text, View } from 'react-native'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { FlatList, Text, View } from 'react-native'
 import { IDetailsTemplate } from '@_dtos_/detailsTemplateDTO'
 import { ButtonWithIcon } from '@components/ButtonWithIcon'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
+import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
 import { ModalWithContent } from '@components/ModalWithContent'
@@ -179,18 +179,11 @@ export function WorkoutId() {
               )}
             />
 
-            <View
-              style={{
-                paddingBottom:
-                  Platform.OS == 'ios'
-                    ? getBottomSpace() + 60
-                    : getBottomSpace() + 10,
-              }}>
-              <Button
-                label="Usar Treino"
-                onPress={() => setIsModalOpen(!isModalOpen)}
-              />
-            </View>
+            <Footer
+              label="Usar Treino"
+              paddingHorizontal={0}
+              onSubmit={() => setIsModalOpen(!isModalOpen)}
+            />
           </>
         )}
       </Content>

@@ -5,13 +5,14 @@ import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { InputWithButton } from '@components/InputWithButton'
-import { Loading } from '@components/Loading'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { CardWorkouts } from '@screens/WorkoutsTemplates/__components__/CardWorkouts'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
+
+import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 type IRouteParams = {
   title: string
@@ -36,7 +37,7 @@ export function WorkoutAll() {
     ProgramsTrainingDTO[]
   >([])
 
-  const { error, isLoading } = useQuery({
+  const { error, isFetching } = useQuery({
     queryKey: ['get-all-training-workout-free', id],
     queryFn: async () => {
       const endpoint = id
@@ -78,13 +79,13 @@ export function WorkoutAll() {
   }
 
   return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Container>
-          <HeaderGoBack title={title} />
-          <Content>
+    <Container>
+      <HeaderGoBack title={title} />
+      <Content>
+        {isFetching ? (
+          <SkeletonAnimation />
+        ) : (
+          <>
             <InputWithButton
               label="Nome do treino/exercício"
               iconName="Search"
@@ -104,9 +105,9 @@ export function WorkoutAll() {
               )}
               contentContainerStyle={{ gap: 12 }}
             />
-          </Content>
-        </Container>
-      )}
-    </>
+          </>
+        )}
+      </Content>
+    </Container>
   )
 }
