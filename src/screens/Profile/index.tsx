@@ -14,6 +14,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@components/ui/Avatar'
+import { useOpenDialogAlert } from '@context/DialogAlertContext'
 import { useAuth } from '@hooks/auth'
 import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api'
@@ -30,24 +31,34 @@ export function Profile() {
   const { navigate } = useNavigation()
 
   const { id } = getUserFromStorage()
+  const { openDialogAlert } = useOpenDialogAlert()
 
   function handleLogout() {
-    Alert.alert(
-      'Sair',
-      'Você realmente deseja sair do Pandora Gym ?',
-      [
-        {
-          text: 'Sair',
-          onPress: () => submitLogout(),
-        },
-        {
-          text: 'Cancelar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    )
+    openDialogAlert({
+      title: 'Sair',
+      message: 'Você realmente deseja sair do Pincel Atômico ?',
+      isButtonCancel: true,
+      isButtonTitleConfirm: 'Sim, tenho certeza!',
+      onConfirm: () => {
+        submitLogout()
+      },
+    })
+    // Alert.alert(
+    //   'Sair',
+    //   'Você realmente deseja sair do Pandora Gym ?',
+    //   [
+    //     {
+    //       text: 'Sair',
+    //       onPress: () => submitLogout(),
+    //     },
+    //     {
+    //       text: 'Cancelar',
+    //       onPress: () => console.log('Cancel Pressed'),
+    //       style: 'cancel',
+    //     },
+    //   ],
+    //   { cancelable: false },
+    // )
   }
 
   async function submitLogout() {

@@ -17,6 +17,7 @@ module.exports = {
           '@services': './src/services',
           '@_dtos_': './src/_dtos_',
           '@hooks': './src/hooks',
+          '@context': './src/context',
         },
       },
     ],
