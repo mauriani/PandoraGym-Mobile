@@ -8,7 +8,6 @@ import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { Heading } from '@components/Heading'
-import { Loading } from '@components/Loading'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
@@ -25,6 +24,7 @@ import { daysOfWeek } from '@utils/weekDay'
 import zod from 'zod'
 
 import { CardDetails } from './__components__/CardDetails'
+import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 type IRouteParams = {
   title: string
@@ -52,7 +52,7 @@ export function WorkoutId() {
 
   const { handleSubmit, control, reset } = methods
 
-  const { data, error, isLoading } = useQuery<IDetailsTemplate>({
+  const { data, error, isFetching } = useQuery<IDetailsTemplate>({
     queryKey: ['get-training-workout-free', id],
     queryFn: async () => {
       const { data } = await api.get(`/training-programs/${id}`)
@@ -109,13 +109,13 @@ export function WorkoutId() {
   }
 
   return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Container>
-          <HeaderGoBack title={title} />
-          <Content>
+    <Container>
+      <HeaderGoBack title={title} />
+      <Content>
+        {isFetching ? (
+          <SkeletonAnimation />
+        ) : (
+          <>
             {data?.data?.personal?.id && (
               <View className="flex-row items-center py-5">
                 <VideoPlayerWithThumbnail
@@ -191,27 +191,27 @@ export function WorkoutId() {
                 onPress={() => setIsModalOpen(!isModalOpen)}
               />
             </View>
-          </Content>
+          </>
+        )}
+      </Content>
 
-          <ModalWithContent
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(!isModalOpen)}
-            title="Em qual dia você realizará esse treino ?"
-            content={
-              <View className="gap-5 py-3">
-                <MultiSelect
-                  options={daysOfWeek}
-                  name={'week'}
-                  control={control}
-                  label="Selecione o dia"
-                />
+      <ModalWithContent
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(!isModalOpen)}
+        title="Em qual dia você realizará esse treino ?"
+        content={
+          <View className="gap-5 py-3">
+            <MultiSelect
+              options={daysOfWeek}
+              name={'week'}
+              control={control}
+              label="Selecione o dia"
+            />
 
-                <Button label="Salvar" onPress={handleSubmit(submit)} />
-              </View>
-            }
-          />
-        </Container>
-      )}
-    </>
+            <Button label="Salvar" onPress={handleSubmit(submit)} />
+          </View>
+        }
+      />
+    </Container>
   )
 }

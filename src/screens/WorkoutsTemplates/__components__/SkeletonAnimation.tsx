@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 import { View } from 'react-native'
 import { ThemeContext } from '@theme/theme-provider'
 import { MotiView } from 'moti'
@@ -16,10 +16,8 @@ export function SkeletonAnimation() {
         backgroundColor: colorScheme ? '#000000' : '#ffffff',
       }}>
       {Array.from({ length: 3 }).map((_, index) => (
-        <>
-          <View
-            key={index}
-            className="flex-row gap-3 items-center justify-between mb-4">
+        <Fragment key={index}>
+          <View className="flex-row gap-3 items-center justify-between mb-4">
             <View className="flex-row gap-3 items-center">
               <Skeleton width={40} height={40} radius="round" />
               <Skeleton width={100} height={20} />
@@ -31,7 +29,7 @@ export function SkeletonAnimation() {
             <Skeleton width={'90%'} height={240} />
             <Skeleton width={'80%'} height={240} />
           </View>
-        </>
+        </Fragment>
       ))}
     </MotiView>
   )
