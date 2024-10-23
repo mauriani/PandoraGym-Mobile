@@ -3,6 +3,7 @@ import { Alert, Text, View } from 'react-native'
 import { Plan } from '@_dtos_/personalDTO'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/ui/Button'
+import { useOpenDialogAlert } from '@context/DialogAlertContext'
 import { api } from '@services/api'
 import { savePlanInStorage } from '@storage/index'
 import { ThemeContext } from '@theme/theme-provider'
@@ -22,6 +23,7 @@ type IProps = {
 export function CardPlan({ item, planId, refetch }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
   const [loading, setLoading] = useState(false)
+  const { openDialogAlert } = useOpenDialogAlert()
 
   async function onSubmit(id: string) {
     try {
@@ -78,22 +80,12 @@ export function CardPlan({ item, planId, refetch }: IProps) {
   }
 
   function handleHeIsSure() {
-    Alert.alert(
-      'Cancelar',
-      'Você realmente tem certeza que deseja cancelar seu plano ?',
-      [
-        {
-          text: 'Sim',
-          onPress: () => onCancelPlan(),
-        },
-        {
-          text: 'Cancelar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    )
+    openDialogAlert({
+      title: 'Cancelar',
+      message: 'Você realmente tem certeza que deseja cancelar seu plano ?',
+      isButtonTitleConfirm: 'Ok',
+      onConfirm: () => onCancelPlan(),
+    })
   }
 
   return (

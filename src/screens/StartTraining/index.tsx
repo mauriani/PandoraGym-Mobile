@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Alert, FlatList, Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Day } from '@_dtos_/trainingDTO'
 import { ButtonWithIcon } from '@components/ButtonWithIcon'
@@ -13,6 +13,7 @@ import { ModalWithContent } from '@components/ModalWithContent'
 import { NoContent } from '@components/NoContent'
 import { SubTitle } from '@components/SubTitle'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
+import { useOpenDialogAlert } from '@context/DialogAlertContext'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
 import {
@@ -56,8 +57,9 @@ export function StartTraining() {
   const [exercises, setExercises] = useState<StartExerciseDTO[]>([])
   const [selectedItems, setSelectedItems] = useState([])
   const currentWorkout = getCurrentWorkoutStorage()
+  const { openDialogAlert, closeDialog } = useOpenDialogAlert()
 
-  const { name, id, exclusive, weekDays } = route.params as IRouteParams
+  const { name, id, exclusive } = route.params as IRouteParams
 
   const { data, isFetching } = useQuery<StartExerciseDTO[]>({
     queryKey: ['get-training-for-workoutid', id],
@@ -129,7 +131,12 @@ export function StartTraining() {
           })
           .then((response) => {
             if (response.status == 200) {
-              Alert.alert(response.data.message)
+              openDialogAlert({
+                title: 'Sucesso',
+                message: response.data.message,
+                isButtonTitleConfirm: 'Ok',
+                onConfirm: () => closeDialog(),
+              })
               goBack()
             }
           })
@@ -175,6 +182,11 @@ export function StartTraining() {
             queryKey: ['get-training-for-user'],
           })
 
+          if (currentWorkout?.id == id) {
+            removeStartWorkoutromStorage()
+            removeCurrentWorkoutFromStorage()
+          }
+
           navigate('tabNavigator')
         }
       })
@@ -191,49 +203,29 @@ export function StartTraining() {
 
   function handleDeleteWorkout() {
     !exclusive
-      ? Alert.alert(
-          'Apagar Treino',
-          'Você realmente deseja apagar este treino ?',
-          [
-            {
-              text: 'Sim',
-              onPress: () => onDeleteWorkout(),
-            },
-            {
-              text: 'Cancelar',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-          ],
-          { cancelable: false },
-        )
+      ? openDialogAlert({
+          title: 'Apagar Treino',
+          message: 'Você realmente deseja apagar este treino ?',
+          isButtonCancel: true,
+          isButtonTitleConfirm: 'Sim, tenho certeza!',
+          onConfirm: () => {
+            onDeleteWorkout()
+          },
+        })
       : toast.error('Somente o seu personal pode alterar este treino!')
   }
 
   function handleEditWorkout() {
     !exclusive
-      ? Alert.alert(
-          'Editar Treino',
-          'Você realmente deseja editar este treino ?',
-          [
-            {
-              text: 'Sim',
-              onPress: () =>
-                navigate('editWorkout', {
-                  selectedItems: exercises,
-                  title: name,
-                  idWorkout: id,
-                  weekDays,
-                }),
-            },
-            {
-              text: 'Cancelar',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-          ],
-          { cancelable: false },
-        )
+      ? openDialogAlert({
+          title: 'Editar Treino',
+          message: 'Você realmente deseja editar este treino ?',
+          isButtonCancel: true,
+          isButtonTitleConfirm: 'Sim, tenho certeza!',
+          onConfirm: () => {
+            onDeleteWorkout()
+          },
+        })
       : toast.error('Somente o seu personal pode alterar este treino!')
   }
 
