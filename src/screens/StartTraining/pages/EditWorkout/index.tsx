@@ -106,8 +106,6 @@ export function EditWorkout() {
   async function submit(data: zodSchema) {
     const { name, week } = data
 
-    console.log('exercises', exercises[0])
-
     try {
       await api
         .put(`/update-workout/${idWorkout}`, {

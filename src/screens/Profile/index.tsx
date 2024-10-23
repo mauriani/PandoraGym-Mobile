@@ -8,7 +8,6 @@ import { UserData } from '@_dtos_/profileDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
-import { Loading } from '@components/Loading'
 import {
   Avatar,
   AvatarEditButton,
@@ -24,6 +23,7 @@ import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
 import { ButtonProfile } from './__components__/ButtonProfile'
+import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function Profile() {
   const { signOut, user } = useAuth()
@@ -134,79 +134,77 @@ export function Profile() {
     .join('')
 
   return (
-    <>
+    <Container>
+      <HeaderGoBack title={'Perfil'} />
       {isFetching ? (
-        <Loading />
+        <SkeletonAnimation />
       ) : (
-        <Container>
-          <HeaderGoBack title={'Perfil'} />
-          <Content>
-            <View className="items-center justify-center gap-4">
-              <View>
-                <Avatar>
-                  <AvatarImage
-                    source={{
-                      uri: data?.avatarUrl ? data?.avatarUrl : '',
-                    }}
-                  />
-                  <AvatarFallback className="font-extrabold">
-                    {nameFormatted}
-                  </AvatarFallback>
-                </Avatar>
-                <AvatarEditButton onEditPress={() => handleSelectImage()} />
-              </View>
-
-              <View className="items-center justify-center gap-1">
-                <Text className="text-base text-primary font-primary_bold">
-                  {data?.name}
-                </Text>
-                <Text className="text-muted-foreground font-primary_regular text-sm">
-                  {data?.email}
-                </Text>
-              </View>
-
-              {data?.planName && (
-                <TouchableOpacity className="py-2 w-44 rounded-full items-center bg-primary-foreground ">
-                  <Text className="text-muted-foreground font-base">
-                    {data?.planName}
-                  </Text>
-                </TouchableOpacity>
-              )}
+        <Content>
+          <View className="items-center justify-center gap-4">
+            <View>
+              <Avatar>
+                <AvatarImage
+                  source={{
+                    uri: data?.avatarUrl ? data?.avatarUrl : '',
+                  }}
+                />
+                <AvatarFallback className="font-extrabold">
+                  {nameFormatted}
+                </AvatarFallback>
+              </Avatar>
+              <AvatarEditButton onEditPress={() => handleSelectImage()} />
             </View>
 
-            <ScrollView contentContainerStyle={{ gap: 12, marginTop: 20 }}>
-              {data?.personalId && (
-                <ButtonProfile
-                  title={'Meu Personal'}
-                  iconName="ChevronRight"
-                  onPress={() =>
-                    navigate('personalId', {
-                      id: data?.personalId,
-                    })
-                  }
-                />
-              )}
+            <View className="items-center justify-center gap-1">
+              <Text className="text-base text-primary font-primary_bold">
+                {data?.name}
+              </Text>
+              <Text className="text-muted-foreground font-primary_regular text-sm">
+                {data?.email}
+              </Text>
+            </View>
 
+            {data?.planName && (
+              <TouchableOpacity className="py-2 w-44 rounded-full items-center bg-primary-foreground ">
+                <Text className="text-muted-foreground font-base">
+                  {data?.planName}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+
+          <ScrollView contentContainerStyle={{ gap: 12, marginTop: 20 }}>
+            {data?.personalId && (
               <ButtonProfile
-                title={'Editar dados do Perfil'}
+                title={'Meu Personal'}
                 iconName="ChevronRight"
                 onPress={() =>
-                  navigate('editProfile', {
-                    user: data,
+                  navigate('personalId', {
+                    id: data?.personalId,
                   })
                 }
               />
+            )}
 
-              <ButtonProfile
-                title={'Sair'}
-                iconName="LogOut"
-                size={22}
-                onPress={handleLogout}
-              />
-            </ScrollView>
-          </Content>
-        </Container>
+            <ButtonProfile
+              title={'Editar dados do Perfil'}
+              iconName="ChevronRight"
+              onPress={() =>
+                navigate('editProfile', {
+                  user: data,
+                })
+              }
+            />
+
+            <ButtonProfile
+              title={'Sair'}
+              iconName="LogOut"
+              size={22}
+              onPress={handleLogout}
+            />
+          </ScrollView>
+        </Content>
       )}
-    </>
+    </Container>
   )
 }
