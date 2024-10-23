@@ -8,7 +8,6 @@ import { Content } from '@components/Content'
 import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { IconComponent } from '@components/IconComponent'
-import { Loading } from '@components/Loading'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { NoContent } from '@components/NoContent'
 import { SubTitle } from '@components/SubTitle'
@@ -32,6 +31,7 @@ import { useWorkout } from '../../context/WorkoutContext'
 
 import CardExercise from './__components__/CardExercise'
 import { Row } from './__components__/Row'
+import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 import TimerWithSound from './__components__/Timer'
 import { UpdateWeight } from './__components__/UpdateWeight'
 
@@ -250,18 +250,18 @@ export function StartTraining() {
   }, [data])
 
   return (
-    <>
-      {isFetching ? (
-        <Loading />
-      ) : (
-        <Container>
-          <HeaderGoBack
-            title={name}
-            isMenu
-            onDeleteWorkout={handleDeleteWorkout}
-            onEditWorkout={handleEditWorkout}
-          />
-          <Content>
+    <Container>
+      <HeaderGoBack
+        title={name}
+        isMenu
+        onDeleteWorkout={handleDeleteWorkout}
+        onEditWorkout={handleEditWorkout}
+      />
+      <Content>
+        {isFetching ? (
+          <SkeletonAnimation />
+        ) : (
+          <>
             {exercises.length > 0 ? (
               <>
                 <View>
@@ -365,23 +365,23 @@ export function StartTraining() {
             ) : (
               <NoContent message="Nenhum exercício cadastrado no momento. Aguarde seu personal !" />
             )}
-          </Content>
+          </>
+        )}
+      </Content>
 
-          <ModalWithContent
-            isOpen={isModalOpen}
+      <ModalWithContent
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(!isModalOpen)}
+        title="Adicionar Carga"
+        content={
+          <UpdateWeight
+            weight={selectedVideo?.load}
+            getUpdateWeight={getUpdateWeight}
             onClose={() => setIsModalOpen(!isModalOpen)}
-            title="Adicionar Carga"
-            content={
-              <UpdateWeight
-                weight={selectedVideo?.load}
-                getUpdateWeight={getUpdateWeight}
-                onClose={() => setIsModalOpen(!isModalOpen)}
-                loading={false}
-              />
-            }
+            loading={false}
           />
-        </Container>
-      )}
-    </>
+        }
+      />
+    </Container>
   )
 }
