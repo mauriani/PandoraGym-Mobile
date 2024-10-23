@@ -27,7 +27,7 @@ const WorkoutBar = () => {
   return (
     <View
       style={{
-        bottom: bottom + some,
+        bottom,
       }}
       className={'absolute left-0 right-0 bg-gray-900 p-4'}>
       <TouchableOpacity

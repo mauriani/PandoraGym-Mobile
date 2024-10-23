@@ -88,7 +88,7 @@ export function Evolution() {
   return (
     <Container>
       <Header title="Evolução" />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}>
         {isFetching ? (
           <SkeletonAnimation />
         ) : (
