@@ -12,7 +12,7 @@ export function NoContent({ message }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View className="flex-1 items-center">
       <Icon height={180} width={180} color={themes[colorScheme].foreground} />
 
       <Text

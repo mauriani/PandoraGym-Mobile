@@ -4,18 +4,16 @@ import { ThemeContext } from '@theme/theme-provider'
 import { MotiView } from 'moti'
 import { Skeleton } from 'moti/build/skeleton/native'
 
-// const Spacer = ({ height = 8 }) => <MotiView style={{ height }} />
-
 export function SkeletonAnimation() {
   const { colorScheme } = useContext(ThemeContext)
 
   return (
     <MotiView
-      style={{ gap: 8, padding: 16 }}
+      style={{ flex: 1, gap: 12 }}
       animate={{
         backgroundColor: colorScheme ? '#000000' : '#ffffff',
       }}>
-      <Skeleton width={'100%'} height={300} radius={6} />
+      <Skeleton width={'100%'} height={200} radius={6} />
       <Skeleton width={'100%'} height={50} radius={6} />
 
       <View className="flex-row justify-between items-center py-2 gap-4">

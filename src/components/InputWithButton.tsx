@@ -53,7 +53,7 @@ export function InputWithButton({
         name="name"
         label={label}
         error={errors.name}
-        className="w-[85%]"
+        className="flex-1"
         inputClasses="h-16"
         change={(text) => {
           onChangeText && onChangeText(text)

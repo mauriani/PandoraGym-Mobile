@@ -103,7 +103,7 @@ export function WorkoutAll() {
                   onNavigate={handleNavigaDetails}
                 />
               )}
-              contentContainerStyle={{ gap: 12 }}
+              contentContainerStyle={{ gap: 12, paddingBottom: 80 }}
             />
           </>
         )}

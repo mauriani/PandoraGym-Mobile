@@ -71,10 +71,12 @@ export function Card({ item, onPress }: IProps) {
           ))}
 
           {/* Número de pontos */}
-          <Text className="text-white font-bold text-[12px] ml-2">
-            • {item.rating.toFixed(1)} pts{' '}
-            {/* Exibe o rating com 1 casa decimal */}
-          </Text>
+
+          {item.rating && (
+            <Text className="text-white font-bold text-[12px] ml-2">
+              • {item.rating.toFixed(1)} pts{' '}
+            </Text>
+          )}
         </View>
       </View>
     </TouchableOpacity>

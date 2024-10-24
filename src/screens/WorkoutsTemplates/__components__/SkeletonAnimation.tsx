@@ -11,7 +11,7 @@ export function SkeletonAnimation() {
 
   return (
     <MotiView
-      style={{ gap: 8, padding: 16 }}
+      style={{ flex: 1, gap: 8, padding: 16 }}
       animate={{
         backgroundColor: colorScheme ? '#000000' : '#ffffff',
       }}>
