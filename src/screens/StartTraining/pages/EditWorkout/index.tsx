@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Day } from '@_dtos_/trainingDTO'
 import { ButtonFab } from '@components/ButtonFab'
@@ -179,15 +180,17 @@ export function EditWorkout() {
           data={exercises}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{
-            paddingBottom: getBottomSpace() + 80,
+            paddingBottom: getBottomSpace() + 100,
             gap: 12,
           }}
           renderItem={({ item }) => (
-            <CardEditWorkout
-              item={item}
-              key={item.id}
-              openModal={() => handleOpenModal(item)}
-            />
+            <GestureHandlerRootView>
+              <CardEditWorkout
+                item={item}
+                key={item.id}
+                openModal={() => handleOpenModal(item)}
+              />
+            </GestureHandlerRootView>
           )}
         />
 

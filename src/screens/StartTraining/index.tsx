@@ -253,8 +253,6 @@ export function StartTraining() {
     }
   }, [data])
 
-  console.log('data', data)
-
   return (
     <Container>
       <HeaderGoBack

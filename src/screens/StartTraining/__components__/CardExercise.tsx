@@ -20,7 +20,7 @@ function CardExercise({
 }: IProps) {
   return (
     <TouchableOpacity
-      className="h-28 gap-4 bg-secondary flex-row rounded-[8px] p-2 items-center"
+      className="h-28 flex-row items-center gap-4 rounded-[8px] bg-secondary p-2"
       onPress={() => onSectedVideo(item, index)}>
       <Image
         className="h-full w-20 rounded-[6px]"
@@ -30,11 +30,11 @@ function CardExercise({
         alt=""
       />
 
-      <View className="flex-col justify-center gap-[4px] ml-3">
-        <Text className="text-white font-bold text-[14px]">
+      <View className="ml-3 flex-col justify-center gap-[4px]">
+        <Text className="text-[14px] font-bold text-white">
           {item.exerciseTitle}
         </Text>
-        <Text className="text-muted-foreground text-[14px]">
+        <Text className="text-[14px] text-muted-foreground">
           {item.sets} séries x {item.reps} repetições
         </Text>
       </View>

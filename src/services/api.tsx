@@ -3,8 +3,8 @@ import { AppError } from '@utils/AppError'
 import axios from 'axios'
 
 const api = axios.create({
-  // baseURL: 'https://pandoragym-api.vercel.app',
-  baseURL: 'http://localhost:3333',
+  baseURL: 'https://pandoragym-api.vercel.app',
+  // baseURL: 'http://localhost:3333',
 })
 
 api.interceptors.response.use(
