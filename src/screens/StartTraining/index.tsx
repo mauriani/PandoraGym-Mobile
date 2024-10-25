@@ -59,7 +59,7 @@ export function StartTraining() {
   const currentWorkout = getCurrentWorkoutStorage()
   const { openDialogAlert, closeDialog } = useOpenDialogAlert()
 
-  const { name, id, exclusive } = route.params as IRouteParams
+  const { name, id, exclusive, weekDays } = route.params as IRouteParams
 
   const { data, isFetching } = useQuery<StartExerciseDTO[]>({
     queryKey: ['get-training-for-workoutid', id],
@@ -222,9 +222,13 @@ export function StartTraining() {
           message: 'Você realmente deseja editar este treino ?',
           isButtonCancel: true,
           isButtonTitleConfirm: 'Sim, tenho certeza!',
-          onConfirm: () => {
-            onDeleteWorkout()
-          },
+          onConfirm: () =>
+            navigate('editWorkout', {
+              selectedItems: exercises,
+              title: name,
+              idWorkout: id,
+              weekDays,
+            }),
         })
       : toast.error('Somente o seu personal pode alterar este treino!')
   }
@@ -248,6 +252,8 @@ export function StartTraining() {
       }
     }
   }, [data])
+
+  console.log('data', data)
 
   return (
     <Container>
@@ -275,7 +281,7 @@ export function StartTraining() {
                     />
                   )}
 
-                  <View className="flex-row justify-between bg-accent py-5 px-3 mt-[10px] rounded-b-[6px]">
+                  <View className="mt-[10px] flex-row justify-between rounded-b-[6px] bg-accent px-3 py-5">
                     <Row>
                       <IconComponent iconName="Dumbbell" />
                       <SubTitle title={`${selectedVideo?.sets} séries`} />
@@ -292,7 +298,7 @@ export function StartTraining() {
                     </Row>
                   </View>
 
-                  <View className="flex-row justify-between items-center py-2 gap-4">
+                  <View className="flex-row items-center justify-between gap-4 py-2">
                     <ButtonWithIcon
                       title={'Editar Carga ?'}
                       iconName="Weight"
@@ -309,11 +315,11 @@ export function StartTraining() {
                 </View>
 
                 <View className="flex-row justify-between pb-2">
-                  <Text className="text-foreground text-[14px]">
+                  <Text className="text-[14px] text-foreground">
                     {selectedVideo?.exerciseTitle}
                   </Text>
 
-                  <Text className="text-muted-foreground text-[14px]">
+                  <Text className="text-[14px] text-muted-foreground">
                     Exercício {selectedVideo?.number} de {data?.length}
                   </Text>
                 </View>

@@ -13,7 +13,8 @@ import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
-import { ButtonFab } from './__components__/ButtonFab'
+import { ButtonFab } from '../../../../components/ButtonFab'
+
 import { EditorText } from './__components__/EditorText'
 import { Planos } from './_tabs_/Planos'
 import { Profile } from './_tabs_/Profile'
@@ -111,7 +112,12 @@ export function PersonalId() {
         </Tabs>
       </View>
 
-      {isPlanIdInData && <ButtonFab onSubmit={() => setIsModalOpen(true)} />}
+      {isPlanIdInData && (
+        <ButtonFab
+          onSubmit={() => setIsModalOpen(true)}
+          iconName="MessageCircleMore"
+        />
+      )}
 
       <ModalWithContent
         title="Adicionar Comentário"

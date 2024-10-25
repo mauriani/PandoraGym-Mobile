@@ -119,13 +119,13 @@ export function ConfigExercisesEdit({ item, onUpdateExercises }: IProps) {
         />
       </View>
 
-      <View className="flex-row gap-4 items-center mb-2 mt-2">
+      <View className="mb-2 mt-2 flex-row items-center gap-4">
         <Checkbox
           isChecked={isSelected}
           onPress={() => setIsSelected(!isSelected)}
         />
 
-        <Text className="text-foreground font-primary_bold text-base">
+        <Text className="font-primary_bold text-base text-foreground">
           Aplicar para todos os exercicios
         </Text>
       </View>

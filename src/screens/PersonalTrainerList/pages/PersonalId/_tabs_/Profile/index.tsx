@@ -60,7 +60,7 @@ export function Profile({ data, personalId, loading }: IProps) {
         <SkeletonAnimation />
       ) : (
         <>
-          <View className="flex-row gap-4 items-center">
+          <View className="flex-row items-center gap-4">
             <Image
               className="h-32 w-32 rounded-full"
               source={{
@@ -72,36 +72,36 @@ export function Profile({ data, personalId, loading }: IProps) {
             <View className="flex-col gap-2">
               <Heading title={data?.user?.name} />
 
-              <View className="flex-row gap-2 items-center">
+              <View className="flex-row items-center gap-2">
                 {data?.plan[0]?.price && (
                   <>
                     <CircleDollarSign
                       color={themes[colorScheme].primary}
                       size={20}
                     />
-                    <Text className="text-white primary_bold font-bold text-xs">
+                    <Text className="primary_bold text-xs font-bold text-white">
                       R$ {data?.plan[0]?.price} por hora/aula
                     </Text>
                   </>
                 )}
               </View>
 
-              <View className="flex-row gap-2 items-center">
+              <View className="flex-row items-center gap-2">
                 <Users color={themes[colorScheme].primary} size={20} />
 
-                <Text className="text-white primary_bold font-bold text-xs">
+                <Text className="primary_bold text-xs font-bold text-white">
                   {data?.student.length} alunos
                 </Text>
               </View>
 
-              <View className="flex-row gap-2 items-center">
+              <View className="flex-row items-center gap-2">
                 <Star
                   size={16}
                   color={themes[colorScheme].primary}
                   fill={themes[colorScheme].primary}
                 />
 
-                <Text className="text-white primary_bold font-bold text-xs">
+                <Text className="primary_bold text-xs font-bold text-white">
                   {data?.rating} (23 avaliações)
                 </Text>
               </View>
@@ -110,8 +110,8 @@ export function Profile({ data, personalId, loading }: IProps) {
 
           <TitleSection title="Sobre mim" />
 
-          <View className="bg-secondary rounded-[6px] px-2 py-2">
-            <Text className="text-foreground font-primary_regular text-md leading-6">
+          <View className="rounded-[6px] bg-secondary px-2 py-2">
+            <Text className="text-md font-primary_regular leading-6 text-foreground">
               {data?.description}
             </Text>
           </View>

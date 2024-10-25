@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary',
-        secondary: 'bg-secondary',
+        secondary: 'bg-muted-foreground',
         destructive: 'bg-destructive',
         ghost: 'bg-slate-700',
         link: 'text-primary underline-offset-4',
@@ -32,7 +32,7 @@ const buttonTextVariants = cva('text-base font-roboto font-bold text-center', {
   variants: {
     variant: {
       default: 'text-primary-foreground',
-      secondary: 'text-secondary-foreground',
+      secondary: 'text-muted',
       destructive: 'text-destructive-foreground',
       ghost: 'text-primary-foreground',
       link: 'text-primary-foreground underline',

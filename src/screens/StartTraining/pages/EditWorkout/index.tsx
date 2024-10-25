@@ -4,6 +4,7 @@ import { FlatList, Text, View } from 'react-native'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
 import { Day } from '@_dtos_/trainingDTO'
+import { ButtonFab } from '@components/ButtonFab'
 import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
 import { HeaderGoBack } from '@components/HeaderGoBack'
@@ -22,6 +23,7 @@ import { toast } from '@utils/toast-methods'
 import { daysOfWeek } from '@utils/weekDay'
 import zod from 'zod'
 
+import { AddExercise } from './__components__/AddExercise'
 import { CardEditWorkout } from './__components__/CardEditWorkout'
 import { ConfigExercisesEdit } from './__components__/ConfigExercisesEdit'
 
@@ -35,6 +37,7 @@ type IRouteParams = {
 const schema = zod.object({
   name: zod.string({ required_error: 'Campo obrigatório!' }).nullable(),
   week: zod.array(zod.string()),
+  search: zod.string().optional(),
 })
 
 export type zodSchema = zod.infer<typeof schema>
@@ -47,6 +50,7 @@ export function EditWorkout() {
     route.params as IRouteParams
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [exercises, setExercises] = useState<StartExerciseDTO[] | []>(
     selectedItems,
   )
@@ -67,6 +71,19 @@ export function EditWorkout() {
   function handleOpenModal(item: StartExerciseDTO) {
     setIsModalOpen(!isModalOpen)
     setexerciseConfig(item)
+  }
+
+  function updateExercises(newItems: StartExerciseDTO[]) {
+    const updatedItems = newItems.map((item) => ({
+      ...item,
+      load: item.load == null ? 20 : item.load,
+      restTimeBetweenSets:
+        typeof item.restTimeBetweenSets === 'string'
+          ? timeStringToSeconds(item.restTimeBetweenSets)
+          : item.restTimeBetweenSets,
+    }))
+
+    setExercises([...exercises, ...updatedItems])
   }
 
   function onUpdateExercises(id: string, data: IData, changeAll: boolean) {
@@ -103,8 +120,8 @@ export function EditWorkout() {
     setIsModalOpen(!isModalOpen)
   }
 
-  async function submit(data: zodSchema) {
-    const { name, week } = data
+  async function submit(form: zodSchema) {
+    const { name, week } = form
 
     try {
       await api
@@ -116,21 +133,17 @@ export function EditWorkout() {
         .then((response) => {
           if (response.status == 200) {
             toast.success(response.data.message)
-
             queryClient.invalidateQueries({
               queryKey: ['get-training-for-user'],
             })
-
             navigate('tabNavigator')
           }
         })
     } catch (error) {
       const isAppError = error instanceof AppError
-
       const title = isAppError
         ? error.message
         : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
-
       toast.error(title)
     }
   }
@@ -158,7 +171,7 @@ export function EditWorkout() {
           />
         </View>
 
-        <Text className="text-muted-foreground font-primary_regular text-base">
+        <Text className="font-primary_regular text-base text-muted-foreground">
           Clique no exercício para configura-lo.
         </Text>
 
@@ -177,7 +190,21 @@ export function EditWorkout() {
             />
           )}
         />
+
+        <ButtonFab onSubmit={() => setIsOpen(!isOpen)} iconName="PlusIcon" />
       </Form>
+
+      <ModalWithContent
+        isOpen={isOpen}
+        onClose={() => setIsOpen(!isOpen)}
+        title="Adicionar Exercício"
+        content={
+          <AddExercise
+            updateExercises={updateExercises}
+            onClose={() => setIsOpen(!isOpen)}
+          />
+        }
+      />
 
       <ModalWithContent
         isOpen={isModalOpen}
