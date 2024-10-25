@@ -82,9 +82,13 @@ export function SingUpFirstStep() {
   } = methods
 
   function submit(data: zodSchema) {
-    navigate('singUpSecondStep', {
-      data,
-    })
+    Keyboard.dismiss()
+
+    setTimeout(() => {
+      navigate('singUpSecondStep', {
+        data,
+      })
+    }, 200)
   }
 
   return (
