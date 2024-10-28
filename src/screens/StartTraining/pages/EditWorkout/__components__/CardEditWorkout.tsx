@@ -69,7 +69,7 @@ export function CardEditWorkout({ item, openModal }: IProps) {
 }
 
 const styles = StyleSheet.create({
-  rightAction: { width: 80, height: 112, backgroundColor: 'purple' },
+  rightAction: { width: 80, height: 112, backgroundColor: 'transparent' },
   separator: {
     width: '100%',
     borderTopWidth: 1,

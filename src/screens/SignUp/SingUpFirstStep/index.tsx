@@ -103,13 +103,13 @@ export function SingUpFirstStep() {
               <Bullet />
             </View>
 
-            <View className="flex-1 flex-col mt-3 gap-4">
+            <View className="mt-3 flex-1 flex-col gap-4">
               <Heading title="1. Dados Pessoais" />
 
               <ScrollView
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 80 }}
                 keyboardShouldPersistTaps="handled">
-                <View className="flex-1 flex-col mt-3 gap-4">
+                <View className="mt-3 flex-1 flex-col gap-4">
                   <InputFormControl
                     control={control}
                     name="name"
