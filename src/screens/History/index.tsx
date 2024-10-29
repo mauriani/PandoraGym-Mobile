@@ -47,10 +47,10 @@ export function History() {
           ) : (
             <>
               <View
-                className={`flex-row items-center justify-between ${data?.length !== 0 ? 'mt-8 mb-1 mr-2' : ''}`}>
+                className={`flex-row items-center justify-between ${data?.length !== 0 ? 'mb-1 mr-2 mt-8' : ''}`}>
                 <Heading title={data && data[0]?.workout?.name} />
 
-                <Text className="text-muted-foreground font-primary_regular text-base">
+                <Text className="font-primary_regular text-base text-muted-foreground">
                   {data?.length > 0 &&
                     secondsToHourMinute(data[0]?.timeTotalWorkout)}
                 </Text>

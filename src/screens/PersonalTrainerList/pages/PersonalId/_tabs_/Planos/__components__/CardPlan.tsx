@@ -89,21 +89,21 @@ export function CardPlan({ item, planId, refetch }: IProps) {
   }
 
   return (
-    <View className="gap-10 border border-input rounded-lg py-4 px-4">
+    <View className="gap-10 rounded-lg border border-input px-4 py-4">
       <View className="items-center gap-2 py-10">
-        <Text className="text-foreground primary_regular text-[16px]">
+        <Text className="primary_regular text-[16px] text-foreground">
           {item.name}
         </Text>
         <View className="flex-row items-baseline">
           <Text className="text-sm text-primary">R$</Text>
-          <Text className="text-foreground font-primary_bold text-[60px]">
+          <Text className="font-primary_bold text-[60px] text-foreground">
             {item.price}
           </Text>
-          <Text className="text-sm text-primary ml-1">/mes</Text>
+          <Text className="ml-1 text-sm text-primary">/mes</Text>
         </View>
       </View>
 
-      <View className="gap-4 justify-center">
+      <View className="justify-center gap-4">
         <Heading title="Recursos Básicos" />
         {item.description.map((benefit, index) => (
           <View key={index} className="flex-row items-center gap-2">

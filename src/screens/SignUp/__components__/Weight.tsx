@@ -43,7 +43,7 @@ export function Weight() {
               onPress={() => setSelectedWeight(weight)}>
               <Text
                 className={clsx(
-                  'text-2xl font-primary_bold',
+                  'font-primary_bold text-2xl',
                   isSelected ? 'text-primary' : 'text-muted',
                 )}>
                 {weight}

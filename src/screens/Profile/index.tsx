@@ -152,17 +152,17 @@ export function Profile() {
             </View>
 
             <View className="items-center justify-center gap-1">
-              <Text className="text-base text-primary font-primary_bold">
+              <Text className="font-primary_bold text-base text-primary">
                 {data?.name}
               </Text>
-              <Text className="text-muted-foreground font-primary_regular text-sm">
+              <Text className="font-primary_regular text-sm text-muted-foreground">
                 {data?.email}
               </Text>
             </View>
 
             {data?.planName && (
-              <TouchableOpacity className="py-2 w-44 rounded-full items-center bg-primary-foreground ">
-                <Text className="text-muted-foreground font-base">
+              <TouchableOpacity className="w-44 items-center rounded-full bg-primary-foreground py-2">
+                <Text className="font-base text-muted-foreground">
                   {data?.planName}
                 </Text>
               </TouchableOpacity>

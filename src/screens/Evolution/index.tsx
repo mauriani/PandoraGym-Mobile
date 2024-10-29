@@ -92,7 +92,7 @@ export function Evolution() {
         {isFetching ? (
           <SkeletonAnimation />
         ) : (
-          <View className="px-5 mt-10 gap-3 flex-1">
+          <View className="mt-10 flex-1 gap-3 px-5">
             {hasValueGreaterThanZero || data?.options?.length > 0 ? (
               <TrainingContent
                 currentMonth={currentMonth}
@@ -126,9 +126,9 @@ function TrainingContent({
 }) {
   return (
     <>
-      <Text className="text-foreground font-primary_regular text-base">
+      <Text className="font-primary_regular text-base text-foreground">
         Frequência de Treino -{' '}
-        <Text className="capitalize font-bold">{currentMonth}</Text>
+        <Text className="font-bold capitalize">{currentMonth}</Text>
       </Text>
 
       <BarChart
@@ -145,20 +145,20 @@ function TrainingContent({
       />
 
       <View className="items-center gap-1">
-        <View className="bg-secondary w-44 py-2 px-2">
+        <View className="w-44 bg-secondary px-2 py-2">
           <Legend data={data?.legend} />
         </View>
 
-        <Text className="text-muted-foreground font-primary_regular text-sm">
+        <Text className="font-primary_regular text-sm text-muted-foreground">
           * S-1, S-2, etc., representam as semanas do mês de {currentMonth}.
         </Text>
 
-        <Text className="text-muted-foreground font-primary_regular text-sm">
+        <Text className="font-primary_regular text-sm text-muted-foreground">
           Meta varia entre {data?.minDays} a {data?.maxDays} dias.
         </Text>
       </View>
 
-      <Text className="text-foreground font-primary_regular text-base font-bold">
+      <Text className="font-primary_regular text-base font-bold text-foreground">
         Evolução de Carga
       </Text>
 

@@ -16,9 +16,9 @@ export function ButtonProfile({ title, iconName, size, onPress }: IProps) {
 
   return (
     <TouchableOpacity
-      className="h-14 flex-row bg-secondary rounded-[8px] items-center p-2 relative"
+      className="relative h-14 flex-row items-center rounded-[8px] bg-secondary p-2"
       onPress={onPress}>
-      <Text className="text-muted-foreground font-base">{title}</Text>
+      <Text className="font-base text-muted-foreground">{title}</Text>
 
       <IconComponent
         iconName={iconName}

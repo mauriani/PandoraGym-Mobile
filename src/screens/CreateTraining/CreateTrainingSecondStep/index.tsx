@@ -88,7 +88,7 @@ export function CreateTrainingSecondStep() {
       <Form>
         <StepHeader title={title} current={2} />
 
-        <Text className="text-muted-foreground font-primary_regular text-base">
+        <Text className="font-primary_regular text-base text-muted-foreground">
           Clique no exercício para configura-lo.
         </Text>
 

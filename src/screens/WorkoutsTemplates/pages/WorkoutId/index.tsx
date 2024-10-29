@@ -128,7 +128,7 @@ export function WorkoutId() {
               </View>
             )}
 
-            <View className="flex-row mb-4 gap-3">
+            <View className="mb-4 flex-row gap-3">
               <ButtonWithIcon
                 title={`${secondsToHourMinute(data?.data?.totalDuration)}`}
                 iconName="Clock1"
@@ -155,7 +155,7 @@ export function WorkoutId() {
             <View className="gap-2">
               <Text
                 numberOfLines={2}
-                className="text-white font-primary_regular text-sm">
+                className="font-primary_regular text-sm text-white">
                 {data?.data?.description}
               </Text>
 

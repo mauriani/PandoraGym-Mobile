@@ -8,7 +8,7 @@ interface Props {
 export function Bullet({ active = false }: Props) {
   return (
     <View
-      className={`flex-1 h-2 rounded-full mx-1  ${
+      className={`mx-1 h-2 flex-1 rounded-full ${
         active ? 'bg-primary' : 'bg-muted'
       }`}
     />

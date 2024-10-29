@@ -10,7 +10,7 @@ export function HelpMe() {
       <HeaderGoBack title="Me ajuda?" />
 
       <Content>
-        <Text className="text-foreground text-base font-primary_bold mb-4">
+        <Text className="mb-4 font-primary_bold text-base text-foreground">
           Como podemos te <Text className="text-primary">ajudar</Text> hoje,
           Othavio ?
         </Text>

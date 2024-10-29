@@ -88,18 +88,18 @@ export function SignIn() {
             style={styles.backgroundImage}
             source={require('@assets/background.png')}
             resizeMode="cover">
-            <View className="flex-1 justify-between mt-5 px-5">
+            <View className="mt-5 flex-1 justify-between px-5">
               {/* Logo e Subtítulo */}
-              <View className="items-center mt-12">
+              <View className="mt-12 items-center">
                 <Image source={require('@assets/logo-so-nome.png')} alt="" />
-                <Text className="text-white text-center font-bold text-md mt-2">
+                <Text className="text-md mt-2 text-center font-bold text-white">
                   Treine sua mente e domine o seu corpo.
                 </Text>
               </View>
 
               {/* Formulário */}
               <View className="mt-11">
-                <Text className="text-white text-center font-bold text-lg mb-6">
+                <Text className="mb-6 text-center text-lg font-bold text-white">
                   Acesse sua conta
                 </Text>
 
@@ -133,7 +133,7 @@ export function SignIn() {
 
               {/* Footer */}
               <View className="mb-10">
-                <Text className="text-white text-base mb-3 text-center">
+                <Text className="mb-3 text-center text-base text-white">
                   Não possui conta?
                 </Text>
                 <Button
