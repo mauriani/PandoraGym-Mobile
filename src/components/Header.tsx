@@ -18,14 +18,14 @@ export function Header({ title }: IProps) {
   const { navigate } = useNavigation()
   return (
     <View
-      className=" h-32 bg-secondary justify-end px-8 py-6"
+      className="h-32 justify-end bg-secondary px-8 py-6"
       style={styles.header}>
-      <View className="flex-row  justify-between items-center">
+      <View className="flex-row items-center justify-between">
         <View className="h-9 w-9" />
 
         <Text
           numberOfLines={1}
-          className="text-white font-primary_bold text-lg">
+          className="font-primary_bold text-lg text-white">
           {title}
         </Text>
 
