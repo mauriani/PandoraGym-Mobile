@@ -6,7 +6,7 @@ import { themes } from '@theme/themes'
 export function Loading() {
   const { colorScheme } = useContext(ThemeContext)
   return (
-    <View className="flex-1 justify-center items-center bg-background">
+    <View className="flex-1 items-center justify-center bg-background">
       <ActivityIndicator size={'large'} color={themes[colorScheme].primary} />
     </View>
   )

@@ -35,14 +35,14 @@ export function CardWorkouts({ training, onNavigate, isFullWidth }: IProps) {
         />
         <View
           className={`${isFullWidth ? 'h-60' : 'h-44'} justify-between p-4`}>
-          <View className="bg-black rounded-[6px] py-2 px-2 self-start">
-            <Text className="text-foreground font-primary_bold text-sm">
+          <View className="self-start rounded-[6px] bg-black px-2 py-2">
+            <Text className="font-primary_bold text-sm text-foreground">
               {training.level}
             </Text>
           </View>
           <Text
             numberOfLines={2}
-            className="text-foreground font-primary_bold text-sm">
+            className="font-primary_bold text-sm text-foreground">
             {training.name}
           </Text>
         </View>

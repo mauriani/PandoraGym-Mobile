@@ -18,8 +18,8 @@ export function SkeletonAnimation() {
       {Array.from({ length: 3 }).map((_, index) => (
         <View key={index} className="gap-3">
           {/* CardTop */}
-          <View className="flex-row gap-3 items-center justify-between">
-            <View className="flex-row gap-3 items-center">
+          <View className="flex-row items-center justify-between gap-3">
+            <View className="flex-row items-center gap-3">
               <Skeleton width={40} height={40} radius="round" />
               <Skeleton width={100} height={16} />
             </View>

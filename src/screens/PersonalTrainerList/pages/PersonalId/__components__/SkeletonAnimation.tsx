@@ -15,7 +15,7 @@ export function SkeletonAnimation() {
       animate={{
         backgroundColor: colorScheme ? '#000000' : '#ffffff',
       }}>
-      <View className="flex-row gap-4 items-center">
+      <View className="flex-row items-center gap-4">
         <View>
           <Skeleton radius="round" width={128} height={128} />
         </View>

@@ -10,7 +10,7 @@ type IProps = {
 
 export function MyTrainingHistoryCard({ item }: IProps) {
   return (
-    <View className="min-h-32 flex-row gap-4 bg-secondary rounded-[8px] items-center p-2 relative">
+    <View className="relative min-h-32 flex-row items-center gap-4 rounded-[8px] bg-secondary p-2">
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{
@@ -19,18 +19,18 @@ export function MyTrainingHistoryCard({ item }: IProps) {
         alt=""
       />
 
-      <View className="flex-col justify-center gap-1 ml-3">
+      <View className="ml-3 flex-col justify-center gap-1">
         <Text
-          className="text-white font-primary_bold text-base"
+          className="font-primary_bold text-base text-white"
           numberOfLines={1}
           ellipsizeMode="tail">
           {item.exerciseTitle}
         </Text>
-        <Text className="text-muted-foreground text-sm">
+        <Text className="text-sm text-muted-foreground">
           {item.sets} séries x {item.reps} repetições
         </Text>
 
-        <View className="flex-row gap-2 mt-2">
+        <View className="mt-2 flex-row gap-2">
           <ContentDetails
             value={`${formatTime(item.restTime)}min`}
             label={'Tempo de Descanso'}

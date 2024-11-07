@@ -31,18 +31,18 @@ export default function TimerWithSound({ initialSeconds }: IProps) {
   }
 
   return (
-    <View className="flex flex-row  items-center justify-center mt-3 mb-3 relative">
+    <View className="relative mb-3 mt-3 flex flex-row items-center justify-center">
       {isRunning ? (
         ''
       ) : (
         <TouchableOpacity
           onPress={startTimer}
-          className="flex-row items-center justify-center bg-neutral-700 rounded-[6px] px-5 py-2">
+          className="flex-row items-center justify-center rounded-[6px] bg-neutral-700 px-5 py-2">
           <IconComponent
             iconName="Timer"
             style={{ position: 'absolute', left: 5 }}
           />
-          <Text className="text-white text-lg font-bold ml-4">
+          <Text className="ml-4 text-lg font-bold text-white">
             {isRunning ? 'Contando...' : 'Descanso'}
           </Text>
         </TouchableOpacity>
@@ -61,7 +61,7 @@ export default function TimerWithSound({ initialSeconds }: IProps) {
             setIsRunning(false)
           }}>
           {({ remainingTime }) => (
-            <Text className="text-white text-[12px] font-bold">
+            <Text className="text-[12px] font-bold text-white">
               {formatTime(remainingTime)}
             </Text>
           )}

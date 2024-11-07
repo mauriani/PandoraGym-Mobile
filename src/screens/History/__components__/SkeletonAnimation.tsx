@@ -15,7 +15,7 @@ export function SkeletonAnimation() {
       animate={{
         backgroundColor: colorScheme ? '#000000' : '#ffffff',
       }}>
-      <View className="flex-row items-center justify-between mt-8 mb-1 mr-2">
+      <View className="mb-1 mr-2 mt-8 flex-row items-center justify-between">
         <Skeleton width={'60%'} height={20} />
         <Skeleton width={'70%'} height={16} />
       </View>

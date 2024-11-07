@@ -67,7 +67,7 @@ export function MultiSelect({
                 }}
                 renderButton={(selectedItem, isOpen) => (
                   <View
-                    className={`w-full h-14 border border-input rounded-lg flex-row justify-center items-center px-3 bg-black`}>
+                    className={`h-14 w-full flex-row items-center justify-center rounded-lg border border-input bg-black px-3`}>
                     <Text className={`flex-1 text-white`}>
                       {selectedItems.length > 0
                         ? selectedItems
@@ -87,7 +87,7 @@ export function MultiSelect({
                 )}
                 renderItem={(item) => (
                   <View
-                    className={`w-full border border-input flex-row px-3 py-4 ${selectedItems.includes(item.value) ? 'bg-secondary' : 'bg-background'}`}>
+                    className={`w-full flex-row border border-input px-3 py-4 ${selectedItems.includes(item.value) ? 'bg-secondary' : 'bg-background'}`}>
                     <Text className={`flex-1 text-foreground`}>
                       {item.label}
                     </Text>
@@ -111,7 +111,7 @@ export function MultiSelect({
       />
 
       {error?.message && (
-        <Text className="text-red-500 mt-2">{error.message}</Text>
+        <Text className="mt-2 text-red-500">{error.message}</Text>
       )}
     </>
   )

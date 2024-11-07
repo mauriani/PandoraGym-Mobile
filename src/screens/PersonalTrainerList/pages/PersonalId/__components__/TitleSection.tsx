@@ -6,7 +6,7 @@ type IProps = {
 
 export function TitleSection({ title }: IProps) {
   return (
-    <Text className="text-muted-foreground primary_regular text-[14px]">
+    <Text className="primary_regular text-[14px] text-muted-foreground">
       {title}
     </Text>
   )

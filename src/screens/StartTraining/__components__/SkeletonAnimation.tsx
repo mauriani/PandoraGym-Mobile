@@ -16,7 +16,7 @@ export function SkeletonAnimation() {
       <Skeleton width={'100%'} height={200} radius={6} />
       <Skeleton width={'100%'} height={50} radius={6} />
 
-      <View className="flex-row justify-between items-center py-2 gap-4">
+      <View className="flex-row items-center justify-between gap-4 py-2">
         <Skeleton width={'60%'} height={40} radius={6} />
         <Skeleton width={'60%'} height={40} radius={6} />
       </View>

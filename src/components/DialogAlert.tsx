@@ -26,11 +26,11 @@ export function DialogAlert({
       transparent
       statusBarTranslucent>
       <View className="flex-1 items-center justify-center bg-black/60">
-        <View className="w-80 bg-secondary dark:bg-gray-800 rounded-lg p-5 gap-2">
+        <View className="w-80 gap-2 rounded-lg bg-secondary p-5 dark:bg-gray-800">
           <Text className="text-lg font-bold text-foreground">{title}</Text>
-          <Text className="text-base text-foreground mb-2">{message}</Text>
+          <Text className="mb-2 text-base text-foreground">{message}</Text>
 
-          <View className="flex-row justify-end gap-2 mt-auto">
+          <View className="mt-auto flex-row justify-end gap-2">
             {isButtonCancel && (
               <TouchableOpacity
                 className="items-center justify-center rounded-lg border border-red-400 bg-transparent px-4 py-2"

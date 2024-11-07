@@ -10,8 +10,8 @@ export function ButtonCategories({ active, label }: IProps) {
   return (
     <TouchableOpacity
       className={clsx(
-        'px-4 py-4 rounded-[6px] justify-center items-center',
-        active ? 'bg-purple-800' : 'bg-black border border-muted',
+        'items-center justify-center rounded-[6px] px-4 py-4',
+        active ? 'bg-purple-800' : 'border border-muted bg-black',
       )}>
       <Text
         className={clsx(

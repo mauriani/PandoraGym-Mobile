@@ -17,17 +17,17 @@ export function ButtonWithIcon({
   onPress,
 }: IProps) {
   return (
-    <View className="flex items-center justify-center mt-3 mb-3 relative">
+    <View className="relative mb-3 mt-3 flex items-center justify-center">
       <TouchableOpacity
         onPress={onPress}
-        className="flex-row items-center justify-center bg-neutral-700 rounded-[6px] px-5 py-2">
+        className="flex-row items-center justify-center rounded-[6px] bg-neutral-700 px-5 py-2">
         <IconComponent
           iconName={iconName}
           style={{ position: 'absolute', left: 5 }}
           color={color}
           size={size}
         />
-        <Text className="text-white font-primary_bold text-lg ml-4">
+        <Text className="ml-4 font-primary_bold text-lg text-white">
           {title}
         </Text>
       </TouchableOpacity>

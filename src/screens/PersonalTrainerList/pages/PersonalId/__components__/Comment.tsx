@@ -25,8 +25,8 @@ export function Comment({ item }: IProps) {
       [],
     )
   return (
-    <View className="bg-secondary rounded-[6px] px-2 py-2 gap-2">
-      <View className="flex-row gap-2 items-center">
+    <View className="gap-2 rounded-[6px] bg-secondary px-2 py-2">
+      <View className="flex-row items-center gap-2">
         <Image
           className="h-10 w-10 rounded-full"
           source={{
@@ -36,10 +36,10 @@ export function Comment({ item }: IProps) {
         />
 
         <View>
-          <Text className="text-foreground text-base font-primary_bold ">
+          <Text className="font-primary_bold text-base text-foreground">
             {item.name}
           </Text>
-          <Text className="text-muted-foreground text-sm">
+          <Text className="text-sm text-muted-foreground">
             {item.createdAt}
           </Text>
         </View>

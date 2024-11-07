@@ -8,8 +8,8 @@ type IProps = {
 
 export function CardTop({ personalName, image, onNavigate }: IProps) {
   return (
-    <View className="flex-row gap-3 items-center justify-between">
-      <View className="flex-row gap-3 items-center">
+    <View className="flex-row items-center justify-between gap-3">
+      <View className="flex-row items-center gap-3">
         {image && (
           <Image
             className="h-10 w-10 rounded-full"
@@ -20,12 +20,12 @@ export function CardTop({ personalName, image, onNavigate }: IProps) {
           />
         )}
 
-        <Text className="text-white py-5 font-primary_bold text-base">
+        <Text className="py-5 font-primary_bold text-base text-white">
           {personalName}
         </Text>
       </View>
       <TouchableOpacity onPress={onNavigate}>
-        <Text className="text-primary py-5 font-primary_bold text-base">
+        <Text className="py-5 font-primary_bold text-base text-primary">
           Ver Todos
         </Text>
       </TouchableOpacity>

@@ -7,10 +7,10 @@ type IProps = {
 
 export function ContentDetails({ label, value }: IProps) {
   return (
-    <TouchableOpacity className="flex-row justify-center items-center gap-1 min-h-8 px-1 py-1 rounded-sm bg-muted">
-      <View className="flex-col ">
-        <Text className="text-primary text-sm font-primary_bold">{value}</Text>
-        <Text className="text-primary font-bold text-[10px]">{label}</Text>
+    <TouchableOpacity className="min-h-8 flex-row items-center justify-center gap-1 rounded-sm bg-muted px-1 py-1">
+      <View className="flex-col">
+        <Text className="font-primary_bold text-sm text-primary">{value}</Text>
+        <Text className="text-[10px] font-bold text-primary">{label}</Text>
       </View>
     </TouchableOpacity>
   )

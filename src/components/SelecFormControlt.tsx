@@ -53,7 +53,7 @@ export function SelecFormControlt({
                   renderButton={(selectedItem, isOpen) => {
                     return (
                       <View
-                        className={`w-full h-12 border border-input rounded-lg flex-row justify-center items-center px-3`}>
+                        className={`h-12 w-full flex-row items-center justify-center rounded-lg border border-input px-3`}>
                         <Text className={`flex-1 text-white`}>
                           {(selectedItem?.value === value &&
                             selectedItem.label) ||
@@ -69,7 +69,7 @@ export function SelecFormControlt({
                   renderItem={(item, index, isSelected) => {
                     return (
                       <View
-                        className={`w-full border border-input flex-row px-3 py-4 ${isSelected ? 'bg-secondary' : 'bg-background'}`}>
+                        className={`w-full flex-row border border-input px-3 py-4 ${isSelected ? 'bg-secondary' : 'bg-background'}`}>
                         <Text className={`flex-1 text-foreground`}>
                           {item.label}
                         </Text>
@@ -88,7 +88,7 @@ export function SelecFormControlt({
         />
       </>
       {error?.message && (
-        <Text className="text-red-500 mt-2">{error.message}</Text>
+        <Text className="mt-2 text-red-500">{error.message}</Text>
       )}
     </>
   )
