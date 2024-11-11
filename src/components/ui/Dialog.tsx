@@ -42,12 +42,12 @@ function DialogContent({
       visible={open}
       onRequestClose={() => setOpen(false)}>
       <TouchableOpacity
-        className="w-full h-full"
+        className="h-full w-full"
         onPress={() => setOpen(false)}>
-        <View className="flex flex-1 justify-center items-center bg-black/75">
+        <View className="flex flex-1 items-center justify-center bg-black/75">
           <TouchableOpacity
             className={cn(
-              'border border-border bg-background rounded-lg p-6 shadow-lg',
+              'rounded-lg border border-border bg-background p-6 shadow-lg',
               className,
             )}
             activeOpacity={1}>

@@ -36,7 +36,7 @@ const TextAreaFormControl = forwardRef<
     return (
       <View className={cn('flex flex-col gap-1', className)}>
         {placeholder && (
-          <Text className="text-muted-foreground font-primary_regular pb-1">
+          <Text className="pb-1 font-primary_regular text-muted-foreground">
             {placeholder}
           </Text>
         )}
@@ -57,7 +57,7 @@ const TextAreaFormControl = forwardRef<
                 }}
                 className={cn(
                   inputClasses,
-                  'border border-input py-4 px-4 min-h-40 rounded-lg text-white text-sm bg-black', // Fundo preto, texto branco
+                  'min-h-40 rounded-lg border border-input bg-black px-4 py-4 text-sm text-white', // Fundo preto, texto branco
                 )}
                 {...props}
               />
@@ -66,7 +66,7 @@ const TextAreaFormControl = forwardRef<
         />
 
         {error?.message != undefined && (
-          <Text className="text-[12px] text-red-400 font-primary_medium mt-2 pl-1">
+          <Text className="mt-2 pl-1 font-primary_medium text-[12px] text-red-400">
             {error?.message}
           </Text>
         )}

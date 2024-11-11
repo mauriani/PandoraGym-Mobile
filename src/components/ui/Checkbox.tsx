@@ -31,13 +31,13 @@ function Checkbox({
       <TouchableOpacity onPress={onPress}>
         <View
           className={cn(
-            'w-7 h-7 border border-gray-700 rounded bg-background flex justify-center items-center',
+            'flex h-7 w-7 items-center justify-center rounded border border-gray-700 bg-background',
             {
               'bg-primary': isChecked,
             },
             checkboxClasses,
           )}>
-          {isChecked && <Text className="text-background text-xs">✓</Text>}
+          {isChecked && <Text className="text-xs text-background">✓</Text>}
         </View>
       </TouchableOpacity>
       {label && (

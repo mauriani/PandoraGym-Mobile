@@ -47,7 +47,7 @@ export function InputWithButton({
   }
 
   return (
-    <View className="flex-row w-[100%] mb-5">
+    <View className="mb-5 w-[100%] flex-row">
       <InputFormControl
         control={control}
         name="name"
@@ -61,7 +61,7 @@ export function InputWithButton({
       />
 
       <TouchableOpacity
-        className="rounded-[6px] bg-primary w-16 h-16 justify-center items-center ml-2"
+        className="ml-2 h-16 w-16 items-center justify-center rounded-[6px] bg-primary"
         onPress={handleSubmit(submit)}>
         <IconComponent
           iconName={iconName}

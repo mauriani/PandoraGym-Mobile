@@ -35,7 +35,7 @@ export function ModalWithContent({ isOpen, onClose, title, content }: IProps) {
         <View style={styles.container}>
           <View
             style={styles.content}
-            className="bg-secondary px-4 py-2 rounded-[6px]">
+            className="rounded-[6px] bg-secondary px-4 py-2">
             <TouchableOpacity onPress={onClose}>
               <X
                 size={25}
@@ -44,9 +44,9 @@ export function ModalWithContent({ isOpen, onClose, title, content }: IProps) {
               />
             </TouchableOpacity>
 
-            <View className="gap-1 mb-3 pl-1">
+            <View className="mb-3 gap-1 pl-1">
               {title && (
-                <Text className="text-foreground font-primary_regular text-lg font-bold">
+                <Text className="font-primary_regular text-lg font-bold text-foreground">
                   {title}
                 </Text>
               )}

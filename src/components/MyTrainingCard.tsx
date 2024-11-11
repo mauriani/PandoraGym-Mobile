@@ -16,7 +16,7 @@ export function MyTrainingCard({ item, onAccessTraining }: IProps) {
   return (
     <TouchableOpacity
       onPress={() => onAccessTraining(item.id, item.name)}
-      className="h-28 flex-row bg-secondary rounded-[8px] items-center p-2 relative">
+      className="relative h-28 flex-row items-center rounded-[8px] bg-secondary p-2">
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{
@@ -25,21 +25,21 @@ export function MyTrainingCard({ item, onAccessTraining }: IProps) {
         alt=""
       />
 
-      <View className="flex-1 flex-col justify-center gap-1 ml-3 pr-8">
+      <View className="ml-3 flex-1 flex-col justify-center gap-1 pr-8">
         {/* Ajustado pr e flex-1 */}
-        <Text className="text-white font-primary_bold text-base">
+        <Text className="font-primary_bold text-base text-white">
           {item.name}
         </Text>
 
         {item.exclusive && item.personalId != null && (
-          <Text className="text-muted-foreground font-primary_regular text-sm">
+          <Text className="font-primary_regular text-sm text-muted-foreground">
             Criado por <Text className="font-bold">{item.personalName}</Text>
           </Text>
         )}
 
         <Text
           numberOfLines={2}
-          className="text-muted-foreground font-primary_regular text-sm">
+          className="font-primary_regular text-sm text-muted-foreground">
           {item.weekDays.join(', ')}
         </Text>
       </View>

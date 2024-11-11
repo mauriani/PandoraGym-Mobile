@@ -43,7 +43,7 @@ const InputMaskControl = forwardRef<
     return (
       <View className={cn('flex flex-col gap-1', className)}>
         {placeholder && (
-          <Text className="text-muted-foreground font-primary_regular pb-1">
+          <Text className="pb-1 font-primary_regular text-muted-foreground">
             {placeholder}
           </Text>
         )}
@@ -200,7 +200,7 @@ const InputMaskControl = forwardRef<
         />
 
         {error?.message && (
-          <Text className="text-[12px] text-red-400 font-primary_medium mt-2 pl-1">
+          <Text className="mt-2 pl-1 font-primary_medium text-[12px] text-red-400">
             {error?.message}
           </Text>
         )}

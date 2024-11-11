@@ -17,7 +17,7 @@ export function NoContent({ message }: IProps) {
 
       <Text
         numberOfLines={2}
-        className="text-foreground font-primary_bold text-lg text-center">
+        className="text-center font-primary_bold text-lg text-foreground">
         {message}
       </Text>
     </View>

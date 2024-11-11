@@ -27,23 +27,23 @@ const IconDropDown: React.FC<IconDropDownProps> = ({ items }) => {
   return (
     <DropDown>
       <DropDownTrigger>
-        <TouchableOpacity className="w-14 h-14 justify-center items-center bg-muted rounded-full">
+        <TouchableOpacity className="h-14 w-14 items-center justify-center rounded-full bg-muted">
           <IconComponent iconName="Ellipsis" />
         </TouchableOpacity>
       </DropDownTrigger>
 
-      <DropDownContent className="absolute z-[1000] top-[45px] right-0 bg-background w-56">
+      <DropDownContent className="absolute right-0 top-[45px] z-[1000] w-56 bg-background">
         {items.map((item, index) => (
           <React.Fragment key={index}>
             <DropDownItem>
               <TouchableOpacity
-                className="flex flex-row gap-2 items-center"
+                className="flex flex-row items-center gap-2"
                 onPress={item.onPress}>
                 <IconComponent
                   iconName={item.iconName}
                   color={themes[colorScheme].foreground}
                 />
-                <Text className="text-white text-xl">{item.label}</Text>
+                <Text className="text-xl text-white">{item.label}</Text>
               </TouchableOpacity>
             </DropDownItem>
             {index < items.length - 1 && <DropDownItemSeparator />}

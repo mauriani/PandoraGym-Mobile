@@ -60,7 +60,7 @@ AvatarFallback.displayName = 'AvatarFallback'
 const AvatarEditButton = ({ onEditPress }) => (
   <TouchableOpacity
     onPress={onEditPress}
-    className="h-11 w-11 absolute rounded-full items-center justify-center bottom-2 right-[-5px] bg-primary">
+    className="absolute bottom-2 right-[-5px] h-11 w-11 items-center justify-center rounded-full bg-primary">
     <IconComponent iconName="Camera" size={24} color={'#4d2609'} />
   </TouchableOpacity>
 )

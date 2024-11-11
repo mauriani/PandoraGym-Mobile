@@ -22,22 +22,22 @@ export function HeaderGoBackModal({ title, onGoBack }: IProps) {
   return (
     <View
       className={
-        'bg-background h-32 flex-row items-center  justify-between px-7 py-5 z-[1000]'
+        'z-[1000] h-32 flex-row items-center justify-between bg-background px-7 py-5'
       }
       style={styles.header}>
       <TouchableOpacity
-        className="w-14 h-14 justify-center items-center  rounded-full"
+        className="h-14 w-14 items-center justify-center rounded-full"
         onPress={onGoBack}>
         <ArrowLeft size={24} color={themes[colorScheme].primary} />
       </TouchableOpacity>
 
       <Text
         numberOfLines={1}
-        className="text-white text-center font-primary_bold text-lg flex-1">
+        className="flex-1 text-center font-primary_bold text-lg text-white">
         {title}
       </Text>
 
-      <View className="w-14 h-14" />
+      <View className="h-14 w-14" />
     </View>
   )
 }

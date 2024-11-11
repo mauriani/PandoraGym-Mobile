@@ -54,7 +54,7 @@ function TabsTrigger({
 
   return (
     <TouchableOpacity
-      className={cn('px-8 py-3 rounded-md w-1/2 bg-muted', {
+      className={cn('w-1/2 rounded-md bg-muted px-8 py-3', {
         'bg-foreground': activeTab === value,
         className,
       })}
@@ -62,7 +62,7 @@ function TabsTrigger({
       {...props}>
       <Text
         className={cn(
-          'font-medium text-center text-muted-foreground',
+          'text-center font-medium text-muted-foreground',
           { 'text-background': activeTab === value },
           textClasses,
         )}>
