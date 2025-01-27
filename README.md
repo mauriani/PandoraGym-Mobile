@@ -45,9 +45,8 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
 - **Navegação**: React Navigation  
 - **Gerenciamento de Estado**: Context API e React Query  
 - **Estilização**: NativeWind e TailwindCSS  
-- **Notificações**: OneSignal  
 - **Gráficos**: Victory Native  
-- **Armazenamento Local**: AsyncStorage  
+- **Armazenamento Local**: Mmkv  
 
 ### 🌐 PandoraGym API  
 - **Linguagem**: JavaScript (Node.js)  
