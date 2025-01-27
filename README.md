@@ -198,7 +198,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## ✨ Contato  
 
-Para dúvidas ou sugestões, entre em contato pelo e-mail: **seuemail@exemplo.com**  
+Para dúvidas ou sugestões, entre em contato pelo e-mail: **maurianim@gmail.com**  
 ```
 
 ### O que foi adicionado:  
