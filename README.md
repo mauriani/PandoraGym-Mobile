@@ -159,19 +159,6 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
 
 ## Authors
 <table>
-<td align="center">
-            <p>
-                <a href="#">
-                    <img style="border-radius: 50%" src="https://avatars.githubusercontent.com/u/82664638?v=4" width="100px;" alt="Lucas Magnago"/>
-                    <br />
-                    <sub><b>Lucas Magnago</b></sub></a><a href="#" title="Lucas Magnago">
-                </a>
-                <br/>
-
-
-[![Github Badge](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white&link=https://github.com/LucasMagnago)](https://github.com/LucasMagnago)
-        </p>
-    </td>
     <td align="center">
         <p>
             <a href="#">
