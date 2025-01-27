@@ -63,7 +63,7 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
 - **Linguagem**: TypeScript  
 - **Framework**: React.js  
 - **Gerenciamento de Estado**: React Query  
-- **Estilização**: Styled-components ou TailwindCSS  
+- **Estilização**: TailwindCSS  
 - **Integração com API**: Comunicação direta com a PandoraGym API para funcionalidades em tempo real.  
 
 ---
