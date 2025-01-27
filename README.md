@@ -105,7 +105,7 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
    Crie um arquivo `.env` com as chaves para o banco de dados PostgreSQL e outros serviços (exemplo no `.env.example`).  
 4. Gere as migrações com o Prisma:  
    ```bash  
-   npx prisma migrate dev  
+   npx db:migrate && npx seed
    ```  
 5. Inicie o servidor:  
    ```bash  
