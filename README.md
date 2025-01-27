@@ -199,10 +199,3 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 Para dúvidas ou sugestões, entre em contato pelo e-mail: **maurianim@gmail.com**  
 ```
-
-### O que foi adicionado:  
-- Detalhamento sobre a versão **web** do PandoraGym.  
-- Como executar o projeto web.  
-- Créditos ao **OthavioBF** pelo desenvolvimento do backend e da versão web.  
-
-Se precisar de mais alterações ou aprimoramentos, é só avisar!
