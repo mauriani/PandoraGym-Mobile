@@ -151,7 +151,8 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
 
 ## 👥 Contribuidores  
 
-- **Frontend Mobile**: [Mauriani](https://github.com/mauriani)  
+- **Frontend Mobile**: [Mauriani](https://github.com/mauriani)
+- **Frontend Web**: [OthavioBF](https://github.com/OthavioBF)
 - **Backend API e Web**: [OthavioBF](https://github.com/OthavioBF)  - [Mauriani](https://github.com/mauriani) 
 
 ---
