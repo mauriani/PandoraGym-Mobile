@@ -72,8 +72,8 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
 ### 📱 PandoraGym Mobile  
 1. Clone o repositório:  
    ```bash  
-   git clone https://github.com/mauriani/PandoraGym.git  
-   cd PandoraGym  
+   git clone https://github.com/mauriani/PandoraGym-Mobile.git  
+   cd PandoraGym-Mobile  
    ```  
 2. Instale as dependências:  
    ```bash  
