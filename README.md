@@ -168,12 +168,12 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
             </a>
             <br/>
 
-[![Linkedin Badge](https://img.shields.io/badge/-Mauriani-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/maurianimaciel/)](https://www.linkedin.com/in/maurianimaciel/) 
-[![Github Badge](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white&link=https://github.com/mauriani)](https://github.com/mauriani)
+            [![Linkedin Badge](https://img.shields.io/badge/-Mauriani-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/maurianimaciel/)](https://www.linkedin.com/in/maurianimaciel/) 
+            [![Github Badge](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white&link=https://github.com/mauriani)](https://github.com/mauriani)
         </p>
     </td>
-	        &nbsp;&nbsp; 
-        <td align="center">
+    &nbsp;&nbsp; 
+    <td align="center">
         <p>
             <a href="#">
                  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/59673868?v=4" width="100px;" alt="Othavio Augusto"/>
@@ -181,6 +181,11 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
                  <sub><b>Othavio Augusto</b></sub></a><a href="#" title="Othavio Augusto">
             </a>
         <br />
+        <!-- Adicionando Github e LinkedIn de Othavio -->
+        [![Linkedin Badge](https://img.shields.io/badge/-Othavio%20Augusto-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/othavioaugusto/)](https://www.linkedin.com/in/othavioaugusto/) 
+        [![Github Badge](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white&link=https://github.com/othavioaugusto)](https://github.com/othavioaugusto)
+        </p>
+    </td>
 </table>
 
 
