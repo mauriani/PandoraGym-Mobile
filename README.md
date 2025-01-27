@@ -1,7 +1,3 @@
-Segue a versão atualizada do README, com os créditos ao **Othavio** e a menção de que o projeto faz parte do Trabalho de Conclusão de Curso (TCC):  
-
----
-
 # PandoraGym: Sistema Completo para Gerenciamento de Academias  
 
 O **PandoraGym** é uma solução integrada desenvolvida como parte do nosso **Trabalho de Conclusão de Curso (TCC)**, com o objetivo de facilitar a gestão de academias, oferecendo ferramentas tanto para alunos quanto para personal trainers.  
