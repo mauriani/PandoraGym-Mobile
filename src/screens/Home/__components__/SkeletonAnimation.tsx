@@ -46,7 +46,7 @@ const AnimatedSkeleton = ({ width, height }) => {
 export function SkeletonAnimation() {
   const { colorScheme } = useContext(ThemeContext)
 
-  const backgroundColor = colorScheme ? '#000000' : '#ffffff'
+  const backgroundColor = colorScheme && themes[colorScheme].background
 
   return (
     <View className="flex-1 gap-3" style={{ backgroundColor }}>
@@ -58,7 +58,7 @@ export function SkeletonAnimation() {
 
       <View style={{ gap: 10 }}>
         {Array.from({ length: 5 }).map((_, index) => (
-          <View key={index} className="flex-row gap-4 items-center">
+          <View key={index} className="flex-row items-center gap-4">
             <View className="h-28">
               <AnimatedSkeleton width={128} height={80} />
             </View>

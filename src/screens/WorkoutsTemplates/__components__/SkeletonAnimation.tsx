@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { View } from 'react-native'
 import { ThemeContext } from '@theme/theme-provider'
+import { themes } from '@theme/themes'
 import { MotiView } from 'moti'
 import { Skeleton } from 'moti/build/skeleton/native'
 
@@ -9,11 +10,13 @@ import { Skeleton } from 'moti/build/skeleton/native'
 export function SkeletonAnimation() {
   const { colorScheme } = useContext(ThemeContext)
 
+  const backgroundColor = colorScheme && themes[colorScheme].background
+
   return (
     <MotiView
       style={{ flex: 1, gap: 8, padding: 16 }}
       animate={{
-        backgroundColor: colorScheme ? '#000000' : '#ffffff',
+        backgroundColor,
       }}>
       {Array.from({ length: 3 }).map((_, index) => (
         <View key={index} className="gap-3">

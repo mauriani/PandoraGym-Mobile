@@ -82,11 +82,13 @@ export function StartTraining() {
     setSelectedVideo(newItem)
     setPlaying(!playing)
 
-    onSetCurrentWorkoutUpdate({
-      id,
-      name,
-      exercise: newItem,
-    })
+    if (item.workoutId == currentWorkout?.id) {
+      onSetCurrentWorkoutUpdate({
+        id,
+        name,
+        exercise: newItem,
+      })
+    }
   }
 
   const toggleSelectItem = (selectedItem: StartExerciseDTO) => {

@@ -61,6 +61,7 @@ export function Evolution() {
         legend,
       }
     },
+    staleTime: 0,
   })
 
   async function onGetEvolutionWeight(id) {

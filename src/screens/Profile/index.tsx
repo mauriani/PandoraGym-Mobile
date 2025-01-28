@@ -120,7 +120,7 @@ export function Profile() {
         ? error.message
         : 'Ocorreu um erro ao buscar os treinos. Tente novamente mais tarde'
 
-      toast.error(title)
+      if (title) toast.error(title)
     }
   }, [error])
 
