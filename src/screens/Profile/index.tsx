@@ -51,7 +51,7 @@ export function Profile() {
   }
 
   const { data, error, isFetching, refetch } = useQuery<UserData>({
-    queryKey: ['get-profile-user-id', user.token, id],
+    queryKey: ['get-profile-user-id', user?.token, id],
     queryFn: async () => {
       const { data } = await api.get('/profile')
 

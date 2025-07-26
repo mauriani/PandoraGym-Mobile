@@ -53,9 +53,10 @@ const buttonTextVariants = cva('text-base font-roboto font-bold text-center', {
 interface ButtonProps
   extends React.ComponentPropsWithoutRef<typeof TouchableOpacity>,
     VariantProps<typeof buttonVariants> {
-  label?: string // Tornar o label opcional
+  label?: string
   labelClasses?: string
-  loading?: boolean // Adiciona a propriedade loading
+  loading?: boolean
+  children?: React.ReactNode
 }
 
 function Button({
@@ -64,23 +65,26 @@ function Button({
   className,
   variant,
   size,
-  loading = false, // Padrão como false
+  loading = false,
+  children,
   ...props
 }: ButtonProps) {
   return (
     <TouchableOpacity
       className={cn(buttonVariants({ variant, size, className }))}
-      disabled={loading} // Desativa o botão se estiver carregando
+      disabled={loading}
       {...props}>
       {loading ? (
-        <ActivityIndicator size="small" color="#ffffff" /> // Exibe o indicador de carregamento
+        <ActivityIndicator size="small" color="#ffffff" />
       ) : (
-        <Text
-          className={cn(
-            buttonTextVariants({ variant, size, className: labelClasses }),
-          )}>
-          {label}
-        </Text>
+        children || (
+          <Text
+            className={cn(
+              buttonTextVariants({ variant, size, className: labelClasses }),
+            )}>
+            {label}
+          </Text>
+        )
       )}
     </TouchableOpacity>
   )

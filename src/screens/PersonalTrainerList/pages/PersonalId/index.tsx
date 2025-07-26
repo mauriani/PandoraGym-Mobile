@@ -6,14 +6,14 @@ import { Container } from '@components/Container'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/Tabs'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { api } from '@services/api'
 import { getTokenPlanStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
-import { ButtonFab } from '../../../../components/ButtonFab'
+import { ButtonFabActions } from '../../../../components/ButtonFabActions'
 
 import { EditorText } from './__components__/EditorText'
 import { Planos } from './_tabs_/Planos'
@@ -26,6 +26,7 @@ type IRouteParams = {
 
 export function PersonalId() {
   const route = useRoute()
+  const navigation = useNavigation()
   const richText = useRef<RichEditor>(null)
 
   const { id } = route.params as IRouteParams
@@ -113,9 +114,21 @@ export function PersonalId() {
       </View>
 
       {isPlanIdInData && (
-        <ButtonFab
-          onSubmit={() => setIsModalOpen(true)}
-          iconName="MessageCircleMore"
+        <ButtonFabActions
+          actions={[
+            {
+              iconName: 'Calendar',
+              onPress: () =>
+                navigation.navigate('scheduling', {
+                  personalId: id,
+                  personalName: data?.user?.name || 'Personal',
+                }),
+            },
+            {
+              iconName: 'MessageCircleMore',
+              onPress: () => setIsModalOpen(true),
+            },
+          ]}
         />
       )}
 

@@ -16,6 +16,7 @@ import { StartTraining } from '@screens/StartTraining'
 import { EditWorkout } from '@screens/StartTraining/pages/EditWorkout'
 import { WorkoutAll } from '@screens/WorkoutsTemplates/pages/WorkoutAll'
 import { WorkoutId } from '@screens/WorkoutsTemplates/pages/WorkoutId'
+import { Scheduling } from '@screens/Scheduling'
 
 import { StackRoutesStatusBar } from './stack-routes-statusbar'
 import TabNavigator from './tab.routes'
@@ -36,6 +37,10 @@ export type RootStackParamList = {
   profile: undefined
   personalId: {
     id: string
+  }
+  scheduling: {
+    personalId: string
+    personalName: string
   }
   startTraining: {
     id: string
@@ -144,6 +149,12 @@ export default function RootStack() {
         <Screen
           name="helpMe"
           component={HelpMe}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="scheduling"
+          component={Scheduling}
           options={{ headerShown: false }}
         />
 
