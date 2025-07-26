@@ -134,20 +134,6 @@ Este projeto foi desenvolvido em colaboração entre **Mauriani** e **Othavio**,
    O sistema estará disponível em `http://localhost:3000`.  
 
 ---
-
-## 🖼️ Capturas de Tela  
-
-### PandoraGym Mobile  
-*Adicione aqui capturas de tela do aplicativo, como tela de login, visualização de treinos e gráficos de progresso.*  
-
-### PandoraGym Web  
-*Adicione aqui capturas de tela do sistema web, como o painel administrativo e relatórios.*  
-
-### PandoraGym API  
-*Adicione aqui exemplos de endpoints documentados no Swagger.*  
-
----
-
 ## 👥 Contribuidores  
 
 - **Frontend Mobile**: [Mauriani](https://github.com/mauriani)
