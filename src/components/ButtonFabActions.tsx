@@ -45,6 +45,7 @@ export function ButtonFabActions({ actions }: Props) {
                 bottom: 0,
               }}>
               <TouchableOpacity
+                testID={`fab-action-${index}`}
                 className="flex h-16 w-16 items-center justify-center rounded-full bg-purple-800 shadow-md"
                 style={{
                   elevation: 5,
@@ -64,6 +65,7 @@ export function ButtonFabActions({ actions }: Props) {
         })}
 
       <TouchableOpacity
+        testID="fab-main-button"
         className="flex h-16 w-16 items-center justify-center rounded-full bg-purple-800 shadow-md"
         style={{
           elevation: 5,

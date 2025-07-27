@@ -8,6 +8,7 @@ type IProps = {
 export function ButtonFab({ onSubmit, iconName }: IProps) {
   return (
     <TouchableOpacity
+      testID="button-fab"
       className="absolute bottom-9 right-5 flex h-16 w-16 items-center justify-center rounded-full bg-purple-800 shadow-md"
       style={{
         elevation: 5,

@@ -11,7 +11,7 @@ export interface InputProps
 }
 
 const Input = forwardRef<React.ElementRef<typeof TextInput>, InputProps>(
-  ({ className, label, inputClasses, placeholder, ...props }) => (
+  ({ className, label, inputClasses, placeholder, ...props }, ref) => (
     <View className={cn('flex flex-col gap-1', className)}>
       {placeholder && (
         <Text className="pb-2 font-primary_regular text-muted-foreground">
@@ -20,6 +20,7 @@ const Input = forwardRef<React.ElementRef<typeof TextInput>, InputProps>(
       )}
 
       <TextInput
+        ref={ref}
         placeholder={label} // O label será usado como placeholder
         placeholderTextColor="gray" // Cor do placeholder
         className={cn(

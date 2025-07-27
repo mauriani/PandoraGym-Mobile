@@ -1,0 +1,31 @@
+{
+  "preset": "react-native",
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest",
+    ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css"
+  },
+   "testPathIgnorePatterns": [
+    "./__tests__/__mocks__",
+    "./__tests__/utils",
+    "./__tests__/coverage",
+    "__tests__/App.test.tsx",
+    "__tests__/setup.js"
+  ],
+  "transformIgnorePatterns": [
+    "node_modules/(?!(react-native|@react-native|react-native-calendars|lucide-react-native|react-native-gesture-handler|react-native-toast-message)/)"
+  ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/__tests__/setup.js"
+  ],
+
+
+   "moduleNameMapper": {
+     "^@components/(.*)$": "<rootDir>/src/components/$1",
+     "^@_dtos_/(.*)$": "<rootDir>/src/_dtos_/$1",
+     "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+     "^@theme/(.*)$": "<rootDir>/src/theme/$1",
+     "^@services/(.*)$": "<rootDir>/src/services/$1",
+     "^@storage/(.*)$": "<rootDir>/src/storage/$1",
+     "^@screens/(.*)$": "<rootDir>/src/screens/$1"
+   }
+}
