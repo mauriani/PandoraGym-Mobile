@@ -7,12 +7,16 @@ jest.mock('@storage/index', () => ({
   getTokenFromStorage: jest.fn()
 }))
 
+// Mock AppError as a constructor
+const mockAppErrorConstructor = jest.fn().mockImplementation((message: string) => {
+  const error = new Error(message) as any
+  error.name = 'AppError'
+  error.message = message
+  return error
+})
+
 jest.mock('@utils/AppError', () => ({
-  AppError: jest.fn().mockImplementation((message: string) => {
-    const error = new Error(message) as any
-    error.name = 'AppError'
-    return error
-  })
+  AppError: mockAppErrorConstructor
 }))
 
 // Mock do axios
@@ -27,7 +31,6 @@ const mockAxios = {
 jest.mock('axios', () => mockAxios)
 
 const mockGetTokenFromStorage = getTokenFromStorage as jest.MockedFunction<typeof getTokenFromStorage>
-const mockAppError = AppError as jest.MockedFunction<typeof AppError>
 
 describe('API Service', () => {
   let mockApiInstance: any
@@ -164,7 +167,7 @@ describe('API Service', () => {
       }
       
       await expect(responseErrorHandler(mockError)).rejects.toThrow()
-      expect(mockAppError).toHaveBeenCalledWith('Custom error message')
+      expect(mockAppErrorConstructor).toHaveBeenCalledWith('Custom error message')
     })
 
     it('handles error without response data', async () => {
@@ -173,7 +176,7 @@ describe('API Service', () => {
       }
       
       await expect(responseErrorHandler(mockError)).rejects.toThrow()
-      expect(mockAppError).toHaveBeenCalledWith('Error no servidor. Tente mais tarde!')
+      expect(mockAppErrorConstructor).toHaveBeenCalledWith('Error no servidor. Tente mais tarde!')
     })
 
     it('handles error with response but no data', async () => {
@@ -184,7 +187,7 @@ describe('API Service', () => {
       }
       
       await expect(responseErrorHandler(mockError)).rejects.toThrow()
-      expect(mockAppError).toHaveBeenCalledWith('Error no servidor. Tente mais tarde!')
+      expect(mockAppErrorConstructor).toHaveBeenCalledWith('Error no servidor. Tente mais tarde!')
     })
 
     it('handles error with empty response data', async () => {
@@ -195,7 +198,7 @@ describe('API Service', () => {
       }
       
       await expect(responseErrorHandler(mockError)).rejects.toThrow()
-      expect(mockAppError).toHaveBeenCalledWith(undefined)
+      expect(mockAppErrorConstructor).toHaveBeenCalledWith(undefined)
     })
 
     it('handles network error', async () => {
@@ -204,7 +207,7 @@ describe('API Service', () => {
       }
       
       await expect(responseErrorHandler(mockError)).rejects.toThrow()
-      expect(mockAppError).toHaveBeenCalledWith('Error no servidor. Tente mais tarde!')
+      expect(mockAppErrorConstructor).toHaveBeenCalledWith('Error no servidor. Tente mais tarde!')
     })
   })
 

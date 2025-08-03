@@ -55,7 +55,7 @@ export function Home() {
     queryFn: async () => {
       const { data } = await api.get('/workouts')
 
-      return data
+      return data?.workouts
     },
   })
 

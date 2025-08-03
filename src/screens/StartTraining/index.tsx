@@ -64,11 +64,11 @@ export function StartTraining() {
   const { data, isFetching } = useQuery<StartExerciseDTO[]>({
     queryKey: ['get-training-for-workoutid', id],
     queryFn: async () => {
-      const { data } = await api.get(`/workout/${id}`)
+      const { data } = await api.get(`/workouts/${id}`)
 
-      setExercises(data?.exerciseConfig)
+      setExercises(data?.exercises)
 
-      return data?.exerciseConfig
+      return data?.exercises
     },
   })
 
@@ -76,7 +76,7 @@ export function StartTraining() {
     const number = index + 1
     const newItem = {
       ...item,
-      number,
+      currentWorkoutNumber: number,
     }
 
     setSelectedVideo(newItem)
@@ -110,8 +110,8 @@ export function StartTraining() {
           sets: selectedItem.sets.toString(),
           reps: selectedItem.reps.toString(),
           restTime: selectedItem.restTimeBetweenSets,
-          thumbnail: selectedItem.exerciseThumb,
-          exerciseTitle: selectedItem.exerciseTitle,
+          thumbnail: selectedItem.thumbnail,
+          exerciseTitle: selectedItem.name,
           exerciseId: selectedItem.id,
         }
 
@@ -273,10 +273,10 @@ export function StartTraining() {
                 <View>
                   {selectedVideo && (
                     <VideoPlayerWithThumbnail
-                      thumbnailUrl={selectedVideo?.exerciseThumb}
+                      thumbnailUrl={selectedVideo?.thumbnail}
                       videoId={
-                        selectedVideo?.exerciseVideo != undefined &&
-                        extractVideoId(selectedVideo?.exerciseVideo)
+                        selectedVideo?.videoUrl != undefined &&
+                        extractVideoId(selectedVideo?.videoUrl)
                       }
                     />
                   )}
@@ -316,11 +316,12 @@ export function StartTraining() {
 
                 <View className="flex-row justify-between pb-2">
                   <Text className="text-[14px] text-foreground">
-                    {selectedVideo?.exerciseTitle}
+                    {selectedVideo?.name}
                   </Text>
 
                   <Text className="text-[14px] text-muted-foreground">
-                    Exercício {selectedVideo?.number} de {data?.length}
+                    Exercício {selectedVideo?.currentWorkoutNumber} de{' '}
+                    {data?.length}
                   </Text>
                 </View>
 

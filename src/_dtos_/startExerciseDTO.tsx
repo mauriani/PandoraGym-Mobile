@@ -1,12 +1,12 @@
 export type StartExerciseDTO = {
   id: string
-  exerciseTitle: string
-  exerciseThumb: string
-  exerciseVideo: string
+  name: string
+  thumbnail: string
+  videoUrl: string
   sets: number
   reps: number
   restTimeBetweenSets: number
   load: number
   workoutId: string
-  number?: number
+  currentWorkoutNumber: number
 }

@@ -25,15 +25,13 @@ function CardExercise({
       <Image
         className="h-full w-20 rounded-[6px]"
         source={{
-          uri: item.exerciseThumb,
+          uri: item.thumbnail,
         }}
         alt=""
       />
 
       <View className="ml-3 flex-col justify-center gap-[4px]">
-        <Text className="text-[14px] font-bold text-white">
-          {item.exerciseTitle}
-        </Text>
+        <Text className="text-[14px] font-bold text-white">{item.name}</Text>
         <Text className="text-[14px] text-muted-foreground">
           {item.sets} séries x {item.reps} repetições
         </Text>

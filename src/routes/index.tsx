@@ -17,5 +17,5 @@ export function Routes() {
     )
   }
 
-  return user?.token ? <RootStack /> : <AuthRoutes />
+  return user ? <RootStack /> : <AuthRoutes />
 }

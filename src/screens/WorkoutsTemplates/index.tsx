@@ -67,7 +67,7 @@ export function WorkoutsTemplates() {
               }
             />
             <FlatList
-              data={data.workoutAdm}
+              data={data?.workoutAdm}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <CardWorkouts

@@ -7,14 +7,11 @@ import React, {
 } from 'react'
 import { IUser } from '@_dtos_/userDTO'
 import {
-  getTokenFromStorage,
   getUserFromStorage,
   removeCurrentWorkoutFromStorage,
   removeStartWorkoutromStorage,
-  removeTokenFromStorage,
   removeUserFromStorage,
   savePlanInStorage,
-  saveTokenInStorage,
   saveUserInStorage,
 } from '@storage/index'
 import { toast } from '@utils/toast-methods'
@@ -22,7 +19,6 @@ import { toast } from '@utils/toast-methods'
 import { api } from '../services/api'
 
 export interface AuthState {
-  token: string
   user: IUser
 }
 
@@ -51,11 +47,12 @@ function AuthProvider({ children }: AuthProviderProps) {
   async function signIn({ email, password }: SignInCredentials) {
     try {
       const response = await api.post('/session', { email, password })
+
+      console.log('response', response.data)
       const { token, user } = response.data
 
-      setData({ token, user })
+      setData({ user })
       saveUserInStorage(user)
-      saveTokenInStorage(token)
 
       if (user?.student?.plan != null) {
         savePlanInStorage(user?.student?.plan?.id)
@@ -67,7 +64,6 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   async function signOut() {
     removeUserFromStorage()
-    removeTokenFromStorage()
     removeStartWorkoutromStorage()
     removeCurrentWorkoutFromStorage()
     setData(null)
@@ -81,10 +77,9 @@ function AuthProvider({ children }: AuthProviderProps) {
     async function loadData() {
       try {
         const user = await getUserFromStorage()
-        const token = await getTokenFromStorage()
 
-        if (user && token) {
-          setData({ user, token })
+        if (user) {
+          setData({ user })
         }
       } catch (e) {
         console.log(e)
