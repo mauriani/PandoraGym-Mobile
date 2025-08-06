@@ -18,7 +18,6 @@ export function HistoryCalendar({ onPress, selected }: IProps) {
   return (
     <Calendar
       style={{
-        height: 320,
         borderRadius: 6,
       }}
       theme={{

@@ -18,6 +18,7 @@ module.exports = {
           '@_dtos_': './src/_dtos_',
           '@hooks': './src/hooks',
           '@context': './src/context',
+          '@lib': './src/lib',
         },
       },
     ],

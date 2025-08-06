@@ -5,7 +5,10 @@ import Toast, {
   InfoToast,
 } from 'react-native-toast-message'
 import WorkoutBar from '@components/WorkoutBar'
-import { NavigationContainer } from '@react-navigation/native'
+import {
+  createNavigationContainerRef,
+  NavigationContainer,
+} from '@react-navigation/native'
 import { Routes } from '@routes/index'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from '@theme/theme-provider'
@@ -15,6 +18,14 @@ import 'react-native-gesture-handler'
 import { AppProvider } from './src/context'
 
 import '@theme/global.css'
+
+export const navigationRef = createNavigationContainerRef()
+
+export function navigate(name: string, params?: object) {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name as never, params as never)
+  }
+}
 
 export default function App() {
   const queryClient = new QueryClient()
@@ -63,7 +74,7 @@ export default function App() {
       <ThemeProvider>
         <>
           <AppProvider>
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
               <Routes />
               <WorkoutBar />
 

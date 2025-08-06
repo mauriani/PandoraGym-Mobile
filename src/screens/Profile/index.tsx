@@ -51,17 +51,19 @@ export function Profile() {
   }
 
   const { data, error, isFetching, refetch } = useQuery<UserData>({
-    queryKey: ['get-profile-user-id', user?.token, id],
+    queryKey: ['get-profile-user-id'],
     queryFn: async () => {
-      const { data } = await api.get('/profile')
+      const { data } = await api.get('/users/profile')
 
-      const planId = data?.userData?.planId ? data?.userData?.planId : null
+      // const planId = data?.userData?.planId ? data?.userData?.planId : null
 
-      savePlanInStorage(planId)
+      // savePlanInStorage(planId)
 
-      return data.userData
+      return data
     },
   })
+
+
 
   function handleSelectImage() {
     const options: ImageLibraryOptions = {

@@ -11,9 +11,11 @@ export function Routes() {
 
   if (loading) {
     return (
-      <Container>
-        <Loading />
-      </Container>
+      <>
+        <Container>
+          <Loading />
+        </Container>
+      </>
     )
   }
 

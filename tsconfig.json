@@ -48,6 +48,9 @@
       "@context/*": [
         "./src/context/*"
       ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
     }
   },
   "exclude": [

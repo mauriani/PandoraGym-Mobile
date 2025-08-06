@@ -16,7 +16,7 @@ import {
 } from '@storage/index'
 import { toast } from '@utils/toast-methods'
 
-import { api } from '../services/api'
+import { api, setSignOutCallback } from '../services/api'
 
 export interface AuthState {
   user: IUser
@@ -87,6 +87,9 @@ function AuthProvider({ children }: AuthProviderProps) {
         setLoading(false) // Finaliza o estado de loading
       }
     }
+
+    // Registra o callback de signOut no interceptor da API
+    setSignOutCallback(signOut)
 
     loadData()
   }, [])
