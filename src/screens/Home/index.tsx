@@ -17,17 +17,20 @@ import { NoContent } from '@components/NoContent'
 import { useAuth } from '@hooks/auth'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { api } from '@services/api'
 import { saveBottomBarStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
+import { RootStackParamList } from '../../routes/stack.routes'
+
 import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function Home() {
   const { user } = useAuth()
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const tabBarHeight = useBottomTabBarHeight()
 
   function handleAccessTraining(

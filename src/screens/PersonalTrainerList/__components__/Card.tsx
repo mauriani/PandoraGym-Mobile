@@ -22,14 +22,14 @@ export function Card({ item, onPress }: IProps) {
       <Image
         className="h-full w-32 rounded-[6px]"
         source={{
-          uri: item.user.avatarUrl,
+          uri: item.avatarUrl,
         }}
         alt=""
       />
 
       <View className="flex-1 flex-col px-4 gap-2">
         <Text className="text-white font-bold text-[18px] mb-2">
-          {item.user.name}
+          {item.name}
         </Text>
 
         <TextDetails title="Qualificações" details={item.qualifications} />

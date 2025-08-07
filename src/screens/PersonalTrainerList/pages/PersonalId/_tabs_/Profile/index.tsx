@@ -28,35 +28,35 @@ export function Profile({ data, personalId, loading }: IProps) {
   const { user } = useAuth()
   const { colorScheme } = useContext(ThemeContext)
 
-  const {
-    data: comments,
-    error,
-    isFetching,
-  } = useQuery<IComment[]>({
-    queryKey: ['get-comments', user?.user?.id],
-    queryFn: async () => {
-      const { data } = await api.post('/comments', {
-        personalId,
-      })
+  // const {
+  //   data: comments,
+  //   error,
+  //   isFetching,
+  // } = useQuery<IComment[]>({
+  //   queryKey: ['get-comments', user?.user?.id],
+  //   queryFn: async () => {
+  //     const { data } = await api.post('/comments', {
+  //       personalId,
+  //     })
 
-      return data
-    },
-  })
+  //     return data
+  //   },
+  // })
 
-  useEffect(() => {
-    if (error) {
-      const isAppError = error instanceof AppError
-      const title = isAppError
-        ? error.message
-        : 'Ocorreu um erro ao buscar comentários. Tente novamente mais tarde'
+  // useEffect(() => {
+  //   if (error) {
+  //     const isAppError = error instanceof AppError
+  //     const title = isAppError
+  //       ? error.message
+  //       : 'Ocorreu um erro ao buscar comentários. Tente novamente mais tarde'
 
-      toast.error(title)
-    }
-  }, [error])
+  //     toast.error(title)
+  //   }
+  // }, [error])
 
   return (
     <ContentScroll>
-      {loading || isFetching ? (
+      {loading ? (
         <SkeletonAnimation />
       ) : (
         <>
@@ -64,13 +64,13 @@ export function Profile({ data, personalId, loading }: IProps) {
             <Image
               className="h-32 w-32 rounded-full"
               source={{
-                uri: data?.user?.avatarUrl,
+                uri: data?.avatarUrl,
               }}
               alt=""
             />
 
             <View className="flex-col gap-2">
-              <Heading title={data?.user?.name} />
+              <Heading title={data?.name} />
 
               <View className="flex-row items-center gap-2">
                 {data?.plan[0]?.price && (
@@ -118,11 +118,11 @@ export function Profile({ data, personalId, loading }: IProps) {
 
           <TitleSection title="Comentários" />
 
-          {comments?.length > 0 ? (
+          {/* {comments?.length > 0 ? (
             comments.map((item, index) => <Comment key={index} item={item} />)
           ) : (
             <NoContent message="Este Personal não possuí nenhuma avaliação até o momento!" />
-          )}
+          )} */}
         </>
       )}
     </ContentScroll>

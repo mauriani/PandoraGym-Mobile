@@ -7,11 +7,14 @@ import { HeaderGoBack } from '@components/HeaderGoBack'
 import { ModalWithContent } from '@components/ModalWithContent'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/Tabs'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { api } from '@services/api'
 import { getTokenPlanStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
+
+import { RootStackParamList } from '../../../../routes/stack.routes'
 
 import { ButtonFabActions } from '../../../../components/ButtonFabActions'
 
@@ -26,7 +29,8 @@ type IRouteParams = {
 
 export function PersonalId() {
   const route = useRoute()
-  const navigation = useNavigation()
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const richText = useRef<RichEditor>(null)
 
   const { id } = route.params as IRouteParams
@@ -38,7 +42,7 @@ export function PersonalId() {
   const { data, error, refetch, isFetching } = useQuery<IPersonalDTO>({
     queryKey: ['get-personal-id', id],
     queryFn: async () => {
-      const { data } = await api.get(`/list-personal/${id}`)
+      const { data } = await api.get(`/trainers/${id}`)
 
       return data.data as IPersonalDTO
     },
@@ -81,7 +85,7 @@ export function PersonalId() {
     }
   }
 
-  const isPlanIdInData = data?.plan?.some((plan) => plan.id === planId)
+  // const isPlanIdInData = data?.plan?.some((plan) => plan.id === planId)
 
   useEffect(() => {
     if (error) {
@@ -113,7 +117,7 @@ export function PersonalId() {
         </Tabs>
       </View>
 
-      {isPlanIdInData && (
+      {/* {isPlanIdInData && (
         <ButtonFabActions
           actions={[
             {
@@ -121,7 +125,7 @@ export function PersonalId() {
               onPress: () =>
                 navigation.navigate('scheduling', {
                   personalId: id,
-                  personalName: data?.user?.name || 'Personal',
+                  personalName: data?.name || 'Personal',
                 }),
             },
             {
@@ -130,7 +134,7 @@ export function PersonalId() {
             },
           ]}
         />
-      )}
+      )} */}
 
       <ModalWithContent
         title="Adicionar Comentário"

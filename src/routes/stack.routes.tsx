@@ -12,7 +12,7 @@ import { Notifications } from '@screens/Notifications'
 import { PersonalId } from '@screens/PersonalTrainerList/pages/PersonalId'
 import { Profile } from '@screens/Profile'
 import { EditProfile } from '@screens/Profile/pages/EditProfile'
-import { StartTraining } from '@screens/StartTraining'
+import { StartTraining, WorkoutExecutionScreen } from '@screens/StartTraining'
 import { EditWorkout } from '@screens/StartTraining/pages/EditWorkout'
 import { WorkoutAll } from '@screens/WorkoutsTemplates/pages/WorkoutAll'
 import { WorkoutId } from '@screens/WorkoutsTemplates/pages/WorkoutId'
@@ -43,6 +43,12 @@ export type RootStackParamList = {
     personalName: string
   }
   startTraining: {
+    id: string
+    name: string
+    exclusive?: boolean
+    weekDays?: Day[]
+  }
+  workoutExecution: {
     id: string
     name: string
     exclusive?: boolean
@@ -114,6 +120,12 @@ export default function RootStack() {
         <Screen
           name="startTraining"
           component={StartTraining}
+          options={{ headerShown: false }}
+        />
+
+        <Screen
+          name="workoutExecution"
+          component={WorkoutExecutionScreen}
           options={{ headerShown: false }}
         />
 

@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react'
 import { FlatList, ScrollView, View } from 'react-native'
-import { ItemplateDTO } from '@_dtos_/templateDTO'
+import { ItemplateDTO, Workout } from '@_dtos_/templateDTO'
 import { Container } from '@components/Container'
 import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
+
+import { RootStackParamList } from '../../routes/stack.routes'
 
 import { CardTop } from './__components__/CardTop'
 import { CardWorkouts } from './__components__/CardWorkouts'
 import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function WorkoutsTemplates() {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   function handleNavigaDetails(title: string, id: string, tumbnail: string) {
     navigate('workoutId', {
@@ -28,7 +31,7 @@ export function WorkoutsTemplates() {
   const { data, error, isFetching } = useQuery<ItemplateDTO>({
     queryKey: ['get-training-templates'],
     queryFn: async () => {
-      const { data } = await api.get('/training-programs')
+      const { data } = await api.get('/programs')
 
       return data as ItemplateDTO
     },
@@ -82,7 +85,7 @@ export function WorkoutsTemplates() {
             <View>
               {data &&
                 Object.entries(data.workoutsByPersonal).map(
-                  ([key, workouts]) => {
+                  ([key, workouts]: [string, Workout[]]) => {
                     return (
                       <View key={key} className="mb-3 pb-4">
                         <CardTop

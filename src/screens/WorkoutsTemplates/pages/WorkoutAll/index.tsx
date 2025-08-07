@@ -6,6 +6,7 @@ import { Content } from '@components/Content'
 import { HeaderGoBack } from '@components/HeaderGoBack'
 import { InputWithButton } from '@components/InputWithButton'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { CardWorkouts } from '@screens/WorkoutsTemplates/__components__/CardWorkouts'
 import { api } from '@services/api'
 import { useQuery } from '@tanstack/react-query'
@@ -13,6 +14,7 @@ import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
 import { SkeletonAnimation } from './__components__/SkeletonAnimation'
+import { RootStackParamList } from '@routes/stack.routes'
 
 type IRouteParams = {
   title: string
@@ -21,7 +23,8 @@ type IRouteParams = {
 
 export function WorkoutAll() {
   const route = useRoute()
-  const { navigate } = useNavigation()
+  const { navigate } =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const { title, id } = route.params as IRouteParams
 
   function handleNavigaDetails(title: string, id: string, tumbnail: string) {
@@ -40,11 +43,7 @@ export function WorkoutAll() {
   const { error, isFetching } = useQuery({
     queryKey: ['get-all-training-workout-free', id],
     queryFn: async () => {
-      const endpoint = id
-        ? `/all-training-programs/${id}`
-        : '/all-training-programs'
-
-      const { data } = await api.get(endpoint)
+      const { data } = await api.get(`/programs/${id}`)
 
       setworkoutAll(data.data)
       setOriginalworkoutAll(data.data)

@@ -9,12 +9,15 @@ import { NoContent } from '@components/NoContent'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { api } from '@services/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 import { daysOfWeek } from '@utils/weekDay'
 import zod from 'zod'
+
+import { RootStackParamList } from '../../../routes/stack.routes'
 
 import { CardExercise } from '../__components__/CardExercise'
 import { Form } from '../__components__/Form'
@@ -36,7 +39,7 @@ export type zodSchema = zod.infer<typeof schema>
 export function CreateTrainingThirdStep() {
   const route = useRoute()
   const queryClient = useQueryClient()
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const { title, selectedItems } = route.params as IRouteParams
 
   const methods = useForm<zodSchema>({

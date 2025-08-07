@@ -11,17 +11,21 @@ import { Content } from '@components/Content'
 import { Header } from '@components/Header'
 import { Input } from '@components/ui/Input'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { api } from '@services/api'
 import { getUserFromStorage, savePlanInStorage } from '@storage/index'
 import { useQuery } from '@tanstack/react-query'
 import { AppError } from '@utils/AppError'
 import { toast } from '@utils/toast-methods'
 
+import { RootStackParamList } from '../../routes/stack.routes'
+
 import { Card } from './__components__/Card'
 import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function PersonalTrainerList() {
-  const { navigate } = useNavigation()
+  const { navigate } =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   const [personalTrainers, setPersonalTrainers] =
     useState<IPersonalList[]>(null)
@@ -32,10 +36,11 @@ export function PersonalTrainerList() {
   const { error, isFetching } = useQuery<IPersonalList[]>({
     queryKey: ['get-list-personal'],
     queryFn: async () => {
-      const { data } = await api.get('/list-personal')
+      const { data } = await api.get('/trainers')
 
       setPersonalTrainers(data.data)
       setOriginalPersonalTrainers(data.data)
+
       return data.data
     },
   })
@@ -56,7 +61,7 @@ export function PersonalTrainerList() {
 
     if (title.length > 0) {
       const tipoInfo = newItem.filter((item) =>
-        item.user.name.toLowerCase().includes(title.toLowerCase()),
+        item.name.toLowerCase().includes(title.toLowerCase()),
       )
 
       setPersonalTrainers(tipoInfo)
@@ -68,7 +73,8 @@ export function PersonalTrainerList() {
   function isStudentInList(item: IPersonalList) {
     const user = getUserFromStorage()
 
-    const studentInList = item.student.find(
+    // Usando optional chaining para verificação segura
+    const studentInList = item.student?.find(
       (student) => student.id === user?.id,
     )
 

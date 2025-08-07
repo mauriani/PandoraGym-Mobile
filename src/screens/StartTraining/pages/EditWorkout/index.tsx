@@ -13,6 +13,7 @@ import { ModalWithContent } from '@components/ModalWithContent'
 import { InputFormControl } from '@components/ui/InputFormControl'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Form } from '@screens/CreateTraining/__components__/Form'
 import { MultiSelect } from '@screens/CreateTraining/__components__/MultiSelect'
 import { IData } from '@screens/CreateTraining/CreateTrainingSecondStep/__components__/ConfigExercises'
@@ -23,6 +24,8 @@ import { timeStringToSeconds } from '@utils/formatTime'
 import { toast } from '@utils/toast-methods'
 import { daysOfWeek } from '@utils/weekDay'
 import zod from 'zod'
+
+import { RootStackParamList } from '../../../../routes/stack.routes'
 
 import { AddExercise } from './__components__/AddExercise'
 import { CardEditWorkout } from './__components__/CardEditWorkout'
@@ -45,7 +48,7 @@ export type zodSchema = zod.infer<typeof schema>
 
 export function EditWorkout() {
   const route = useRoute()
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const queryClient = useQueryClient()
   const { selectedItems, title, weekDays, idWorkout } =
     route.params as IRouteParams

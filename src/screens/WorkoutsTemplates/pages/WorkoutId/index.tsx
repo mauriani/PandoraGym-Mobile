@@ -13,6 +13,7 @@ import { Button } from '@components/ui/Button'
 import { VideoPlayerWithThumbnail } from '@components/VideoPlayerWithThumbnail'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { MultiSelect } from '@screens/CreateTraining/__components__/MultiSelect'
 import { api } from '@services/api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -25,6 +26,7 @@ import zod from 'zod'
 
 import { CardDetails } from './__components__/CardDetails'
 import { SkeletonAnimation } from './__components__/SkeletonAnimation'
+import { RootStackParamList } from '@routes/stack.routes'
 
 type IRouteParams = {
   title: string
@@ -40,7 +42,8 @@ export type zodSchema = zod.infer<typeof schema>
 
 export function WorkoutId() {
   const route = useRoute()
-  const { navigate } = useNavigation()
+  const { navigate } =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const queryClient = useQueryClient()
 
@@ -55,7 +58,7 @@ export function WorkoutId() {
   const { data, error, isFetching } = useQuery<IDetailsTemplate>({
     queryKey: ['get-training-workout-free', id],
     queryFn: async () => {
-      const { data } = await api.get(`/training-programs/${id}`)
+      const { data } = await api.get(`/programs/${id}`)
 
       return data
     },
