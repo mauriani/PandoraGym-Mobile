@@ -32,7 +32,7 @@ const TextAreaFormControl = forwardRef<
     error,
     change,
     ...props
-  }) => {
+  }, ref) => {
     return (
       <View className={cn('flex flex-col gap-1', className)}>
         {placeholder && (
@@ -47,6 +47,7 @@ const TextAreaFormControl = forwardRef<
           render={({ field: { value, onChange } }) => (
             <View className="relative justify-center">
               <TextInput
+                ref={ref}
                 placeholder={label}
                 placeholderTextColor="gray"
                 value={value}

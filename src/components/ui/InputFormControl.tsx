@@ -34,7 +34,7 @@ const InputFormControl = forwardRef<
     typePassword = false,
     change,
     ...props
-  }) => {
+  }, ref) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false)
 
     return (
@@ -51,6 +51,7 @@ const InputFormControl = forwardRef<
           render={({ field: { value, onChange } }) => (
             <View className="relative justify-center">
               <TextInput
+                ref={ref}
                 placeholder={label}
                 placeholderTextColor="gray"
                 value={value}

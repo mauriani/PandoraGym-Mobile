@@ -71,6 +71,7 @@ const InputMaskControl = forwardRef<
                     case 'date':
                       return (
                         <TextInputMask
+                          ref={ref}
                           {...commonProps}
                           type="datetime"
                           options={{ format: 'DD/MM/YYYY' }}
@@ -95,6 +96,7 @@ const InputMaskControl = forwardRef<
                     case 'minutes':
                       return (
                         <TextInputMask
+                          ref={ref}
                           {...commonProps}
                           type="datetime"
                           options={{ format: 'mm:ss' }}
@@ -117,10 +119,11 @@ const InputMaskControl = forwardRef<
                         />
                       )
                     case 'cpf':
-                      return <TextInputMask {...commonProps} type="cpf" />
+                      return <TextInputMask ref={ref} {...commonProps} type="cpf" />
                     case 'phone':
                       return (
                         <TextInputMask
+                          ref={ref}
                           {...commonProps}
                           type="cel-phone"
                           placeholderTextColor={
@@ -149,6 +152,7 @@ const InputMaskControl = forwardRef<
                     case 'cep':
                       return (
                         <TextInputMask
+                          ref={ref}
                           {...commonProps}
                           type="zip-code"
                           placeholderTextColor={

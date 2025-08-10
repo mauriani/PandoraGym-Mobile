@@ -26,6 +26,15 @@ export const themes = {
     chart4: '#f4cf86',
     chart5: '#f2ab72',
     purple: '#6b21a8',
+    // System colors for better UX
+    success: '#10b981',
+    successForeground: '#ffffff',
+    warning: '#f59e0b',
+    warningForeground: '#ffffff',
+    info: '#3b82f6',
+    infoForeground: '#ffffff',
+    premium: '#eab308',
+    premiumForeground: '#000000',
   },
   dark: {
     background: '#000000',
@@ -53,5 +62,14 @@ export const themes = {
     chart4: '#aa5fc9',
     chart5: '#d9477b',
     purple: '#6b21a8',
+    // System colors for better UX
+    success: '#10b981',
+    successForeground: '#ffffff',
+    warning: '#f59e0b',
+    warningForeground: '#ffffff',
+    info: '#3b82f6',
+    infoForeground: '#ffffff',
+    premium: '#eab308',
+    premiumForeground: '#000000',
   },
 }
