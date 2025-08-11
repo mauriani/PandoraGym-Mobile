@@ -63,9 +63,7 @@ export type RootStackParamList = {
     title: string
     id: string
   }
-  editProfile: {
-    user: UserData
-  }
+  editProfile: { user: UserData }
   notifications: undefined
   helpMe: undefined
   editWorkout: {

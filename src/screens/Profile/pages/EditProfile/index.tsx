@@ -46,7 +46,7 @@ const schema = zod.object({
 export type zodSchema = zod.infer<typeof schema>
 
 type IRouteParams = {
-  user: UserData
+  user: any
 }
 
 export function EditProfile() {

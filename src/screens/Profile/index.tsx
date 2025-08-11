@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, Text, View } from 'react-native'
 import {
   ImageLibraryOptions,
   launchImageLibrary,
@@ -26,10 +26,13 @@ import { useOpenDialogAlert } from '../../context/DialogAlertContext'
 
 import { ButtonProfile } from './__components__/ButtonProfile'
 import { SkeletonAnimation } from './__components__/SkeletonAnimation'
+import { RootStackParamList } from '@routes/stack.routes'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 export function Profile() {
   const { signOut, user } = useAuth()
-  const { navigate } = useNavigation()
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   const { id } = getUserFromStorage()
   const { openDialogAlert } = useOpenDialogAlert()
@@ -55,15 +58,13 @@ export function Profile() {
     queryFn: async () => {
       const { data } = await api.get('/users/profile')
 
-      // const planId = data?.userData?.planId ? data?.userData?.planId : null
+      const planId = data?.planId ? data?.planId : null
 
-      // savePlanInStorage(planId)
+      savePlanInStorage(planId)
 
-      return data
+      return data as UserData
     },
   })
-
-
 
   function handleSelectImage() {
     const options: ImageLibraryOptions = {
@@ -162,13 +163,13 @@ export function Profile() {
               </Text>
             </View>
 
-            {data?.planName && (
+            {/* {data?.planName && (
               <TouchableOpacity className="w-44 items-center rounded-full bg-primary-foreground py-2">
                 <Text className="font-base text-muted-foreground">
                   {data?.planName}
                 </Text>
               </TouchableOpacity>
-            )}
+            )} */}
           </View>
 
           <ScrollView contentContainerStyle={{ gap: 12, marginTop: 20 }}>
@@ -177,7 +178,7 @@ export function Profile() {
                 title={'Meu Personal'}
                 iconName="ChevronRight"
                 onPress={() =>
-                  navigate('personalId', {
+                  navigation.navigate('personalId', {
                     id: data?.personalId,
                   })
                 }
@@ -188,7 +189,7 @@ export function Profile() {
               title={'Editar dados do Perfil'}
               iconName="ChevronRight"
               onPress={() =>
-                navigate('editProfile', {
+                navigation.navigate('editProfile', {
                   user: data,
                 })
               }

@@ -1,6 +1,9 @@
 import { Text, TouchableOpacity, View } from 'react-native'
 import { IconComponent } from '@components/IconComponent'
 import { Personal } from '@_dtos_/detailsTemplateDTO'
+import { themes } from '@theme/themes'
+import { useContext } from 'react'
+import { ThemeContext } from '@theme/theme-provider'
 
 interface PersonalTrainerInfoProps {
   personal: Personal
@@ -11,6 +14,7 @@ export function PersonalTrainerInfo({
   personal,
   onViewProfile,
 }: PersonalTrainerInfoProps) {
+  const { colorScheme } = useContext(ThemeContext)
   return (
     <View className="mb-4 rounded-xl border border-primary/20 bg-gradient-to-r from-primary/20 to-primary/10 p-4">
       <View className="flex-row items-center justify-between">
@@ -47,15 +51,27 @@ export function PersonalTrainerInfo({
       {/* Features */}
       <View className="mt-4 flex-row justify-between border-t border-primary/10 pt-4">
         <View className="flex-row items-center gap-1">
-          <IconComponent iconName="CheckCircle" size={14} color="#10B981" />
+          <IconComponent
+            iconName="CheckCircle"
+            size={14}
+            color={themes[colorScheme].success}
+          />
           <Text className="text-xs text-muted-foreground">Certificado</Text>
         </View>
         <View className="flex-row items-center gap-1">
-          <IconComponent iconName="CheckCircle" size={14} color="#10B981" />
+          <IconComponent
+            iconName="CheckCircle"
+            size={14}
+            color={themes[colorScheme].success}
+          />
           <Text className="text-xs text-muted-foreground">Personalizado</Text>
         </View>
         <View className="flex-row items-center gap-1">
-          <IconComponent iconName="CheckCircle" size={14} color="#10B981" />
+          <IconComponent
+            iconName="CheckCircle"
+            size={14}
+            color={themes[colorScheme].success}
+          />
           <Text className="text-xs text-muted-foreground">Acompanhamento</Text>
         </View>
       </View>

@@ -85,7 +85,7 @@ export function PersonalId() {
     }
   }
 
-  // const isPlanIdInData = data?.plan?.some((plan) => plan.id === planId)
+  const isPlanIdInData = data?.plan?.some((plan) => plan.id === planId)
 
   useEffect(() => {
     if (error) {
@@ -97,6 +97,8 @@ export function PersonalId() {
       toast.error(title)
     }
   }, [error])
+
+  console.log('id', id)
 
   return (
     <Container>
@@ -112,12 +114,17 @@ export function PersonalId() {
             <Profile data={data} personalId={id} loading={isFetching} />
           </TabsContent>
           <TabsContent value="planos">
-            <Planos data={data?.plan} planId={planId} refetch={refetch} />
+            <Planos
+              data={data?.plan}
+              personalId={id}
+              planId={planId}
+              refetch={refetch}
+            />
           </TabsContent>
         </Tabs>
       </View>
 
-      {/* {isPlanIdInData && (
+      {isPlanIdInData && (
         <ButtonFabActions
           actions={[
             {
@@ -134,7 +141,7 @@ export function PersonalId() {
             },
           ]}
         />
-      )} */}
+      )}
 
       <ModalWithContent
         title="Adicionar Comentário"

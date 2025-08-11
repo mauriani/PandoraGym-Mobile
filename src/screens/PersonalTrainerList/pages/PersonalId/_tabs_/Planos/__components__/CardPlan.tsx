@@ -17,20 +17,25 @@ import { TitleSection } from '../../../__components__/TitleSection'
 type IProps = {
   item: Plan
   planId: string
+  personalId: string
   refetch: () => void
 }
 
-export function CardPlan({ item, planId, refetch }: IProps) {
+export function CardPlan({ item, planId, personalId, refetch }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
   const [loading, setLoading] = useState(false)
   const { openDialogAlert } = useOpenDialogAlert()
 
   async function onSubmit(id: string) {
+    console.log({
+      personalId: personalId,
+      planId: id,
+    })
     try {
       setLoading(true)
       await api
-        .post('/subscribe-to-plan', {
-          personalId: item.personalId,
+        .post('/subscriptions', {
+          personalId: personalId,
           planId: id,
         })
         .then((response) => {

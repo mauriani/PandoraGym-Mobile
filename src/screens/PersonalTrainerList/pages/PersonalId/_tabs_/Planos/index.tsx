@@ -7,10 +7,11 @@ import { CardPlan } from './__components__/CardPlan'
 type IProps = {
   data: Plan[]
   planId?: string
+  personalId: string
   refetch: () => void
 }
 
-export function Planos({ data, planId, refetch }: IProps) {
+export function Planos({ data, planId, personalId, refetch }: IProps) {
   return (
     <>
       <FlatList
@@ -38,6 +39,7 @@ export function Planos({ data, planId, refetch }: IProps) {
             key={item.id}
             item={item}
             planId={planId}
+            personalId={personalId}
             refetch={refetch}
           />
         )}
