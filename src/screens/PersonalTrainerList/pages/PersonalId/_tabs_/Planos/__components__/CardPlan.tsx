@@ -21,43 +21,70 @@ type IProps = {
   refetch: () => void
 }
 
+export interface ICurrentSubscription {
+  hasActiveSubscription: boolean
+  currentSubscription: subscription
+}
+
+export interface subscription {
+  personalId: string
+  personalName: string
+  planId: string
+  planName: string
+  price: number
+}
+
 export function CardPlan({ item, planId, personalId, refetch }: IProps) {
   const { colorScheme } = useContext(ThemeContext)
   const [loading, setLoading] = useState(false)
   const { openDialogAlert } = useOpenDialogAlert()
 
-  async function onSubmit(id: string) {
-    console.log({
-      personalId: personalId,
-      planId: id,
-    })
+  async function checkUserActiveSubscription() {
+    const { data } = await api.get<ICurrentSubscription>(
+      '/subscriptions/status',
+    )
+
+    if (data.hasActiveSubscription) {
+      openDialogAlert({
+        title: 'Atenção',
+        message: 'Você já possui uma assinatura ativa, deseja cancelar ?',
+        isButtonTitleConfirm: 'Ok',
+        onConfirm: () => onSubmit(),
+      })
+    }
+    return
+  }
+
+  async function onSubmit() {
     try {
       setLoading(true)
+
       await api
         .post('/subscriptions', {
           personalId: personalId,
-          planId: id,
+          planId: item.id,
         })
         .then((response) => {
+          console.log(response.data)
           if (response.status == 200) {
             toast.success(response.data.message)
-            savePlanInStorage(id)
+            savePlanInStorage(item.id)
             refetch()
+          } else {
+            console.log(response)
           }
         })
     } catch (error) {
-      const isAppError = error instanceof AppError
-
-      const title = isAppError
-        ? error.message
-        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+      const title =
+        error.response?.data?.message ||
+        'Ocorreu um erro ao registrar Assinatura. Tente novamente mais tarde!'
 
       Alert.alert(title)
     } finally {
       setLoading(false)
     }
   }
-
+  // TODO: PENDENTE
   async function onCancelPlan() {
     try {
       await api
@@ -82,15 +109,6 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
 
       Alert.alert(title)
     }
-  }
-
-  function handleHeIsSure() {
-    openDialogAlert({
-      title: 'Cancelar',
-      message: 'Você realmente tem certeza que deseja cancelar seu plano ?',
-      isButtonTitleConfirm: 'Ok',
-      onConfirm: () => onCancelPlan(),
-    })
   }
 
   return (
@@ -124,7 +142,7 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
 
       <View className="gap-3">
         <Button
-          onPress={() => onSubmit(item.id)}
+          onPress={() => checkUserActiveSubscription()}
           variant={
             planId != null && planId == item.id ? 'secondary' : 'default'
           }
@@ -140,7 +158,7 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
           <Button
             variant={'destructive'}
             label={'Cancelar Plano'}
-            onPress={() => handleHeIsSure()}
+            // onPress={() => handleHeIsSure()}
           />
         )}
       </View>
