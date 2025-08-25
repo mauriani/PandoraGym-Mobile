@@ -1,10 +1,7 @@
 import axios, { isAxiosError } from 'axios'
+import { apiConfig } from '../config/api'
 
-const api = axios.create({
-  // baseURL: 'https://pandoragym-api.vercel.app',
-  baseURL: 'http://localhost:3333',
-  withCredentials: true,
-})
+const api = axios.create(apiConfig)
 
 // Variável para controlar se já está fazendo refresh
 let isRefreshing = false

@@ -47,12 +47,13 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
     if (data.hasActiveSubscription) {
       openDialogAlert({
         title: 'Atenção',
-        message: 'Você já possui uma assinatura ativa, deseja cancelar ?',
+        message:
+          'Você já possui uma assinatura ativa, deseja cancelar a anterior e asssinar esse novo plano ?',
         isButtonTitleConfirm: 'Ok',
         onConfirm: () => onSubmit(),
       })
     }
-    return
+    onSubmit()
   }
 
   async function onSubmit() {
@@ -84,14 +85,10 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
       setLoading(false)
     }
   }
-  // TODO: PENDENTE
   async function onCancelPlan() {
     try {
       await api
-        .post('/cancel-plan', {
-          personalId: item.personalId,
-          planId,
-        })
+        .delete(`/subscriptions?plan_id=${planId}&personal_id=${personalId}`)
         .then((response) => {
           if (response.status == 200) {
             toast.success(response.data.message)
@@ -105,7 +102,7 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
 
       const title = isAppError
         ? error.message
-        : 'Ocorreu um erro ao registrar Treino. Tente novamente mais tarde !'
+        : 'Ocorreu um erro ao cancelar plano. Tente novamente mais tarde !'
 
       Alert.alert(title)
     }
@@ -151,6 +148,7 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
               ? 'Plano Contratado'
               : 'Contratar'
           }
+          disabled={planId != null && planId == item.id}
           loading={loading}
         />
 
@@ -158,7 +156,15 @@ export function CardPlan({ item, planId, personalId, refetch }: IProps) {
           <Button
             variant={'destructive'}
             label={'Cancelar Plano'}
-            // onPress={() => handleHeIsSure()}
+            onPress={() =>
+              openDialogAlert({
+                title: 'Atenção',
+                message: 'Você deseja cancelar o plano ?',
+                isButtonTitleConfirm: 'Sim',
+                isButtonCancel: true,
+                onConfirm: () => onCancelPlan(),
+              })
+            }
           />
         )}
       </View>

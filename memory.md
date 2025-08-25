@@ -81,6 +81,21 @@ npm run ios
 - **Status**: Arquivo base criado com informações do README.md
 - **Próximos passos**: Mapear estrutura completa do projeto e padrões de código específicos
 
+### Sessão 2 - 2025-08-21
+- **Ação**: Configuração dinâmica de URLs da API
+- **Implementações**:
+  - Criado arquivo `src/config/api.ts` com configuração centralizada
+  - Atualizado `src/services/api.tsx` para usar configuração dinâmica
+  - Configuração automática baseada em ambiente (__DEV__) e plataforma (Platform.OS)
+  - URLs configuradas:
+    - **Produção**: https://pandoragym-api.vercel.app
+    - **Desenvolvimento iOS**: http://localhost:3333
+    - **Desenvolvimento Android**: http://192.168.68.109:3333
+  - Criados arquivos .env e .env.example
+  - Adicionado .env ao .gitignore
+- **Status**: Configuração da API implementada e funcional
+- **Próximos passos**: Testar em ambos os ambientes (iOS e Android)
+
 ---
 
 ## Notas Importantes
