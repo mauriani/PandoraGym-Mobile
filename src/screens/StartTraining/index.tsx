@@ -26,6 +26,7 @@ import { RootStackParamList } from '@routes/stack.routes'
 import { ExercisePreviewItem } from './__components__/ExercisePreviewItem'
 import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 import { WorkoutStats } from './__components__/WorkoutStats'
+import { Button } from '@components/ui/Button'
 
 type IRouteParams = {
   id: string
@@ -187,19 +188,20 @@ export function PreWorkoutScreen() {
       />
 
       <Content>
-        {/* Hero Image/Video Section */}
         <View className="relative mb-6">
           <Image
             source={{ uri: exercises[0]?.thumbnail }}
             className="h-48 w-full rounded-xl"
             resizeMode="cover"
           />
-          <View className="absolute inset-0 items-center justify-center rounded-xl bg-black/30">
-            <TouchableOpacity className="h-16 w-16 items-center justify-center rounded-full bg-primary">
-              <IconComponent iconName="Play" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
         </View>
+
+        <Button
+          label={
+            currentWorkout?.id === id ? 'Continuar Treino' : 'Iniciar Treino'
+          }
+          onPress={handleStartWorkout}
+        />
 
         {/* Workout Title and Info */}
         <View className="mb-6">
@@ -236,15 +238,6 @@ export function PreWorkoutScreen() {
           />
         </View>
       </Content>
-
-      {/* Start Workout Button */}
-      <Footer
-        label={
-          currentWorkout?.id === id ? 'Continuar Treino' : 'Iniciar Treino'
-        }
-        paddingHorizontal={0}
-        onSubmit={handleStartWorkout}
-      />
     </Container>
   )
 }
