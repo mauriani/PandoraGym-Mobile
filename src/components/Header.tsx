@@ -25,7 +25,7 @@ export function Header({ title }: IProps) {
 
         <Text
           numberOfLines={1}
-          className="font-primary_bold text-lg text-white">
+          className="font-primary_bold text-lg text-foreground">
           {title}
         </Text>
 

@@ -27,7 +27,6 @@ export function HeaderGoBack({
   onDeleteWorkout,
   onEditWorkout,
 }: IProps) {
-  const { goBack } = useNavigation()
   const { colorScheme } = useContext(ThemeContext)
 
   const dropdownItems: DropDownItemProps[] = [
@@ -49,11 +48,7 @@ export function HeaderGoBack({
         'z-[1000] h-32 flex-row items-center justify-between bg-secondary px-7 py-5'
       }
       style={styles.header}>
-      <TouchableOpacity
-        className="h-14 w-14 items-center justify-center rounded-full"
-        onPress={() => goBack()}>
-        <ArrowLeft size={24} color={themes[colorScheme].primary} />
-      </TouchableOpacity>
+      <ButtonGoBack />
 
       <Text
         numberOfLines={1}
@@ -78,3 +73,15 @@ const styles = StyleSheet.create({
         : getStatusBarHeight() + 10,
   },
 })
+
+export function ButtonGoBack() {
+  const { goBack } = useNavigation()
+  const { colorScheme } = useContext(ThemeContext)
+  return (
+    <TouchableOpacity
+      className="h-14 w-14 items-center justify-center rounded-full"
+      onPress={() => goBack()}>
+      <ArrowLeft size={24} color={themes[colorScheme].primary} />
+    </TouchableOpacity>
+  )
+}

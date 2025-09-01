@@ -2,7 +2,7 @@ import React from 'react'
 import { UserData } from '@_dtos_/profileDTO'
 import { IExercise } from '@_dtos_/SelectExerciseDTO'
 import { StartExerciseDTO } from '@_dtos_/startExerciseDTO'
-import { Day } from '@_dtos_/trainingDTO'
+import { Day, ITraining } from '@_dtos_/trainingDTO'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { CreateTrainingFirstStep } from '@screens/CreateTraining/CreateTrainingFirstStep'
 import { CreateTrainingSecondStep } from '@screens/CreateTraining/CreateTrainingSecondStep'
@@ -43,10 +43,7 @@ export type RootStackParamList = {
     personalName: string
   }
   startTraining: {
-    id: string
-    name: string
-    exclusive?: boolean
-    weekDays?: Day[]
+    item: ITraining
   }
   workoutExecution: {
     id: string

@@ -30,20 +30,13 @@ import { SkeletonAnimation } from './__components__/SkeletonAnimation'
 
 export function Home() {
   const { user } = useAuth()
-  const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+  const { navigate } =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const tabBarHeight = useBottomTabBarHeight()
 
-  function handleAccessTraining(
-    id: string,
-    name: string,
-    exclusive: boolean,
-    weekDays: Day[],
-  ) {
+  function handleAccessTraining(item: ITraining) {
     navigate('startTraining', {
-      id,
-      name,
-      exclusive,
-      weekDays,
+      item,
     })
   }
 
@@ -118,14 +111,7 @@ export function Home() {
                   renderItem={({ item }) => (
                     <MyTrainingCard
                       item={item}
-                      onAccessTraining={() =>
-                        handleAccessTraining(
-                          item.id,
-                          item.name,
-                          item.exclusive,
-                          item.weekDays,
-                        )
-                      }
+                      onAccessTraining={() => handleAccessTraining(item)}
                     />
                   )}
                 />
